@@ -238,6 +238,11 @@ img {
   align-items: center;
 }
 
+.hero-visual {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .eyebrow {
   margin: 0;
   color: #6d795f;
@@ -301,7 +306,7 @@ h2 {
   min-height: 760px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .hero-card img {
@@ -515,8 +520,13 @@ input {
     padding-top: 2.5rem;
   }
 
+  .hero-visual {
+    justify-content: center;
+  }
+
   .hero-card {
     min-height: 560px;
+    justify-content: center;
   }
 
   .hero-box-image {
