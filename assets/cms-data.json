@@ -1,0 +1,96 @@
+{
+  "site": {
+    "brand_name": "Vibe Coffee",
+    "tagline": "Trọn vị cà phê - Trọn từng khoảnh khắc.",
+    "hotline": "0813 131 080",
+    "email": "vibecoffee.vn@gmail.com",
+    "address": "TP. Hồ Chí Minh, Việt Nam"
+  },
+  "home": {
+    "slides": [
+      "assets/slider-1.png",
+      "assets/slider-2.png",
+      "assets/slider-3.png",
+      "assets/slider-4.png"
+    ],
+    "hero": {
+      "eyebrow": "ĐÓNG HỘP TIỆN LỢI | 15G X 30 GÓI",
+      "title": "Cà Phê Muối Vị Phô Mai",
+      "subtitle": "Cho khoảnh khắc đầy cảm hứng",
+      "description": "Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai, dễ pha trong 30 giây, phù hợp mang đi, dùng tại nhà hoặc tiếp khách văn phòng.",
+      "image": "assets/hero-box-cutout.png",
+      "primary_label": "Xem sản phẩm",
+      "primary_link": "products.html",
+      "secondary_label": "Tìm hiểu thương hiệu",
+      "secondary_link": "about.html"
+    },
+    "metrics": [
+      { "value": "450g", "label": "Khối lượng tịnh" },
+      { "value": "30 gói", "label": "Tiện dụng mỗi ngày" },
+      { "value": "100%", "label": "Hạt cà phê tuyển chọn" }
+    ],
+    "features": [
+      { "title": "Vị cà phê cân bằng", "text": "Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống." },
+      { "title": "Pha nhanh 30 giây", "text": "Xé gói, thêm nước nóng, khuấy đều là có ngay ly cà phê chuẩn vị." },
+      { "title": "Chuẩn quà tặng", "text": "Thiết kế hộp sang trọng phù hợp trưng bày, bán lẻ và gift set doanh nghiệp." },
+      { "title": "Tối ưu chi phí", "text": "Định lượng rõ ràng theo gói giúp kiểm soát giá vốn từng ly bán ra." }
+    ],
+    "previews": [
+      {
+        "title": "Khám phá bộ sản phẩm",
+        "text": "Danh mục gồm dòng cà phê muối vị phô mai, combo bán chạy và giải pháp cho đại lý.",
+        "label": "Đi tới trang sản phẩm",
+        "link": "products.html"
+      },
+      {
+        "title": "Cập nhật tin tức cà phê",
+        "text": "Xem bài viết về cách pha, mẹo bảo quản và ý tưởng menu cho quán và văn phòng.",
+        "label": "Đi tới trang tin tức",
+        "link": "news.html"
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "VỀ CHÚNG TÔI",
+    "title": "Vibe Coffee và hành trình chuẩn vị cà phê Việt",
+    "description": "Vibe Coffee phát triển dòng cà phê đóng hộp tiện lợi, tối ưu cho nhịp sống hiện đại nhưng vẫn giữ tinh thần cà phê đậm đà quen thuộc.",
+    "story_title": "Câu chuyện thương hiệu",
+    "story_text": "Chúng tôi bắt đầu từ bài toán đơn giản: làm sao để một ly cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy. Từ đó, Vibe Coffee tập trung vào nguyên liệu ổn định, công thức cân bằng và bao bì tối ưu trải nghiệm sử dụng.",
+    "story_image": "assets/slider-1.png",
+    "points": [
+      { "title": "Sứ mệnh", "text": "Mang đến giải pháp cà phê tiện lợi, dễ pha, ổn định chất lượng cho gia đình, văn phòng và điểm bán." },
+      { "title": "Tầm nhìn", "text": "Trở thành thương hiệu cà phê đóng gói được lựa chọn hàng đầu ở phân khúc trải nghiệm cao cấp và linh hoạt." },
+      { "title": "Giá trị cốt lõi", "text": "Chuẩn vị - Minh bạch - Sáng tạo - Đồng hành cùng khách hàng trong từng hành trình kinh doanh." }
+    ]
+  },
+  "products": {
+    "eyebrow": "DANH MỤC",
+    "title": "Tất cả sản phẩm",
+    "description": "Lựa chọn linh hoạt cho nhu cầu bán lẻ, văn phòng và đại lý.",
+    "items": [
+      { "title": "Cà phê muối vị phô mai", "subtitle": "Hộp 450g (15g x 30 gói)", "image": "assets/product-box.png", "link": "contact.html" },
+      { "title": "Combo quà tặng doanh nghiệp", "subtitle": "Thiết kế theo yêu cầu đối tác", "image": "assets/coffee-box-ecom-transparent-2000h.png", "link": "contact.html" },
+      { "title": "Combo bán chạy tháng", "subtitle": "Gói tối ưu cho đại lý mới", "image": "assets/slider-4.png", "link": "contact.html" },
+      { "title": "Gói trưng bày quầy", "subtitle": "Tối ưu nhận diện tại điểm bán", "image": "assets/slider-3.png", "link": "contact.html" },
+      { "title": "Gói văn phòng", "subtitle": "Pha nhanh - dễ bảo quản", "image": "assets/slider-2.png", "link": "contact.html" },
+      { "title": "Gói dùng thử", "subtitle": "Phù hợp giới thiệu sản phẩm mới", "image": "assets/hero-box-cutout.png", "link": "contact.html" }
+    ]
+  },
+  "news": {
+    "eyebrow": "BÀI VIẾT",
+    "title": "Tin tức & kiến thức cà phê",
+    "description": "Cập nhật nội dung mới về cách pha, công thức menu và kinh nghiệm triển khai điểm bán.",
+    "posts": [
+      { "date": "28/02/2026", "title": "Bí quyết pha cà phê muối chuẩn vị tại nhà", "excerpt": "Hướng dẫn tỷ lệ nước, nhiệt độ và cách khuấy để giữ trọn hương vị.", "image": "assets/slider-1.png", "link": "contact.html" },
+      { "date": "24/02/2026", "title": "3 ý tưởng menu bán chạy cho quán nhỏ", "excerpt": "Gợi ý cách kết hợp đồ uống theo khung giờ và chân dung khách hàng.", "image": "assets/slider-3.png", "link": "contact.html" },
+      { "date": "20/02/2026", "title": "Kinh nghiệm nhập hàng cho đại lý mới", "excerpt": "Những chỉ số cần theo dõi để tối ưu tồn kho và vòng quay sản phẩm.", "image": "assets/slider-4.png", "link": "contact.html" },
+      { "date": "18/02/2026", "title": "Xu hướng quà tặng doanh nghiệp ngành F&B", "excerpt": "Cách xây dựng combo quà tặng có tính ứng dụng và nhận diện thương hiệu cao.", "image": "assets/slider-2.png", "link": "contact.html" }
+    ]
+  },
+  "contact": {
+    "eyebrow": "LIÊN HỆ",
+    "title": "Đồng hành cùng Vibe Coffee",
+    "description": "Để lại thông tin để đội ngũ tư vấn báo giá và chính sách phù hợp theo nhu cầu của bạn.",
+    "work_time": "8:00 - 17:30 (Thứ 2 - Thứ 7)"
+  }
+}

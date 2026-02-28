@@ -10,46 +10,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="news">
   <div class="page-glow"></div>
   <header class="topbar">
     <div class="container topbar-wrap">
       <a class="brand" href="index.html" aria-label="Vibe Coffee"><img class="brand-logo" src="assets/logo-vibe-coffee.png" alt="Logo Vibe Coffee" /></a>
-      <nav class="nav-links">
-        <a href="index.html">Trang chủ</a>
-        <a href="about.html">Giới thiệu</a>
-        <a href="products.html">Sản phẩm</a>
-        <a class="active" href="news.html">Tin tức</a>
-        <a href="contact.html">Liên hệ</a>
-      </nav>
+      <nav class="nav-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a class="active" href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></nav>
       <a class="btn btn-primary" href="contact.html">Kết nối tư vấn</a>
     </div>
   </header>
 
   <main class="container page-main reveal">
     <section class="page-hero">
-      <p class="eyebrow">BÀI VIẾT</p>
-      <h1>Tin tức & kiến thức cà phê</h1>
-      <p>Cập nhật nội dung mới về cách pha, công thức menu và kinh nghiệm triển khai điểm bán.</p>
+      <p id="news-eyebrow" class="eyebrow">BÀI VIẾT</p>
+      <h1 id="news-title">Tin tức & kiến thức cà phê</h1>
+      <p id="news-description">Cập nhật nội dung mới về cách pha, công thức menu và kinh nghiệm triển khai điểm bán.</p>
     </section>
 
-    <section class="news-grid">
-      <article class="news-card"><img src="assets/slider-1.png" alt="Bí quyết pha cà phê" /><div><time>28/02/2026</time><h3>Bí quyết pha cà phê muối chuẩn vị tại nhà</h3><p>Hướng dẫn tỷ lệ nước, nhiệt độ và cách khuấy để giữ trọn hương vị.</p></div><a href="contact.html">Xem chi tiết</a></article>
-      <article class="news-card"><img src="assets/slider-3.png" alt="Menu bán chạy" /><div><time>24/02/2026</time><h3>3 ý tưởng menu bán chạy cho quán nhỏ</h3><p>Gợi ý cách kết hợp đồ uống theo khung giờ và chân dung khách hàng.</p></div><a href="contact.html">Xem chi tiết</a></article>
-      <article class="news-card"><img src="assets/slider-4.png" alt="Đại lý cà phê" /><div><time>20/02/2026</time><h3>Kinh nghiệm nhập hàng cho đại lý mới</h3><p>Những chỉ số cần theo dõi để tối ưu tồn kho và vòng quay sản phẩm.</p></div><a href="contact.html">Xem chi tiết</a></article>
-      <article class="news-card"><img src="assets/slider-2.png" alt="Quà tặng doanh nghiệp" /><div><time>18/02/2026</time><h3>Xu hướng quà tặng doanh nghiệp ngành F&B</h3><p>Cách xây dựng combo quà tặng có tính ứng dụng và nhận diện thương hiệu cao.</p></div><a href="contact.html">Xem chi tiết</a></article>
-    </section>
+    <section id="news-grid" class="news-grid"></section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div><p><strong>Vibe Coffee</strong></p><p>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div>
-      <div class="footer-links">
-        <a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a>
-      </div>
-    </div>
-  </footer>
-
+  <footer class="footer"><div class="container footer-grid"><div><p><strong data-brand-name>Vibe Coffee</strong></p><p data-site-tagline>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div><div class="footer-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></div></div></footer>
+  <script src="cms-render.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

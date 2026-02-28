@@ -10,17 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="about">
   <div class="page-glow"></div>
   <header class="topbar">
     <div class="container topbar-wrap">
       <a class="brand" href="index.html" aria-label="Vibe Coffee"><img class="brand-logo" src="assets/logo-vibe-coffee.png" alt="Logo Vibe Coffee" /></a>
       <nav class="nav-links">
-        <a href="index.html">Trang chủ</a>
-        <a class="active" href="about.html">Giới thiệu</a>
-        <a href="products.html">Sản phẩm</a>
-        <a href="news.html">Tin tức</a>
-        <a href="contact.html">Liên hệ</a>
+        <a href="index.html">Trang chủ</a><a class="active" href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a>
       </nav>
       <a class="btn btn-primary" href="contact.html">Liên hệ ngay</a>
     </div>
@@ -28,35 +24,28 @@
 
   <main class="container page-main reveal">
     <section class="page-hero">
-      <p class="eyebrow">VỀ CHÚNG TÔI</p>
-      <h1>Vibe Coffee và hành trình chuẩn vị cà phê Việt</h1>
-      <p>Vibe Coffee phát triển dòng cà phê đóng hộp tiện lợi, tối ưu cho nhịp sống hiện đại nhưng vẫn giữ tinh thần cà phê đậm đà quen thuộc.</p>
+      <p id="about-eyebrow" class="eyebrow">VỀ CHÚNG TÔI</p>
+      <h1 id="about-title">Vibe Coffee và hành trình chuẩn vị cà phê Việt</h1>
+      <p id="about-description">Vibe Coffee phát triển dòng cà phê đóng hộp tiện lợi.</p>
     </section>
 
     <section class="about-story">
       <article>
-        <h2>Câu chuyện thương hiệu</h2>
-        <p>Chúng tôi bắt đầu từ bài toán đơn giản: làm sao để một ly cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy. Từ đó, Vibe Coffee tập trung vào nguyên liệu ổn định, công thức cân bằng và bao bì tối ưu trải nghiệm sử dụng.</p>
+        <h2 id="about-story-title">Câu chuyện thương hiệu</h2>
+        <p id="about-story-text">Chúng tôi bắt đầu từ bài toán đơn giản.</p>
       </article>
-      <img src="assets/slider-1.png" alt="Không gian cà phê Vibe Coffee" />
+      <img id="about-story-image" src="assets/slider-1.png" alt="Không gian cà phê Vibe Coffee" />
     </section>
 
-    <section class="about-points">
-      <article><h3>Sứ mệnh</h3><p>Mang đến giải pháp cà phê tiện lợi, dễ pha, ổn định chất lượng cho gia đình, văn phòng và điểm bán.</p></article>
-      <article><h3>Tầm nhìn</h3><p>Trở thành thương hiệu cà phê đóng gói được lựa chọn hàng đầu ở phân khúc trải nghiệm cao cấp và linh hoạt.</p></article>
-      <article><h3>Giá trị cốt lõi</h3><p>Chuẩn vị - Minh bạch - Sáng tạo - Đồng hành cùng khách hàng trong từng hành trình kinh doanh.</p></article>
+    <section id="about-points" class="about-points">
+      <article><h3>Sứ mệnh</h3><p>Mang đến giải pháp cà phê tiện lợi.</p></article>
+      <article><h3>Tầm nhìn</h3><p>Trở thành thương hiệu cà phê đóng gói được lựa chọn hàng đầu.</p></article>
+      <article><h3>Giá trị cốt lõi</h3><p>Chuẩn vị - Minh bạch - Sáng tạo - Đồng hành.</p></article>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div><p><strong>Vibe Coffee</strong></p><p>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div>
-      <div class="footer-links">
-        <a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a>
-      </div>
-    </div>
-  </footer>
-
+  <footer class="footer"><div class="container footer-grid"><div><p><strong data-brand-name>Vibe Coffee</strong></p><p data-site-tagline>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div><div class="footer-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></div></div></footer>
+  <script src="cms-render.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -10,36 +10,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="contact">
   <div class="page-glow"></div>
   <header class="topbar">
     <div class="container topbar-wrap">
       <a class="brand" href="index.html" aria-label="Vibe Coffee"><img class="brand-logo" src="assets/logo-vibe-coffee.png" alt="Logo Vibe Coffee" /></a>
-      <nav class="nav-links">
-        <a href="index.html">Trang chủ</a>
-        <a href="about.html">Giới thiệu</a>
-        <a href="products.html">Sản phẩm</a>
-        <a href="news.html">Tin tức</a>
-        <a class="active" href="contact.html">Liên hệ</a>
-      </nav>
+      <nav class="nav-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a class="active" href="contact.html">Liên hệ</a></nav>
       <a class="btn btn-primary" href="contact.html">Gửi yêu cầu</a>
     </div>
   </header>
 
   <main class="container page-main reveal">
     <section class="page-hero">
-      <p class="eyebrow">LIÊN HỆ</p>
-      <h1>Đồng hành cùng Vibe Coffee</h1>
-      <p>Để lại thông tin để đội ngũ tư vấn báo giá và chính sách phù hợp theo nhu cầu của bạn.</p>
+      <p id="contact-eyebrow" class="eyebrow">LIÊN HỆ</p>
+      <h1 id="contact-title">Đồng hành cùng Vibe Coffee</h1>
+      <p id="contact-description">Để lại thông tin để đội ngũ tư vấn báo giá và chính sách phù hợp theo nhu cầu của bạn.</p>
     </section>
 
     <section class="contact-layout">
       <div class="contact-info-card">
         <h2>Thông tin liên hệ</h2>
-        <p><strong>Hotline:</strong> 0813 131 080</p>
-        <p><strong>Email:</strong> vibecoffee.vn@gmail.com</p>
-        <p><strong>Địa chỉ:</strong> TP. Hồ Chí Minh, Việt Nam</p>
-        <p><strong>Thời gian:</strong> 8:00 - 17:30 (Thứ 2 - Thứ 7)</p>
+        <p><strong>Hotline:</strong> <span id="contact-hotline">0813 131 080</span></p>
+        <p><strong>Email:</strong> <span id="contact-email">vibecoffee.vn@gmail.com</span></p>
+        <p><strong>Địa chỉ:</strong> <span id="contact-address">TP. Hồ Chí Minh, Việt Nam</span></p>
+        <p><strong>Thời gian:</strong> <span id="contact-time">8:00 - 17:30 (Thứ 2 - Thứ 7)</span></p>
       </div>
 
       <form class="contact-form-card">
@@ -53,15 +47,8 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div><p><strong>Vibe Coffee</strong></p><p>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div>
-      <div class="footer-links">
-        <a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a>
-      </div>
-    </div>
-  </footer>
-
+  <footer class="footer"><div class="container footer-grid"><div><p><strong data-brand-name>Vibe Coffee</strong></p><p data-site-tagline>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div><div class="footer-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></div></div></footer>
+  <script src="cms-render.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="home">
   <div class="page-glow"></div>
 
   <header class="topbar">
@@ -42,17 +42,14 @@
 
     <section class="hero container reveal">
       <div class="hero-text">
-        <p class="eyebrow">ĐÓNG HỘP TIỆN LỢI | 15G X 30 GÓI</p>
-        <h1>Cà Phê Muối Vị Phô Mai<br/>Cho khoảnh khắc đầy cảm hứng</h1>
-        <p class="hero-sub">
-          Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai, dễ pha trong 30 giây,
-          phù hợp mang đi, dùng tại nhà hoặc tiếp khách văn phòng.
-        </p>
+        <p id="home-hero-eyebrow" class="eyebrow">ĐÓNG HỘP TIỆN LỢI | 15G X 30 GÓI</p>
+        <h1><span id="home-hero-title">Cà Phê Muối Vị Phô Mai</span><br/><span id="home-hero-subtitle">Cho khoảnh khắc đầy cảm hứng</span></h1>
+        <p id="home-hero-description" class="hero-sub">Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="products.html">Xem sản phẩm</a>
-          <a class="btn btn-ghost" href="about.html">Tìm hiểu thương hiệu</a>
+          <a id="home-btn-primary" class="btn btn-primary" href="products.html">Xem sản phẩm</a>
+          <a id="home-btn-secondary" class="btn btn-ghost" href="about.html">Tìm hiểu thương hiệu</a>
         </div>
-        <div class="hero-metrics">
+        <div id="home-metrics" class="hero-metrics">
           <div><strong>450g</strong><span>Khối lượng tịnh</span></div>
           <div><strong>30 gói</strong><span>Tiện dụng mỗi ngày</span></div>
           <div><strong>100%</strong><span>Hạt cà phê tuyển chọn</span></div>
@@ -60,48 +57,37 @@
       </div>
       <div class="hero-visual">
         <div class="hero-card">
-          <img class="hero-box-image" src="assets/hero-box-cutout.png" alt="Hộp cà phê muối vị phô mai Vibe Coffee" />
+          <img id="home-hero-image" class="hero-box-image" src="assets/hero-box-cutout.png" alt="Hộp cà phê Vibe Coffee" />
         </div>
       </div>
     </section>
 
-    <section class="container features reveal">
-      <article><h3>Vị cà phê cân bằng</h3><p>Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống.</p></article>
+    <section id="home-features" class="container features reveal">
+      <article><h3>Vị cà phê cân bằng</h3><p>Đậm mùi rang xay, thêm độ béo nhẹ của phô mai.</p></article>
       <article><h3>Pha nhanh 30 giây</h3><p>Xé gói, thêm nước nóng, khuấy đều là có ngay ly cà phê chuẩn vị.</p></article>
       <article><h3>Chuẩn quà tặng</h3><p>Thiết kế hộp sang trọng phù hợp trưng bày, bán lẻ và gift set doanh nghiệp.</p></article>
       <article><h3>Tối ưu chi phí</h3><p>Định lượng rõ ràng theo gói giúp kiểm soát giá vốn từng ly bán ra.</p></article>
     </section>
 
-    <section class="container split-preview reveal">
-      <article class="preview-card">
-        <h2>Khám phá bộ sản phẩm</h2>
-        <p>Danh mục gồm dòng cà phê muối vị phô mai, combo bán chạy và giải pháp cho đại lý.</p>
-        <a class="btn btn-primary" href="products.html">Đi tới trang sản phẩm</a>
-      </article>
-      <article class="preview-card">
-        <h2>Cập nhật tin tức cà phê</h2>
-        <p>Xem bài viết về cách pha, mẹo bảo quản và ý tưởng menu cho quán và văn phòng.</p>
-        <a class="btn btn-ghost" href="news.html">Đi tới trang tin tức</a>
-      </article>
+    <section id="home-previews" class="container split-preview reveal">
+      <article class="preview-card"><h2>Khám phá bộ sản phẩm</h2><p>Danh mục gồm dòng cà phê muối vị phô mai, combo bán chạy và giải pháp cho đại lý.</p><a class="btn btn-primary" href="products.html">Đi tới trang sản phẩm</a></article>
+      <article class="preview-card"><h2>Cập nhật tin tức cà phê</h2><p>Xem bài viết về cách pha, mẹo bảo quản và ý tưởng menu cho quán và văn phòng.</p><a class="btn btn-ghost" href="news.html">Đi tới trang tin tức</a></article>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container footer-grid">
       <div>
-        <p><strong>Vibe Coffee</strong></p>
-        <p>Trọn vị cà phê - Trọn từng khoảnh khắc.</p>
+        <p><strong data-brand-name>Vibe Coffee</strong></p>
+        <p data-site-tagline>Trọn vị cà phê - Trọn từng khoảnh khắc.</p>
       </div>
       <div class="footer-links">
-        <a href="index.html">Trang chủ</a>
-        <a href="about.html">Giới thiệu</a>
-        <a href="products.html">Sản phẩm</a>
-        <a href="news.html">Tin tức</a>
-        <a href="contact.html">Liên hệ</a>
+        <a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a>
       </div>
     </div>
   </footer>
 
+  <script src="cms-render.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
