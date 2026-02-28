@@ -1,18 +1,20 @@
 ﻿backend:
-  name: github
-  repo: vuongtran189/coffee-box-site
+  name: git-gateway
   branch: main
+
+locale: "vi"
+publish_mode: simple
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
 collections:
   - name: "site_content"
-    label: "Noi dung Website"
+    label: "Nội dung Website"
     files:
       - file: "assets/cms-data.json"
         name: "cms_data"
-        label: "Du lieu 5 trang"
+        label: "Dữ liệu 5 trang"
         format: "json"
         fields:
           - label: "Site"
@@ -25,7 +27,7 @@ collections:
               - { label: "Email", name: "email", widget: "string" }
               - { label: "Address", name: "address", widget: "string" }
 
-          - label: "Trang chu"
+          - label: "Trang chủ"
             name: "home"
             widget: "object"
             fields:
@@ -59,7 +61,7 @@ collections:
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Text", name: "text", widget: "text" }
 
-          - label: "Gioi thieu"
+          - label: "Giới thiệu"
             name: "about"
             widget: "object"
             fields:
@@ -76,7 +78,7 @@ collections:
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Text", name: "text", widget: "text" }
 
-          - label: "San pham"
+          - label: "Sản phẩm"
             name: "products"
             widget: "object"
             fields:
@@ -92,7 +94,7 @@ collections:
                   - { label: "Image", name: "image", widget: "image" }
                   - { label: "Link", name: "link", widget: "string" }
 
-          - label: "Tin tuc"
+          - label: "Tin tức"
             name: "news"
             widget: "object"
             fields:
@@ -109,7 +111,7 @@ collections:
                   - { label: "Image", name: "image", widget: "image" }
                   - { label: "Link", name: "link", widget: "string" }
 
-          - label: "Lien he"
+          - label: "Liên hệ"
             name: "contact"
             widget: "object"
             fields:
