@@ -1,4 +1,59 @@
-﻿const reveals = document.querySelectorAll('.reveal');
+﻿const revSlider = document.querySelector('.rev-slider');
+const revSlides = Array.from(document.querySelectorAll('.rev-slide'));
+const revDotsWrap = document.querySelector('.rev-dots');
+const prevBtn = document.querySelector('.rev-prev');
+const nextBtn = document.querySelector('.rev-next');
+
+let currentSlide = 0;
+let autoSlide;
+
+if (revSlider && revSlides.length) {
+  revSlides.forEach((_, idx) => {
+    const dot = document.createElement('button');
+    dot.className = 'rev-dot';
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Đến slide ${idx + 1}`);
+    dot.addEventListener('click', () => goToSlide(idx));
+    revDotsWrap?.appendChild(dot);
+  });
+
+  const revDots = Array.from(document.querySelectorAll('.rev-dot'));
+
+  function updateSlides() {
+    revSlides.forEach((slide, idx) => {
+      slide.classList.toggle('is-active', idx === currentSlide);
+    });
+    revDots.forEach((dot, idx) => {
+      dot.classList.toggle('is-active', idx === currentSlide);
+    });
+  }
+
+  function goToSlide(idx) {
+    currentSlide = (idx + revSlides.length) % revSlides.length;
+    updateSlides();
+    restartAutoSlide();
+  }
+
+  function nextSlide() {
+    goToSlide(currentSlide + 1);
+  }
+
+  function restartAutoSlide() {
+    clearInterval(autoSlide);
+    autoSlide = setInterval(nextSlide, 5000);
+  }
+
+  prevBtn?.addEventListener('click', () => goToSlide(currentSlide - 1));
+  nextBtn?.addEventListener('click', nextSlide);
+
+  revSlider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+  revSlider.addEventListener('mouseleave', restartAutoSlide);
+
+  updateSlides();
+  restartAutoSlide();
+}
+
+const reveals = document.querySelectorAll('.reveal');
 
 const observer = new IntersectionObserver(
   (entries) => {
