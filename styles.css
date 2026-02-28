@@ -509,6 +509,11 @@ input {
 }
 
 @media (max-width: 620px) {
+  .rev-slide[data-index="1"] {
+    background-image: url('assets/slider-2-mobile.png') !important;
+    background-position: center;
+  }
+
   .topbar-wrap { min-height: 66px; }
 
   .brand-logo { height: 88px; }
