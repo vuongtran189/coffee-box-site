@@ -72,12 +72,14 @@ reveals.forEach((el, idx) => {
   observer.observe(el);
 });
 
-const form = document.querySelector('form');
-form?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const button = form.querySelector('button');
-  if (button) {
-    button.textContent = 'Đã gửi thông tin';
-    button.disabled = true;
-  }
+const forms = document.querySelectorAll('form');
+forms.forEach((form) => {
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const button = form.querySelector('button');
+    if (button) {
+      button.textContent = 'Đã gửi thông tin';
+      button.disabled = true;
+    }
+  });
 });

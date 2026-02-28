@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vibe Coffee | Cà Phê Muối Vị Phô Mai</title>
-  <meta name="description" content="Cà phê muối vị phô mai đóng hộp - đậm vị, dễ pha, thích hợp cho văn phòng và gia đình." />
+  <title>Vibe Coffee | Trang chủ</title>
+  <meta name="description" content="Vibe Coffee - cà phê muối vị phô mai, trang chủ giới thiệu thương hiệu và sản phẩm nổi bật." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
@@ -15,34 +15,26 @@
 
   <header class="topbar">
     <div class="container topbar-wrap">
-      <a class="brand" href="#home" aria-label="Vibe Coffee">
+      <a class="brand" href="index.html" aria-label="Vibe Coffee">
         <img class="brand-logo" src="assets/logo-vibe-coffee.png" alt="Logo Vibe Coffee" />
       </a>
       <nav class="nav-links">
-        <a href="#about">Giới thiệu</a>
-        <a href="#benefits">Điểm mạnh</a>
-        <a href="#product">Sản phẩm</a>
-        <a href="#contact">Liên hệ</a>
+        <a class="active" href="index.html">Trang chủ</a>
+        <a href="about.html">Giới thiệu</a>
+        <a href="products.html">Sản phẩm</a>
+        <a href="news.html">Tin tức</a>
+        <a href="contact.html">Liên hệ</a>
       </nav>
-      <a class="btn btn-primary" href="#contact">Đặt thử ngay</a>
+      <a class="btn btn-primary" href="contact.html">Đặt thử ngay</a>
     </div>
   </header>
 
-  <main id="home">
+  <main>
     <section class="rev-slider" aria-label="Banner nổi bật">
-      <div class="rev-slide is-active" data-index="0" style="--bg:url('assets/slider-1.png')">
-        <div class="rev-overlay"></div>
-      </div>
-      <div class="rev-slide" data-index="1" style="--bg:url('assets/slider-2.png')">
-        <div class="rev-overlay"></div>
-      </div>
-      <div class="rev-slide" data-index="2" style="--bg:url('assets/slider-3.png')">
-        <div class="rev-overlay"></div>
-      </div>
-      <div class="rev-slide" data-index="3" style="--bg:url('assets/slider-4.png')">
-        <div class="rev-overlay"></div>
-      </div>
-
+      <div class="rev-slide is-active" data-index="0" style="--bg:url('assets/slider-1.png')"><div class="rev-overlay"></div></div>
+      <div class="rev-slide" data-index="1" style="--bg:url('assets/slider-2.png')"><div class="rev-overlay"></div></div>
+      <div class="rev-slide" data-index="2" style="--bg:url('assets/slider-3.png')"><div class="rev-overlay"></div></div>
+      <div class="rev-slide" data-index="3" style="--bg:url('assets/slider-4.png')"><div class="rev-overlay"></div></div>
       <button class="rev-nav rev-prev" type="button" aria-label="Slide trước">‹</button>
       <button class="rev-nav rev-next" type="button" aria-label="Slide kế tiếp">›</button>
       <div class="rev-dots" aria-label="Điều hướng slide"></div>
@@ -53,12 +45,12 @@
         <p class="eyebrow">ĐÓNG HỘP TIỆN LỢI | 15G X 30 GÓI</p>
         <h1>Cà Phê Muối Vị Phô Mai<br/>Cho khoảnh khắc đầy cảm hứng</h1>
         <p class="hero-sub">
-          Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai,
-          dễ pha trong 30 giây, phù hợp mang đi, dùng tại nhà hoặc tiếp khách văn phòng.
+          Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai, dễ pha trong 30 giây,
+          phù hợp mang đi, dùng tại nhà hoặc tiếp khách văn phòng.
         </p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#contact">Nhận báo giá sỉ/lẻ</a>
-          <a class="btn btn-ghost" href="#product">Xem thông số hộp</a>
+          <a class="btn btn-primary" href="products.html">Xem sản phẩm</a>
+          <a class="btn btn-ghost" href="about.html">Tìm hiểu thương hiệu</a>
         </div>
         <div class="hero-metrics">
           <div><strong>450g</strong><span>Khối lượng tịnh</span></div>
@@ -68,90 +60,45 @@
       </div>
       <div class="hero-visual">
         <div class="hero-card">
-          <img class="hero-box-image" src="assets/hero-box-cutout.png" alt="Hộp cà phê muối vị phô mai Vibe Coffee tách nền" />
+          <img class="hero-box-image" src="assets/hero-box-cutout.png" alt="Hộp cà phê muối vị phô mai Vibe Coffee" />
         </div>
       </div>
     </section>
 
-    <section id="about" class="band reveal">
-      <div class="container about-wrap">
-        <h2>Một hộp cà phê, nhiều trải nghiệm</h2>
-        <p>
-          Vibe Coffee tạo ra dòng sản phẩm đóng hộp hướng đến sự ổn định về chất lượng,
-          đồng nhất vị giác và dễ triển khai cho quán nhỏ, văn phòng, đại lý quà tặng.
-        </p>
-      </div>
+    <section class="container features reveal">
+      <article><h3>Vị cà phê cân bằng</h3><p>Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống.</p></article>
+      <article><h3>Pha nhanh 30 giây</h3><p>Xé gói, thêm nước nóng, khuấy đều là có ngay ly cà phê chuẩn vị.</p></article>
+      <article><h3>Chuẩn quà tặng</h3><p>Thiết kế hộp sang trọng phù hợp trưng bày, bán lẻ và gift set doanh nghiệp.</p></article>
+      <article><h3>Tối ưu chi phí</h3><p>Định lượng rõ ràng theo gói giúp kiểm soát giá vốn từng ly bán ra.</p></article>
     </section>
 
-    <section id="benefits" class="container features reveal">
-      <article>
-        <h3>Vị cà phê cân bằng</h3>
-        <p>Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống.</p>
+    <section class="container split-preview reveal">
+      <article class="preview-card">
+        <h2>Khám phá bộ sản phẩm</h2>
+        <p>Danh mục gồm dòng cà phê muối vị phô mai, combo bán chạy và giải pháp cho đại lý.</p>
+        <a class="btn btn-primary" href="products.html">Đi tới trang sản phẩm</a>
       </article>
-      <article>
-        <h3>Pha nhanh trong 30 giây</h3>
-        <p>Chỉ cần xé gói, nước nóng và khuấy đều là có ngay ly cà phê ổn định vị.</p>
+      <article class="preview-card">
+        <h2>Cập nhật tin tức cà phê</h2>
+        <p>Xem bài viết về cách pha, mẹo bảo quản và ý tưởng menu cho quán và văn phòng.</p>
+        <a class="btn btn-ghost" href="news.html">Đi tới trang tin tức</a>
       </article>
-      <article>
-        <h3>Đóng hộp chuẩn quà tặng</h3>
-        <p>Thiết kế hộp sang trọng, thích hợp trưng bày, bán lẻ và làm gift set.</p>
-      </article>
-      <article>
-        <h3>Tối ưu chi phí</h3>
-        <p>Chia gói định lượng rõ ràng, dễ kiểm soát giá vốn theo mỗi ly bán ra.</p>
-      </article>
-    </section>
-
-    <section id="product" class="container product reveal">
-      <div class="product-image">
-        <img src="assets/product-box.png" alt="Thông tin hộp cà phê Vibe Coffee" />
-      </div>
-      <div class="product-info">
-        <h2>Thông Số Sản Phẩm</h2>
-        <ul>
-          <li><span>Tên sản phẩm</span><strong>Cà Phê Muối Vị Phô Mai</strong></li>
-          <li><span>Thương hiệu</span><strong>Vibe Coffee</strong></li>
-          <li><span>Quy cách</span><strong>Hộp 450g (15g x 30 gói)</strong></li>
-          <li><span>Đối tượng</span><strong>Gia đình, văn phòng, quán nhỏ, đại lý</strong></li>
-          <li><span>Hương vị</span><strong>Cà phê muối kết hợp phô mai</strong></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="container process reveal">
-      <h2>3 Bước Thưởng Thức</h2>
-      <div class="process-grid">
-        <article><span>01</span><h3>Cho 1 gói vào ly</h3><p>Sử dụng ly 150ml để đạt độ đậm vị tối ưu.</p></article>
-        <article><span>02</span><h3>Thêm nước nóng</h3><p>Rót 120-150ml nước nóng, khuấy đều 20-30 giây.</p></article>
-        <article><span>03</span><h3>Thưởng thức</h3><p>Có thể thêm đá để tạo kiểu uống mát, hợp ngày hè.</p></article>
-      </div>
-    </section>
-
-    <section class="container testimonials reveal">
-      <h2>Khách Hàng Nói Gì?</h2>
-      <div class="quotes">
-        <blockquote>"Vị không quá ngọt, dễ lên menu quán. Khách quay lại khá đều."<cite>Chị Linh - Chủ quán take away</cite></blockquote>
-        <blockquote>"Bao bì đẹp, dễ trưng bày quà tặng doanh nghiệp."<cite>Anh Phúc - Đại lý quà tặng</cite></blockquote>
-      </div>
-    </section>
-
-    <section id="contact" class="container contact reveal">
-      <div>
-        <h2>Muốn nhận mẫu thử hoặc báo giá?</h2>
-        <p>Để lại thông tin, đội ngũ Vibe Coffee sẽ liên hệ tư vấn trong ngày.</p>
-      </div>
-      <form>
-        <input type="text" placeholder="Họ và tên" required />
-        <input type="tel" placeholder="Số điện thoại" required />
-        <input type="text" placeholder="Nhu cầu: lẻ / sỉ / đại lý" />
-        <button class="btn btn-primary" type="submit">Gửi yêu cầu</button>
-      </form>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <p>2026 Vibe Coffee. Trọn vị cà phê - Trọn từng khoảnh khắc.</p>
+    <div class="container footer-grid">
+      <div>
+        <p><strong>Vibe Coffee</strong></p>
+        <p>Trọn vị cà phê - Trọn từng khoảnh khắc.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="about.html">Giới thiệu</a>
+        <a href="products.html">Sản phẩm</a>
+        <a href="news.html">Tin tức</a>
+        <a href="contact.html">Liên hệ</a>
+      </div>
     </div>
   </footer>
 
