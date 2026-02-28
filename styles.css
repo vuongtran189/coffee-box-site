@@ -143,9 +143,7 @@ img {
 .rev-overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(8, 14, 23, 0.54) 0%, rgba(7, 11, 18, 0.14) 44%, rgba(9, 12, 17, 0.52) 100%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0.06) 50%, rgba(0, 0, 0, 0.38) 100%);
+  background: transparent;
 }
 
 .rev-inner {
