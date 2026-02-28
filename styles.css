@@ -294,25 +294,26 @@ h2 {
 }
 
 .hero-card {
-  border-radius: 24px;
-  background: linear-gradient(165deg, #f8f4e8 0%, #e5ecd9 65%, #dce9d6 100%);
-  box-shadow: var(--shadow);
-  padding: 1.4rem 1rem;
-  min-height: 560px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  min-height: 620px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .hero-card img {
-  border-radius: 16px;
+  border-radius: 0;
 }
 
 .hero-box-image {
-  width: auto;
-  max-width: 100%;
-  max-height: 520px;
+  width: min(560px, 100%);
+  max-height: 780px;
   object-fit: contain;
+  transform: scale(1.5);
+  transform-origin: center;
 }
 
 .band {
@@ -515,11 +516,13 @@ input {
   }
 
   .hero-card {
-    min-height: 420px;
+    min-height: 460px;
   }
 
   .hero-box-image {
-    max-height: 380px;
+    width: min(420px, 100%);
+    max-height: 560px;
+    transform: scale(1.25);
   }
 
   .hero-metrics {
@@ -544,6 +547,14 @@ input {
   }
 
   .rev-kicker { letter-spacing: 1px; }
+
+  .hero-card { min-height: 360px; }
+
+  .hero-box-image {
+    width: min(300px, 100%);
+    max-height: 420px;
+    transform: scale(1.1);
+  }
 
   .topbar .btn {
     padding-inline: 0.95rem;
