@@ -298,7 +298,7 @@ h2 {
   background: transparent;
   box-shadow: none;
   padding: 0;
-  min-height: 620px;
+  min-height: 760px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -312,7 +312,7 @@ h2 {
   width: min(560px, 100%);
   max-height: 780px;
   object-fit: contain;
-  transform: scale(1.5);
+  transform: scale(1.95);
   transform-origin: center;
 }
 
@@ -516,13 +516,13 @@ input {
   }
 
   .hero-card {
-    min-height: 460px;
+    min-height: 560px;
   }
 
   .hero-box-image {
     width: min(420px, 100%);
     max-height: 560px;
-    transform: scale(1.25);
+    transform: scale(1.63);
   }
 
   .hero-metrics {
@@ -548,12 +548,12 @@ input {
 
   .rev-kicker { letter-spacing: 1px; }
 
-  .hero-card { min-height: 360px; }
+  .hero-card { min-height: 440px; }
 
   .hero-box-image {
     width: min(300px, 100%);
     max-height: 420px;
-    transform: scale(1.1);
+    transform: scale(1.43);
   }
 
   .topbar .btn {
