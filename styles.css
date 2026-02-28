@@ -52,7 +52,7 @@ img {
 }
 
 .topbar-wrap {
-  min-height: 118px;
+  min-height: 78px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -63,18 +63,12 @@ img {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  padding: 0.32rem 0.55rem;
-  border-radius: 16px;
-  background: rgba(11, 26, 18, 0.34);
-  box-shadow: 0 10px 28px rgba(9, 20, 15, 0.33);
 }
 
 .brand-logo {
-  height: 160px;
+  height: 112px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.58))
-          drop-shadow(0 0 10px rgba(246, 214, 136, 0.32));
 }
 
 .nav-links {
@@ -517,9 +511,9 @@ input {
 }
 
 @media (max-width: 620px) {
-  .topbar-wrap { min-height: 94px; }
+  .topbar-wrap { min-height: 66px; }
 
-  .brand-logo { height: 120px; }
+  .brand-logo { height: 88px; }
 
   .rev-slider {
     width: calc(100% - 1rem);
