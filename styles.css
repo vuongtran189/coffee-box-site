@@ -297,11 +297,22 @@ h2 {
   border-radius: 24px;
   background: linear-gradient(165deg, #f8f4e8 0%, #e5ecd9 65%, #dce9d6 100%);
   box-shadow: var(--shadow);
-  padding: 1rem;
+  padding: 1.4rem 1rem;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-card img {
   border-radius: 16px;
+}
+
+.hero-box-image {
+  width: auto;
+  max-width: 100%;
+  max-height: 520px;
+  object-fit: contain;
 }
 
 .band {
@@ -501,6 +512,14 @@ input {
 
   .hero {
     padding-top: 2.5rem;
+  }
+
+  .hero-card {
+    min-height: 420px;
+  }
+
+  .hero-box-image {
+    max-height: 380px;
   }
 
   .hero-metrics {
