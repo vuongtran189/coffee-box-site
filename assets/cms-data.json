@@ -2,7 +2,7 @@
   "site": {
     "brand_name": "Vibe Coffee",
     "tagline": "Trọn vị cà phê - Trọn từng khoảnh khắc.",
-    "hotline": "0813 131 080",
+    "hotline": "0908858522",
     "email": "vibecoffee.vn@gmail.com",
     "address": "TP. Hồ Chí Minh, Việt Nam"
   },
@@ -14,15 +14,15 @@
       "assets/slider-4.png"
     ],
     "hero": {
-      "eyebrow": "ĐÓNG HỘP TIỆN LỢI | 15G X 30 GÓI",
-      "title": "Cà Phê Muối Vị Phô Mai",
-      "subtitle": "Cho khoảnh khắc đầy cảm hứng",
-      "description": "Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai, dễ pha trong 30 giây, phù hợp mang đi, dùng tại nhà hoặc tiếp khách văn phòng.",
-      "image": "assets/hero-box-cutout.png",
-      "primary_label": "Xem sản phẩm",
-      "primary_link": "products.html",
+      "secondary_link": "about.html",
       "secondary_label": "Tìm hiểu thương hiệu",
-      "secondary_link": "about.html"
+      "eyebrow": "ĐÓNG HỘP TIỆN LỢI | 20 G X 10 GÓI",
+      "primary_link": "products.html",
+      "primary_label": "Xem sản phẩm",
+      "subtitle": "Cho khoảnh khắc đầy cảm hứng",
+      "title": "Cà Phê Muối Vị Phô Mai",
+      "image": "assets/hero-box-cutout.png",
+      "description": "Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai, dễ pha trong 30 giây, phù hợp mang đi, dùng tại nhà hoặc tiếp khách văn phòng."
     },
     "metrics": [
       {
