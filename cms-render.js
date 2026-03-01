@@ -18,10 +18,27 @@ function setHtml(id, value) {
   if (el && value !== undefined) el.innerHTML = value;
 }
 
+function normalizeAssetUrl(src) {
+  const raw = String(src || '').trim();
+  if (!raw) return '';
+  if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
+
+  const match = raw.match(/^([^?#]+)([?#].*)?$/);
+  const pathname = (match?.[1] || raw).replace(/\\/g, '/');
+  const suffix = match?.[2] || '';
+  return `${encodeURI(pathname)}${suffix}`;
+}
+
 function setImage(id, src, alt = '') {
   const el = document.getElementById(id);
   if (el && src) {
-    el.src = src;
+    const fallbackSrc = el.getAttribute('src') || '';
+    el.src = normalizeAssetUrl(src);
+    el.onerror = () => {
+      if (fallbackSrc && el.src !== fallbackSrc) {
+        el.src = fallbackSrc;
+      }
+    };
     if (alt) el.alt = alt;
   }
 }
