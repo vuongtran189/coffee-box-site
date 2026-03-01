@@ -1,10 +1,10 @@
-﻿{
+{
   "site": {
     "brand_name": "Vibe Coffee",
-    "tagline": "Trá»n vá»‹ cÃ  phÃª - Trá»n tá»«ng khoáº£nh kháº¯c.",
+    "tagline": "Trọn vị cà phê - Trọn từng khoảnh khắc.",
     "hotline": "0908858522",
     "email": "vibecoffee.vn@gmail.com",
-    "address": "TP. Há»“ ChÃ­ Minh, Viá»‡t Nam"
+    "address": "TP. Hồ Chí Minh, Việt Nam"
   },
   "home": {
     "slides": [
@@ -15,127 +15,127 @@
     ],
     "hero": {
       "secondary_link": "about.html",
-      "secondary_label": "TÃ¬m hiá»ƒu thÆ°Æ¡ng hiá»‡u",
-      "eyebrow": "ÄÃ“NG Há»˜P TIá»†N Lá»¢I | 20 G X 10 GÃ“I",
+      "secondary_label": "Tìm hiểu thương hiệu",
+      "eyebrow": "ĐÓNG HỘP TIỆN LỢI | 20 G X 10 GÓI",
       "primary_link": "products.html",
-      "primary_label": "Xem sáº£n pháº©m",
-      "subtitle": "Cho khoáº£nh kháº¯c Ä‘áº§y cáº£m há»©ng",
-      "title": "CÃ  PhÃª Muá»‘i Vá»‹ PhÃ´ Mai",
-      "image": "assets/hero-box-new.png",
-      "description": "HÆ°Æ¡ng cÃ  phÃª rang xay káº¿t há»£p háº­u vá»‹ bÃ©o nháº¹ tá»« phÃ´ mai, dá»… pha trong 30 giÃ¢y, phÃ¹ há»£p mang Ä‘i, dÃ¹ng táº¡i nhÃ  hoáº·c tiáº¿p khÃ¡ch vÄƒn phÃ²ng."
+      "primary_label": "Xem sản phẩm",
+      "subtitle": "Cho khoảnh khắc đầy cảm hứng",
+      "title": "Cà Phê Muối Vị Phô Mai",
+      "image": "assets/hero-box-cutout.png",
+      "description": "Hương cà phê rang xay kết hợp hậu vị béo nhẹ từ phô mai, dễ pha trong 30 giây, phù hợp mang đi, dùng tại nhà hoặc tiếp khách văn phòng."
     },
     "metrics": [
       {
         "value": "200g",
-        "label": "Khá»‘i lÆ°á»£ng tá»‹nh"
+        "label": "Khối lượng tịnh"
       },
       {
-        "value": "10 gÃ³i",
-        "label": "Tiá»‡n dá»¥ng má»—i ngÃ y"
+        "value": "10 gói",
+        "label": "Tiện dụng mỗi ngày"
       },
       {
-        "value": "NguyÃªn liá»‡u cao cáº¥p",
-        "label": "Bá»™t cÃ  phÃª Ä‘Æ°á»£c tuyá»ƒn chá»n ká»¹ lÆ°á»¡ng"
+        "value": "Nguyên liệu cao cấp",
+        "label": "Bột cà phê được tuyển chọn kỹ lưỡng"
       }
     ],
     "features": [
       {
-        "title": "Vá»‹ cÃ  phÃª cÃ¢n báº±ng",
-        "text": "Äáº­m mÃ¹i rang xay, thÃªm Ä‘á»™ bÃ©o nháº¹ cá»§a phÃ´ mai, háº­u vá»‹ má»m vÃ  dá»… uá»‘ng."
+        "title": "Vị cà phê cân bằng",
+        "text": "Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống."
       },
       {
-        "title": "Pha nhanh 30 giÃ¢y",
-        "text": "XÃ© gÃ³i, thÃªm nÆ°á»›c nÃ³ng, khuáº¥y Ä‘á»u lÃ  cÃ³ ngay ly cÃ  phÃª chuáº©n vá»‹."
+        "title": "Pha nhanh 30 giây",
+        "text": "Xé gói, thêm nước nóng, khuấy đều là có ngay ly cà phê chuẩn vị."
       },
       {
-        "title": "Chuáº©n quÃ  táº·ng",
-        "text": "Thiáº¿t káº¿ há»™p sang trá»ng phÃ¹ há»£p trÆ°ng bÃ y, bÃ¡n láº» vÃ  gift set doanh nghiá»‡p."
+        "title": "Chuẩn quà tặng",
+        "text": "Thiết kế hộp sang trọng phù hợp trưng bày, bán lẻ và gift set doanh nghiệp."
       },
       {
-        "title": "Tá»‘i Æ°u chi phÃ­",
-        "text": "Äá»‹nh lÆ°á»£ng rÃµ rÃ ng theo gÃ³i giÃºp kiá»ƒm soÃ¡t giÃ¡ vá»‘n tá»«ng ly bÃ¡n ra."
+        "title": "Tối ưu chi phí",
+        "text": "Định lượng rõ ràng theo gói giúp kiểm soát giá vốn từng ly bán ra."
       }
     ],
     "previews": [
       {
-        "title": "KhÃ¡m phÃ¡ bá»™ sáº£n pháº©m",
-        "text": "Danh má»¥c gá»“m dÃ²ng cÃ  phÃª muá»‘i vá»‹ phÃ´ mai, combo bÃ¡n cháº¡y vÃ  giáº£i phÃ¡p cho Ä‘áº¡i lÃ½.",
-        "label": "Äi tá»›i trang sáº£n pháº©m",
+        "title": "Khám phá bộ sản phẩm",
+        "text": "Danh mục gồm dòng cà phê muối vị phô mai, combo bán chạy và giải pháp cho đại lý.",
+        "label": "Đi tới trang sản phẩm",
         "link": "products.html"
       },
       {
-        "title": "Cáº­p nháº­t tin tá»©c cÃ  phÃª",
-        "text": "Xem bÃ i viáº¿t vá» cÃ¡ch pha, máº¹o báº£o quáº£n vÃ  Ã½ tÆ°á»Ÿng menu cho quÃ¡n vÃ  vÄƒn phÃ²ng.",
-        "label": "Äi tá»›i trang tin tá»©c",
+        "title": "Cập nhật tin tức cà phê",
+        "text": "Xem bài viết về cách pha, mẹo bảo quản và ý tưởng menu cho quán và văn phòng.",
+        "label": "Đi tới trang tin tức",
         "link": "news.html"
       }
     ]
   },
   "about": {
-    "eyebrow": "Vá»€ CHÃšNG TÃ”I",
-    "title": "Vibe Coffee vÃ  hÃ nh trÃ¬nh chuáº©n vá»‹ cÃ  phÃª Viá»‡t",
-    "description": "Vibe Coffee phÃ¡t triá»ƒn dÃ²ng cÃ  phÃª Ä‘Ã³ng há»™p tiá»‡n lá»£i, tá»‘i Æ°u cho nhá»‹p sá»‘ng hiá»‡n Ä‘áº¡i nhÆ°ng váº«n giá»¯ tinh tháº§n cÃ  phÃª Ä‘áº­m Ä‘Ã  quen thuá»™c.",
-    "story_title": "CÃ¢u chuyá»‡n thÆ°Æ¡ng hiá»‡u",
-    "story_text": "ChÃºng tÃ´i báº¯t Ä‘áº§u tá»« bÃ i toÃ¡n Ä‘Æ¡n giáº£n: lÃ m sao Ä‘á»ƒ má»™t ly cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y. Tá»« Ä‘Ã³, Vibe Coffee táº­p trung vÃ o nguyÃªn liá»‡u á»•n Ä‘á»‹nh, cÃ´ng thá»©c cÃ¢n báº±ng vÃ  bao bÃ¬ tá»‘i Æ°u tráº£i nghiá»‡m sá»­ dá»¥ng.",
+    "eyebrow": "VỀ CHÚNG TÔI",
+    "title": "Vibe Coffee và hành trình chuẩn vị cà phê Việt",
+    "description": "Vibe Coffee phát triển dòng cà phê đóng hộp tiện lợi, tối ưu cho nhịp sống hiện đại nhưng vẫn giữ tinh thần cà phê đậm đà quen thuộc.",
+    "story_title": "Câu chuyện thương hiệu",
+    "story_text": "Chúng tôi bắt đầu từ bài toán đơn giản: làm sao để một ly cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy. Từ đó, Vibe Coffee tập trung vào nguyên liệu ổn định, công thức cân bằng và bao bì tối ưu trải nghiệm sử dụng.",
     "story_image": "assets/slider-1.png",
     "points": [
       {
-        "title": "Sá»© má»‡nh",
-        "text": "Mang Ä‘áº¿n giáº£i phÃ¡p cÃ  phÃª tiá»‡n lá»£i, dá»… pha, á»•n Ä‘á»‹nh cháº¥t lÆ°á»£ng cho gia Ä‘Ã¬nh, vÄƒn phÃ²ng vÃ  Ä‘iá»ƒm bÃ¡n."
+        "title": "Sứ mệnh",
+        "text": "Mang đến giải pháp cà phê tiện lợi, dễ pha, ổn định chất lượng cho gia đình, văn phòng và điểm bán."
       },
       {
-        "title": "Táº§m nhÃ¬n",
-        "text": "Trá»Ÿ thÃ nh thÆ°Æ¡ng hiá»‡u cÃ  phÃª Ä‘Ã³ng gÃ³i Ä‘Æ°á»£c lá»±a chá»n hÃ ng Ä‘áº§u á»Ÿ phÃ¢n khÃºc tráº£i nghiá»‡m cao cáº¥p vÃ  linh hoáº¡t."
+        "title": "Tầm nhìn",
+        "text": "Trở thành thương hiệu cà phê đóng gói được lựa chọn hàng đầu ở phân khúc trải nghiệm cao cấp và linh hoạt."
       },
       {
-        "title": "GiÃ¡ trá»‹ cá»‘t lÃµi",
-        "text": "Chuáº©n vá»‹ - Minh báº¡ch - SÃ¡ng táº¡o - Äá»“ng hÃ nh cÃ¹ng khÃ¡ch hÃ ng trong tá»«ng hÃ nh trÃ¬nh kinh doanh."
+        "title": "Giá trị cốt lõi",
+        "text": "Chuẩn vị - Minh bạch - Sáng tạo - Đồng hành cùng khách hàng trong từng hành trình kinh doanh."
       }
     ]
   },
   "products": {
-    "eyebrow": "DANH Má»¤C",
-    "title": "Táº¥t cáº£ sáº£n pháº©m",
-    "description": "Lá»±a chá»n linh hoáº¡t cho nhu cáº§u bÃ¡n láº», vÄƒn phÃ²ng vÃ  Ä‘áº¡i lÃ½.",
+    "eyebrow": "DANH MỤC",
+    "title": "Tất cả sản phẩm",
+    "description": "Lựa chọn linh hoạt cho nhu cầu bán lẻ, văn phòng và đại lý.",
     "items": [
       {
-        "title": "CÃ  phÃª muá»‘i vá»‹ phÃ´ mai",
-        "subtitle": "Há»™p 450g (15g x 30 gÃ³i)",
+        "title": "Cà phê muối vị phô mai",
+        "subtitle": "Hộp 450g (15g x 30 gói)",
         "category": "bestseller",
         "image": "assets/product-box.png",
         "link": "contact.html"
       },
       {
-        "title": "Combo quÃ  táº·ng doanh nghiá»‡p",
-        "subtitle": "Thiáº¿t káº¿ theo yÃªu cáº§u Ä‘á»‘i tÃ¡c",
+        "title": "Combo quà tặng doanh nghiệp",
+        "subtitle": "Thiết kế theo yêu cầu đối tác",
         "category": "combo",
         "image": "assets/coffee-box-ecom-transparent-2000h.png",
         "link": "contact.html"
       },
       {
-        "title": "Combo bÃ¡n cháº¡y thÃ¡ng",
-        "subtitle": "GÃ³i tá»‘i Æ°u cho Ä‘áº¡i lÃ½ má»›i",
+        "title": "Combo bán chạy tháng",
+        "subtitle": "Gói tối ưu cho đại lý mới",
         "category": "combo",
         "image": "assets/slider-4.png",
         "link": "contact.html"
       },
       {
-        "title": "GÃ³i trÆ°ng bÃ y quáº§y",
-        "subtitle": "Tá»‘i Æ°u nháº­n diá»‡n táº¡i Ä‘iá»ƒm bÃ¡n",
+        "title": "Gói trưng bày quầy",
+        "subtitle": "Tối ưu nhận diện tại điểm bán",
         "category": "all",
         "image": "assets/slider-3.png",
         "link": "contact.html"
       },
       {
-        "title": "GÃ³i vÄƒn phÃ²ng",
-        "subtitle": "Pha nhanh - dá»… báº£o quáº£n",
+        "title": "Gói văn phòng",
+        "subtitle": "Pha nhanh - dễ bảo quản",
         "category": "all",
         "image": "assets/slider-2.png",
         "link": "contact.html"
       },
       {
-        "title": "GÃ³i dÃ¹ng thá»­",
-        "subtitle": "PhÃ¹ há»£p giá»›i thiá»‡u sáº£n pháº©m má»›i",
+        "title": "Gói dùng thử",
+        "subtitle": "Phù hợp giới thiệu sản phẩm mới",
         "category": "all",
         "image": "assets/hero-box-cutout.png",
         "link": "contact.html"
@@ -143,45 +143,44 @@
     ]
   },
   "news": {
-    "eyebrow": "BÃ€I VIáº¾T",
-    "title": "Tin tá»©c & kiáº¿n thá»©c cÃ  phÃª",
-    "description": "Cáº­p nháº­t ná»™i dung má»›i vá» cÃ¡ch pha, cÃ´ng thá»©c menu vÃ  kinh nghiá»‡m triá»ƒn khai Ä‘iá»ƒm bÃ¡n.",
+    "eyebrow": "BÀI VIẾT",
+    "title": "Tin tức & kiến thức cà phê",
+    "description": "Cập nhật nội dung mới về cách pha, công thức menu và kinh nghiệm triển khai điểm bán.",
     "posts": [
       {
         "date": "28/02/2026",
-        "title": "BÃ­ quyáº¿t pha cÃ  phÃª muá»‘i chuáº©n vá»‹ táº¡i nhÃ ",
-        "excerpt": "HÆ°á»›ng dáº«n tá»· lá»‡ nÆ°á»›c, nhiá»‡t Ä‘á»™ vÃ  cÃ¡ch khuáº¥y Ä‘á»ƒ giá»¯ trá»n hÆ°Æ¡ng vá»‹.",
+        "title": "Bí quyết pha cà phê muối chuẩn vị tại nhà",
+        "excerpt": "Hướng dẫn tỷ lệ nước, nhiệt độ và cách khuấy để giữ trọn hương vị.",
         "image": "assets/slider-1.png",
         "link": "contact.html"
       },
       {
         "date": "24/02/2026",
-        "title": "3 Ã½ tÆ°á»Ÿng menu bÃ¡n cháº¡y cho quÃ¡n nhá»",
-        "excerpt": "Gá»£i Ã½ cÃ¡ch káº¿t há»£p Ä‘á»“ uá»‘ng theo khung giá» vÃ  chÃ¢n dung khÃ¡ch hÃ ng.",
+        "title": "3 ý tưởng menu bán chạy cho quán nhỏ",
+        "excerpt": "Gợi ý cách kết hợp đồ uống theo khung giờ và chân dung khách hàng.",
         "image": "assets/slider-3.png",
         "link": "contact.html"
       },
       {
         "date": "20/02/2026",
-        "title": "Kinh nghiá»‡m nháº­p hÃ ng cho Ä‘áº¡i lÃ½ má»›i",
-        "excerpt": "Nhá»¯ng chá»‰ sá»‘ cáº§n theo dÃµi Ä‘á»ƒ tá»‘i Æ°u tá»“n kho vÃ  vÃ²ng quay sáº£n pháº©m.",
+        "title": "Kinh nghiệm nhập hàng cho đại lý mới",
+        "excerpt": "Những chỉ số cần theo dõi để tối ưu tồn kho và vòng quay sản phẩm.",
         "image": "assets/slider-4.png",
         "link": "contact.html"
       },
       {
         "date": "18/02/2026",
-        "title": "Xu hÆ°á»›ng quÃ  táº·ng doanh nghiá»‡p ngÃ nh F&B",
-        "excerpt": "CÃ¡ch xÃ¢y dá»±ng combo quÃ  táº·ng cÃ³ tÃ­nh á»©ng dá»¥ng vÃ  nháº­n diá»‡n thÆ°Æ¡ng hiá»‡u cao.",
+        "title": "Xu hướng quà tặng doanh nghiệp ngành F&B",
+        "excerpt": "Cách xây dựng combo quà tặng có tính ứng dụng và nhận diện thương hiệu cao.",
         "image": "assets/slider-2.png",
         "link": "contact.html"
       }
     ]
   },
   "contact": {
-    "eyebrow": "LIÃŠN Há»†",
-    "title": "Äá»“ng hÃ nh cÃ¹ng Vibe Coffee",
-    "description": "Äá»ƒ láº¡i thÃ´ng tin Ä‘á»ƒ Ä‘á»™i ngÅ© tÆ° váº¥n bÃ¡o giÃ¡ vÃ  chÃ­nh sÃ¡ch phÃ¹ há»£p theo nhu cáº§u cá»§a báº¡n.",
-    "work_time": "8:00 - 17:30 (Thá»© 2 - Thá»© 7)"
+    "eyebrow": "LIÊN HỆ",
+    "title": "Đồng hành cùng Vibe Coffee",
+    "description": "Để lại thông tin để đội ngũ tư vấn báo giá và chính sách phù hợp theo nhu cầu của bạn.",
+    "work_time": "8:00 - 17:30 (Thứ 2 - Thứ 7)"
   }
 }
-
