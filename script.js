@@ -1,4 +1,17 @@
-﻿const revSlider = document.querySelector('.rev-slider');
+﻿(() => {
+  const tokenKeys = ['invite_token', 'recovery_token', 'confirmation_token'];
+  const searchParams = new URLSearchParams(window.location.search);
+  const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+  const hasIdentityToken = tokenKeys.some((key) => searchParams.has(key) || hashParams.has(key));
+  const isAdminPath = /^\/admin\/?$/i.test(window.location.pathname);
+
+  if (hasIdentityToken && !isAdminPath) {
+    const search = window.location.search || '';
+    const hash = window.location.hash || '';
+    window.location.replace(`/admin/${search}${hash}`);
+  }
+})();
+const revSlider = document.querySelector('.rev-slider');
 const revSlides = Array.from(document.querySelectorAll('.rev-slide'));
 const revDotsWrap = document.querySelector('.rev-dots');
 const prevBtn = document.querySelector('.rev-prev');
@@ -83,3 +96,4 @@ forms.forEach((form) => {
     }
   });
 });
+

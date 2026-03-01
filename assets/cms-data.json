@@ -25,15 +25,36 @@
       "secondary_link": "about.html"
     },
     "metrics": [
-      { "value": "450g", "label": "Khối lượng tịnh" },
-      { "value": "30 gói", "label": "Tiện dụng mỗi ngày" },
-      { "value": "100%", "label": "Hạt cà phê tuyển chọn" }
+      {
+        "value": "450g",
+        "label": "Khối lượng tịnh"
+      },
+      {
+        "value": "30 gói",
+        "label": "Tiện dụng mỗi ngày"
+      },
+      {
+        "value": "100%",
+        "label": "Hạt cà phê tuyển chọn"
+      }
     ],
     "features": [
-      { "title": "Vị cà phê cân bằng", "text": "Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống." },
-      { "title": "Pha nhanh 30 giây", "text": "Xé gói, thêm nước nóng, khuấy đều là có ngay ly cà phê chuẩn vị." },
-      { "title": "Chuẩn quà tặng", "text": "Thiết kế hộp sang trọng phù hợp trưng bày, bán lẻ và gift set doanh nghiệp." },
-      { "title": "Tối ưu chi phí", "text": "Định lượng rõ ràng theo gói giúp kiểm soát giá vốn từng ly bán ra." }
+      {
+        "title": "Vị cà phê cân bằng",
+        "text": "Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống."
+      },
+      {
+        "title": "Pha nhanh 30 giây",
+        "text": "Xé gói, thêm nước nóng, khuấy đều là có ngay ly cà phê chuẩn vị."
+      },
+      {
+        "title": "Chuẩn quà tặng",
+        "text": "Thiết kế hộp sang trọng phù hợp trưng bày, bán lẻ và gift set doanh nghiệp."
+      },
+      {
+        "title": "Tối ưu chi phí",
+        "text": "Định lượng rõ ràng theo gói giúp kiểm soát giá vốn từng ly bán ra."
+      }
     ],
     "previews": [
       {
@@ -58,9 +79,18 @@
     "story_text": "Chúng tôi bắt đầu từ bài toán đơn giản: làm sao để một ly cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy. Từ đó, Vibe Coffee tập trung vào nguyên liệu ổn định, công thức cân bằng và bao bì tối ưu trải nghiệm sử dụng.",
     "story_image": "assets/slider-1.png",
     "points": [
-      { "title": "Sứ mệnh", "text": "Mang đến giải pháp cà phê tiện lợi, dễ pha, ổn định chất lượng cho gia đình, văn phòng và điểm bán." },
-      { "title": "Tầm nhìn", "text": "Trở thành thương hiệu cà phê đóng gói được lựa chọn hàng đầu ở phân khúc trải nghiệm cao cấp và linh hoạt." },
-      { "title": "Giá trị cốt lõi", "text": "Chuẩn vị - Minh bạch - Sáng tạo - Đồng hành cùng khách hàng trong từng hành trình kinh doanh." }
+      {
+        "title": "Sứ mệnh",
+        "text": "Mang đến giải pháp cà phê tiện lợi, dễ pha, ổn định chất lượng cho gia đình, văn phòng và điểm bán."
+      },
+      {
+        "title": "Tầm nhìn",
+        "text": "Trở thành thương hiệu cà phê đóng gói được lựa chọn hàng đầu ở phân khúc trải nghiệm cao cấp và linh hoạt."
+      },
+      {
+        "title": "Giá trị cốt lõi",
+        "text": "Chuẩn vị - Minh bạch - Sáng tạo - Đồng hành cùng khách hàng trong từng hành trình kinh doanh."
+      }
     ]
   },
   "products": {
@@ -68,12 +98,48 @@
     "title": "Tất cả sản phẩm",
     "description": "Lựa chọn linh hoạt cho nhu cầu bán lẻ, văn phòng và đại lý.",
     "items": [
-      { "title": "Cà phê muối vị phô mai", "subtitle": "Hộp 450g (15g x 30 gói)", "image": "assets/product-box.png", "link": "contact.html" },
-      { "title": "Combo quà tặng doanh nghiệp", "subtitle": "Thiết kế theo yêu cầu đối tác", "image": "assets/coffee-box-ecom-transparent-2000h.png", "link": "contact.html" },
-      { "title": "Combo bán chạy tháng", "subtitle": "Gói tối ưu cho đại lý mới", "image": "assets/slider-4.png", "link": "contact.html" },
-      { "title": "Gói trưng bày quầy", "subtitle": "Tối ưu nhận diện tại điểm bán", "image": "assets/slider-3.png", "link": "contact.html" },
-      { "title": "Gói văn phòng", "subtitle": "Pha nhanh - dễ bảo quản", "image": "assets/slider-2.png", "link": "contact.html" },
-      { "title": "Gói dùng thử", "subtitle": "Phù hợp giới thiệu sản phẩm mới", "image": "assets/hero-box-cutout.png", "link": "contact.html" }
+      {
+        "title": "Cà phê muối vị phô mai",
+        "subtitle": "Hộp 450g (15g x 30 gói)",
+        "category": "bestseller",
+        "image": "assets/product-box.png",
+        "link": "contact.html"
+      },
+      {
+        "title": "Combo quà tặng doanh nghiệp",
+        "subtitle": "Thiết kế theo yêu cầu đối tác",
+        "category": "combo",
+        "image": "assets/coffee-box-ecom-transparent-2000h.png",
+        "link": "contact.html"
+      },
+      {
+        "title": "Combo bán chạy tháng",
+        "subtitle": "Gói tối ưu cho đại lý mới",
+        "category": "combo",
+        "image": "assets/slider-4.png",
+        "link": "contact.html"
+      },
+      {
+        "title": "Gói trưng bày quầy",
+        "subtitle": "Tối ưu nhận diện tại điểm bán",
+        "category": "all",
+        "image": "assets/slider-3.png",
+        "link": "contact.html"
+      },
+      {
+        "title": "Gói văn phòng",
+        "subtitle": "Pha nhanh - dễ bảo quản",
+        "category": "all",
+        "image": "assets/slider-2.png",
+        "link": "contact.html"
+      },
+      {
+        "title": "Gói dùng thử",
+        "subtitle": "Phù hợp giới thiệu sản phẩm mới",
+        "category": "all",
+        "image": "assets/hero-box-cutout.png",
+        "link": "contact.html"
+      }
     ]
   },
   "news": {
@@ -81,10 +147,34 @@
     "title": "Tin tức & kiến thức cà phê",
     "description": "Cập nhật nội dung mới về cách pha, công thức menu và kinh nghiệm triển khai điểm bán.",
     "posts": [
-      { "date": "28/02/2026", "title": "Bí quyết pha cà phê muối chuẩn vị tại nhà", "excerpt": "Hướng dẫn tỷ lệ nước, nhiệt độ và cách khuấy để giữ trọn hương vị.", "image": "assets/slider-1.png", "link": "contact.html" },
-      { "date": "24/02/2026", "title": "3 ý tưởng menu bán chạy cho quán nhỏ", "excerpt": "Gợi ý cách kết hợp đồ uống theo khung giờ và chân dung khách hàng.", "image": "assets/slider-3.png", "link": "contact.html" },
-      { "date": "20/02/2026", "title": "Kinh nghiệm nhập hàng cho đại lý mới", "excerpt": "Những chỉ số cần theo dõi để tối ưu tồn kho và vòng quay sản phẩm.", "image": "assets/slider-4.png", "link": "contact.html" },
-      { "date": "18/02/2026", "title": "Xu hướng quà tặng doanh nghiệp ngành F&B", "excerpt": "Cách xây dựng combo quà tặng có tính ứng dụng và nhận diện thương hiệu cao.", "image": "assets/slider-2.png", "link": "contact.html" }
+      {
+        "date": "28/02/2026",
+        "title": "Bí quyết pha cà phê muối chuẩn vị tại nhà",
+        "excerpt": "Hướng dẫn tỷ lệ nước, nhiệt độ và cách khuấy để giữ trọn hương vị.",
+        "image": "assets/slider-1.png",
+        "link": "contact.html"
+      },
+      {
+        "date": "24/02/2026",
+        "title": "3 ý tưởng menu bán chạy cho quán nhỏ",
+        "excerpt": "Gợi ý cách kết hợp đồ uống theo khung giờ và chân dung khách hàng.",
+        "image": "assets/slider-3.png",
+        "link": "contact.html"
+      },
+      {
+        "date": "20/02/2026",
+        "title": "Kinh nghiệm nhập hàng cho đại lý mới",
+        "excerpt": "Những chỉ số cần theo dõi để tối ưu tồn kho và vòng quay sản phẩm.",
+        "image": "assets/slider-4.png",
+        "link": "contact.html"
+      },
+      {
+        "date": "18/02/2026",
+        "title": "Xu hướng quà tặng doanh nghiệp ngành F&B",
+        "excerpt": "Cách xây dựng combo quà tặng có tính ứng dụng và nhận diện thương hiệu cao.",
+        "image": "assets/slider-2.png",
+        "link": "contact.html"
+      }
     ]
   },
   "contact": {

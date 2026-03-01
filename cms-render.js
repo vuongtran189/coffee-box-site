@@ -26,6 +26,25 @@ function setImage(id, src, alt = '') {
   }
 }
 
+function normalizeText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function detectProductCategory(item) {
+  const normalizedCategory = normalizeText(item?.category);
+  if (normalizedCategory.includes('combo')) return 'combo';
+  if (normalizedCategory.includes('ban chay') || normalizedCategory.includes('bestseller')) return 'bestseller';
+
+  const signal = normalizeText(`${item?.title || ''} ${item?.subtitle || ''}`);
+  if (signal.includes('combo')) return 'combo';
+  if (signal.includes('ban chay') || signal.includes('best seller') || signal.includes('bestseller')) return 'bestseller';
+  return 'all';
+}
+
 function renderHome(data) {
   const home = data.home || {};
   const slides = Array.isArray(home.slides) ? home.slides : [];
@@ -96,13 +115,38 @@ function renderProducts(data) {
   setText('products-eyebrow', p.eyebrow);
   setText('products-title', p.title);
   setText('products-description', p.description);
-  setText('products-count', `Hiển thị ${Array.isArray(p.items) ? p.items.length : 0} sản phẩm`);
-
+  const allItems = Array.isArray(p.items) ? p.items : [];
   const grid = document.getElementById('products-grid');
-  if (grid && Array.isArray(p.items)) {
-    grid.innerHTML = p.items.map((item) =>
+  const chips = Array.from(document.querySelectorAll('.chip[data-filter]'));
+
+  function renderProductItems(filter = 'all') {
+    if (!grid) return;
+    const visibleItems = filter === 'all'
+      ? allItems
+      : allItems.filter((item) => detectProductCategory(item) === filter);
+
+    grid.innerHTML = visibleItems.map((item) =>
       `<article class="product-card"><img src="${item.image || ''}" alt="${item.title || ''}" /><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`
     ).join('');
+    setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
+  }
+
+  if (grid) {
+    renderProductItems('all');
+  }
+
+  if (chips.length) {
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const filter = chip.dataset.filter || 'all';
+        chips.forEach((btn) => {
+          const isOn = btn === chip;
+          btn.classList.toggle('is-on', isOn);
+          btn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+        });
+        renderProductItems(filter);
+      });
+    });
   }
 }
 
