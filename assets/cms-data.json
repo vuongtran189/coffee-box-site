@@ -26,16 +26,16 @@
     },
     "metrics": [
       {
-        "value": "450g",
+        "value": "200g",
         "label": "Khối lượng tịnh"
       },
       {
-        "value": "30 gói",
+        "value": "10 gói",
         "label": "Tiện dụng mỗi ngày"
       },
       {
-        "value": "100%",
-        "label": "Hạt cà phê tuyển chọn"
+        "value": "Nguyên liệu cao cấp",
+        "label": "Bột cà phê được tuyển chọn kỹ lưỡng"
       }
     ],
     "features": [
