@@ -9,15 +9,20 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const oauthResult = params.get('oauth_result');
-    if (oauthResult) {
-      const cleanUrl = `${window.location.origin}/admin/`;
-      window.history.replaceState({}, '', cleanUrl);
-      setTimeout(() => {
-        window.postMessage(decodeURIComponent(oauthResult), window.location.origin);
-      }, 250);
+    function dispatchStoredOauthResult() {
+      const msg = localStorage.getItem('decap_oauth_result');
+      if (!msg) return;
+      localStorage.removeItem('decap_oauth_result');
+      window.postMessage(msg, '*');
     }
+
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'decap_oauth_result' && event.newValue) {
+        dispatchStoredOauthResult();
+      }
+    });
+
+    setTimeout(dispatchStoredOauthResult, 300);
 
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on('init', (user) => {

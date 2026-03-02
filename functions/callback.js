@@ -8,7 +8,6 @@ function getCookieValue(cookieHeader, name) {
 function resultHtml(type, payload) {
   const payloadJson = JSON.stringify(payload || {});
   const message = `authorization:github:${type}:${payloadJson}`;
-  const encoded = encodeURIComponent(message);
   return `<!doctype html>
 <html>
   <body>
@@ -16,10 +15,13 @@ function resultHtml(type, payload) {
       (function () {
         var msg = ${JSON.stringify(message)};
         if (window.opener) {
-          window.opener.postMessage(msg, window.location.origin);
+          window.opener.postMessage(msg, "*");
           window.close();
         } else {
-          window.location.replace("/admin/?oauth_result=${encoded}");
+          try {
+            localStorage.setItem("decap_oauth_result", msg);
+          } catch (e) {}
+          window.location.replace("/admin/");
         }
       })();
     </script>
