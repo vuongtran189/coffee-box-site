@@ -2,7 +2,7 @@
   name: github
   repo: vuongtran189/coffee-box-site
   branch: main
-  base_url: https://YOUR_CLOUDFLARE_PAGES_DOMAIN
+  base_url: https://coffee-box-site.pages.dev
   auth_endpoint: auth
 locale: "vi"
 publish_mode: simple
