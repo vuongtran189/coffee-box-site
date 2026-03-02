@@ -15,7 +15,7 @@ function resultHtml(type, payload) {
       (function () {
         var msg = ${JSON.stringify(message)};
         if (window.opener) {
-          window.opener.postMessage(msg, "*");
+          window.opener.postMessage(msg, window.location.origin);
           window.close();
         } else {
           document.body.innerText = "Authentication completed. You can close this window.";
@@ -90,8 +90,15 @@ export async function onRequestGet(context) {
     });
   }
 
-  return new Response(resultHtml("success", { token: tokenJson.access_token }), {
-    status: 200,
-    headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
-  });
+  return new Response(
+    resultHtml("success", {
+      token: tokenJson.access_token,
+      access_token: tokenJson.access_token,
+      provider: "github",
+    }),
+    {
+      status: 200,
+      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
+    }
+  );
 }
