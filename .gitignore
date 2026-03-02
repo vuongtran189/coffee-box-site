@@ -1,0 +1,4 @@
+# Temporary Decap CMS local artifacts
+.tmp-decap-cms.js
+tmp-decap-cms.js
+tmp-decap-proxy-index.ts
