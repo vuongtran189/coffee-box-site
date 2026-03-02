@@ -99,6 +99,13 @@
     "description": "Lựa chọn linh hoạt cho nhu cầu bán lẻ, văn phòng và đại lý.",
     "items": [
       {
+        "category": "bestseller",
+        "title": "Cà phê muối vị Truyền Thống",
+        "subtitle": "Hộp 200g (20 g x 10 gói)",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772445062/TRUYEN_THONG_PNG_pbv1do.png",
+        "link": "contact.html"
+      },
+      {
         "title": "Cà phê muối vị phô mai",
         "subtitle": "Hộp 200g (20 g x 10 gói)",
         "category": "bestseller",
