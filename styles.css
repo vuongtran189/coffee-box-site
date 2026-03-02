@@ -722,6 +722,14 @@ input {
   padding: 0.5rem;
 }
 
+.product-card .product-image-zoom img.product-image {
+  transform-origin: center;
+}
+
+.product-card .product-image-zoom img.product-image--scale-up {
+  transform: scale(1.18);
+}
+
 .product-card .product-image-zoom:focus-visible {
   outline: 3px solid rgba(47, 91, 59, 0.32);
   outline-offset: 3px;
