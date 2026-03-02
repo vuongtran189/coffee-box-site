@@ -1,7 +1,9 @@
 ﻿backend:
-  name: git-gateway
+  name: github
+  repo: vuongtran189/coffee-box-site
   branch: main
-
+  base_url: https://YOUR_CLOUDFLARE_PAGES_DOMAIN
+  auth_endpoint: auth
 locale: "vi"
 publish_mode: simple
 
@@ -128,3 +130,4 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Work time", name: "work_time", widget: "string" }
+
