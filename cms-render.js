@@ -62,6 +62,12 @@ function detectProductCategory(item) {
   return 'all';
 }
 
+function getProductImageClass(item) {
+  const normalizedTitle = normalizeText(item?.title);
+  if (normalizedTitle.includes('pho mai')) return ' product-image--cheese';
+  return '';
+}
+
 const cardObserver = ('IntersectionObserver' in window)
   ? new IntersectionObserver(
       (entries) => {
@@ -169,9 +175,10 @@ function renderProducts(data) {
       ? allItems
       : allItems.filter((item) => detectProductCategory(item) === filter);
 
-    grid.innerHTML = visibleItems.map((item) =>
-      `<article class="product-card"><button class="product-image-zoom" type="button" aria-label="Phóng to ảnh ${item.title || 'sản phẩm'}"><img src="${item.image || ''}" alt="${item.title || ''}" /></button><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`
-    ).join('');
+    grid.innerHTML = visibleItems.map((item) => {
+      const imageClass = getProductImageClass(item);
+      return `<article class="product-card"><button class="product-image-zoom" type="button" aria-label="Phóng to ảnh ${item.title || 'sản phẩm'}"><img class="${imageClass.trim()}" src="${item.image || ''}" alt="${item.title || ''}" /></button><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`;
+    }).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
     animateCards(Array.from(grid.querySelectorAll('.product-card')));
   }

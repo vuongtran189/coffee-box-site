@@ -722,6 +722,10 @@ input {
   padding: 0.5rem;
 }
 
+.product-card .product-image-zoom img.product-image--cheese {
+  transform: scale(0.89);
+}
+
 .product-card .product-image-zoom:focus-visible {
   outline: 3px solid rgba(47, 91, 59, 0.32);
   outline-offset: 3px;
