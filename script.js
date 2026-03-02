@@ -97,3 +97,53 @@ forms.forEach((form) => {
   });
 });
 
+const zoomModal = document.createElement('div');
+zoomModal.className = 'zoom-modal';
+zoomModal.hidden = true;
+zoomModal.setAttribute('aria-hidden', 'true');
+zoomModal.innerHTML = `
+  <div class="zoom-modal__frame" role="dialog" aria-modal="true" aria-label="Xem ảnh sản phẩm">
+    <button class="zoom-modal__close" type="button" aria-label="Đóng ảnh">×</button>
+    <img class="zoom-modal__image" src="" alt="" />
+  </div>
+`;
+document.body.appendChild(zoomModal);
+
+const zoomImageEl = zoomModal.querySelector('.zoom-modal__image');
+const zoomCloseBtn = zoomModal.querySelector('.zoom-modal__close');
+
+function closeZoomModal() {
+  zoomModal.hidden = true;
+  zoomModal.setAttribute('aria-hidden', 'true');
+  document.body.style.removeProperty('overflow');
+}
+
+function openZoomModal(src, alt) {
+  if (!src || !zoomImageEl) return;
+  zoomImageEl.src = src;
+  zoomImageEl.alt = alt || 'Anh san pham';
+  zoomModal.hidden = false;
+  zoomModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+document.addEventListener('click', (event) => {
+  if (!(event.target instanceof Element)) return;
+  const zoomButton = event.target.closest('.product-image-zoom');
+  if (zoomButton) {
+    const image = zoomButton.querySelector('img');
+    if (image) openZoomModal(image.currentSrc || image.src, image.alt);
+    return;
+  }
+
+  if (event.target === zoomModal || event.target === zoomCloseBtn) {
+    closeZoomModal();
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !zoomModal.hidden) {
+    closeZoomModal();
+  }
+});
+

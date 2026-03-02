@@ -170,7 +170,7 @@ function renderProducts(data) {
       : allItems.filter((item) => detectProductCategory(item) === filter);
 
     grid.innerHTML = visibleItems.map((item) =>
-      `<article class="product-card"><img src="${item.image || ''}" alt="${item.title || ''}" /><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`
+      `<article class="product-card"><button class="product-image-zoom" type="button" aria-label="Phóng to ảnh ${item.title || 'sản phẩm'}"><img src="${item.image || ''}" alt="${item.title || ''}" /></button><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`
     ).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
     animateCards(Array.from(grid.querySelectorAll('.product-card')));

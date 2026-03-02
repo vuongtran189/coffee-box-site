@@ -704,13 +704,28 @@ input {
   border-color: #d0c3a8;
 }
 
-.product-card img {
+.product-card .product-image-zoom {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.product-card .product-image-zoom img {
   width: 100%;
   height: 240px;
   object-fit: contain;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 14px;
   padding: 0.5rem;
+}
+
+.product-card .product-image-zoom:focus-visible {
+  outline: 3px solid rgba(47, 91, 59, 0.32);
+  outline-offset: 3px;
+  border-radius: 14px;
 }
 
 .product-card h3 {
@@ -889,12 +904,81 @@ textarea:focus {
   transform: translateY(0) scale(1);
 }
 
+.zoom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.8rem, 3vw, 2rem);
+  border: 0;
+  background: rgba(16, 25, 20, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.zoom-modal[hidden] {
+  display: none;
+}
+
+.zoom-modal__frame {
+  position: relative;
+  width: min(980px, 100%);
+  max-height: calc(100vh - 2rem);
+  border-radius: 20px;
+  border: 1px solid rgba(239, 230, 203, 0.35);
+  background: linear-gradient(140deg, rgba(37, 58, 41, 0.5), rgba(13, 22, 16, 0.56));
+  box-shadow: 0 28px 60px rgba(5, 8, 6, 0.5);
+  overflow: hidden;
+  animation: zoomModalIn 0.26s cubic-bezier(0.2, 0.78, 0.24, 1) both;
+}
+
+.zoom-modal__image {
+  width: 100%;
+  max-height: calc(100vh - 5rem);
+  object-fit: contain;
+  display: block;
+}
+
+.zoom-modal__close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(10, 19, 13, 0.72);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.zoom-modal__close:hover {
+  background: rgba(10, 19, 13, 0.9);
+}
+
+@keyframes zoomModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .scroll-pop {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .zoom-modal__frame {
+    animation: none;
   }
 }
 
@@ -967,7 +1051,7 @@ textarea:focus {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .product-card img {
+  .product-card .product-image-zoom img {
     height: 210px;
   }
 
