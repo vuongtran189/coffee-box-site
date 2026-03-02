@@ -5,64 +5,75 @@ function getCookieValue(cookieHeader, name) {
   return hit ? hit.slice(name.length + 1) : "";
 }
 
-function resultHtml(type, payload) {
+function callbackScriptResponse(status, payload) {
   const payloadJson = JSON.stringify(payload || {});
-  const message = `authorization:github:${type}:${payloadJson}`;
-  return `<!doctype html>
+  const message = `authorization:github:${status}:${payloadJson}`;
+  return new Response(
+    `<!doctype html>
 <html>
-  <body>
+  <head>
     <script>
       (function () {
         var msg = ${JSON.stringify(message)};
-        if (window.opener) {
-          window.opener.postMessage(msg, "*");
-          window.close();
-        } else {
-          try {
-            localStorage.setItem("decap_oauth_result", msg);
-          } catch (e) {}
+        function sendResult() {
+          if (window.opener) {
+            window.opener.postMessage(msg, "*");
+            window.removeEventListener("message", receiveMessage, false);
+            window.close();
+            return;
+          }
+          try { localStorage.setItem("decap_oauth_result", msg); } catch (e) {}
           window.location.replace("/admin/");
+        }
+        function receiveMessage() { sendResult(); }
+        window.addEventListener("message", receiveMessage, false);
+        if (window.opener) {
+          window.opener.postMessage("authorizing:github", "*");
+        } else {
+          sendResult();
         }
       })();
     </script>
+  </head>
+  <body>
+    <p>Authorizing Decap...</p>
   </body>
-</html>`;
+</html>`,
+    { headers: { "Content-Type": "text/html; charset=utf-8" } }
+  );
 }
 
 export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
+  const provider = url.searchParams.get("provider");
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
   const error = url.searchParams.get("error");
 
-  const cookieState = getCookieValue(request.headers.get("Cookie") || "", "decap_oauth_state");
-
-  const clearStateCookie =
-    "decap_oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0";
-
-  if (error) {
-    return new Response(resultHtml("error", { error }), {
-      status: 200,
-      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
-    });
+  if (provider !== "github") {
+    return new Response("Invalid provider", { status: 400 });
   }
 
-  if (!code || !state || !cookieState || state !== cookieState) {
-    return new Response(resultHtml("error", { error: "Invalid OAuth state." }), {
-      status: 400,
-      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
-    });
+  if (error) {
+    return callbackScriptResponse("error", { error });
   }
 
   if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
-    return new Response(resultHtml("error", { error: "Missing OAuth environment variables." }), {
-      status: 500,
-      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
+    return new Response("Missing OAuth env vars.", { status: 500 });
+  }
+
+  const cookieState = getCookieValue(request.headers.get("Cookie") || "", "decap_oauth_state");
+  const clearCookie =
+    "decap_oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0";
+  const stateValid = Boolean(state && cookieState && state === cookieState);
+  if (!code || !stateValid) {
+    return new Response(callbackScriptResponse("error", { error: "Invalid OAuth state." }).body, {
+      status: 400,
+      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearCookie },
     });
   }
 
-  const baseUrl = `${url.protocol}//${url.host}`;
   const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: {
@@ -74,34 +85,30 @@ export async function onRequestGet(context) {
       client_id: env.GITHUB_CLIENT_ID,
       client_secret: env.GITHUB_CLIENT_SECRET,
       code,
-      redirect_uri: `${baseUrl}/callback`,
+      redirect_uri: `${url.origin}/callback?provider=github`,
     }),
   });
 
   if (!tokenRes.ok) {
-    return new Response(resultHtml("error", { error: "Token exchange failed." }), {
+    return new Response(callbackScriptResponse("error", { error: "Token exchange failed." }).body, {
       status: 502,
-      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
+      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearCookie },
     });
   }
 
   const tokenJson = await tokenRes.json();
   if (!tokenJson.access_token) {
-    return new Response(resultHtml("error", tokenJson), {
+    return new Response(callbackScriptResponse("error", tokenJson).body, {
       status: 400,
-      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
+      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearCookie },
     });
   }
 
   return new Response(
-    resultHtml("success", {
-      token: tokenJson.access_token,
-      access_token: tokenJson.access_token,
-      provider: "github",
-    }),
+    callbackScriptResponse("success", { token: tokenJson.access_token }).body,
     {
       status: 200,
-      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearStateCookie },
+      headers: { "Content-Type": "text/html; charset=utf-8", "Set-Cookie": clearCookie },
     }
   );
 }
