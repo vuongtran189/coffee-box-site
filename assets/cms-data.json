@@ -100,9 +100,9 @@
     "items": [
       {
         "title": "Cà phê muối vị phô mai",
-        "subtitle": "Hộp 450g (15g x 30 gói)",
+        "subtitle": "Hộp 200g (20 g x 10 gói)",
         "category": "bestseller",
-        "image": "assets/product-box.png",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772415336/snapedit_1772415213280_adp4gv.png",
         "link": "contact.html"
       },
       {
