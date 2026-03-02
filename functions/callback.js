@@ -8,6 +8,7 @@ function getCookieValue(cookieHeader, name) {
 function resultHtml(type, payload) {
   const payloadJson = JSON.stringify(payload || {});
   const message = `authorization:github:${type}:${payloadJson}`;
+  const encoded = encodeURIComponent(message);
   return `<!doctype html>
 <html>
   <body>
@@ -18,7 +19,7 @@ function resultHtml(type, payload) {
           window.opener.postMessage(msg, window.location.origin);
           window.close();
         } else {
-          document.body.innerText = "Authentication completed. You can close this window.";
+          window.location.replace("/admin/?oauth_result=${encoded}");
         }
       })();
     </script>
