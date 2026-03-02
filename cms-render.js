@@ -62,6 +62,33 @@ function detectProductCategory(item) {
   return 'all';
 }
 
+const cardObserver = ('IntersectionObserver' in window)
+  ? new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            cardObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14 }
+    )
+  : null;
+
+function animateCards(elements) {
+  elements.forEach((el, idx) => {
+    if (!(el instanceof HTMLElement)) return;
+    el.classList.add('scroll-pop');
+    el.style.transitionDelay = `${Math.min(idx * 0.06, 0.3)}s`;
+    if (cardObserver) {
+      cardObserver.observe(el);
+    } else {
+      el.classList.add('in');
+    }
+  });
+}
+
 function renderHome(data) {
   const home = data.home || {};
   const slides = Array.isArray(home.slides) ? home.slides : [];
@@ -146,6 +173,7 @@ function renderProducts(data) {
       `<article class="product-card"><img src="${item.image || ''}" alt="${item.title || ''}" /><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`
     ).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
+    animateCards(Array.from(grid.querySelectorAll('.product-card')));
   }
 
   if (grid) {
@@ -178,6 +206,7 @@ function renderNews(data) {
     grid.innerHTML = n.posts.map((post) =>
       `<article class="news-card"><img src="${post.image || ''}" alt="${post.title || ''}" /><div><time>${post.date || ''}</time><h3>${post.title || ''}</h3><p>${post.excerpt || ''}</p></div><a href="${post.link || 'contact.html'}">Xem chi tiết</a></article>`
     ).join('');
+    animateCards(Array.from(grid.querySelectorAll('.news-card')));
   }
 }
 
@@ -191,6 +220,7 @@ function renderContact(data) {
   setText('contact-email', s.email);
   setText('contact-address', s.address);
   setText('contact-time', c.work_time);
+  animateCards(Array.from(document.querySelectorAll('.contact-info-card, .contact-form-card')));
 }
 
 function renderGlobal(data) {
