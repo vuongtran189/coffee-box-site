@@ -189,6 +189,7 @@ document.addEventListener('keydown', (event) => {
   const LOCAL_WIDGET_CSS = new URL('assets/chatbot/widget.css', document.baseURI).toString();
   const PRELOAD = window.VIBE_CHATBOT_PRELOAD === true;
   const PREFER_LOCAL = window.VIBE_CHATBOT_PREFER_LOCAL_WIDGET !== false;
+  const LAUNCHER_ICON_URL = window.VIBE_CHATBOT_LAUNCHER_ICON_URL || '';
 
   if (!API_BASE || !WIDGET_KEY) return;
   if (window.VibeChatbot || document.getElementById('vibe-chatbot-embed')) return;
@@ -210,7 +211,13 @@ document.addEventListener('keydown', (event) => {
       script.src = src;
       script.onload = () => {
         try {
-          window.VibeChatbot?.init?.({ apiBaseUrl: base, widgetKey: String(WIDGET_KEY), preload: PRELOAD, cssUrl });
+          window.VibeChatbot?.init?.({
+            apiBaseUrl: base,
+            widgetKey: String(WIDGET_KEY),
+            preload: PRELOAD,
+            cssUrl,
+            launcherIconUrl: LAUNCHER_ICON_URL ? String(LAUNCHER_ICON_URL) : undefined
+          });
           resolve();
         } catch (err) {
           reject(err);

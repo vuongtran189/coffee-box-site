@@ -43,6 +43,16 @@
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
 }
 
+.vibe-chatbot-launcher__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
+  display: block;
+}
+
 .vibe-chatbot-panel {
   position: absolute;
   bottom: 54px;

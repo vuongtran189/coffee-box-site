@@ -112,6 +112,7 @@
     var widgetKey = options.widgetKey ? String(options.widgetKey) : "";
     var locale = options.locale ? String(options.locale) : "vi";
     var position = options.position === "left" ? "left" : "right";
+    var launcherIconUrl = options.launcherIconUrl ? String(options.launcherIconUrl) : "";
 
     var cssUrl = options.cssUrl ? String(options.cssUrl) : apiBaseUrl + "/widget.css";
     injectCssOnce(cssUrl, "vibe-chatbot-css");
@@ -135,9 +136,23 @@
       type: "button",
       "aria-label": "Má»Ÿ chat tÆ° váº¥n Vibe Coffee"
     });
-    launcher.innerHTML =
-      '<span class="vibe-chatbot-launcher__dot" aria-hidden="true"></span>' +
-      '<span class="vibe-chatbot-launcher__label">TÆ° váº¥n</span>';
+    
+    var dot = createEl("span", { class: "vibe-chatbot-launcher__dot", "aria-hidden": "true" });
+    var label = createEl("span", { class: "vibe-chatbot-launcher__label", text: "Tư vấn" });
+    launcher.appendChild(dot);
+    launcher.appendChild(label);
+
+    if (launcherIconUrl) {
+      var avatar = document.createElement("img");
+      avatar.className = "vibe-chatbot-launcher__avatar";
+      avatar.alt = "";
+      avatar.setAttribute("aria-hidden", "true");
+      avatar.addEventListener("load", function () {
+        if (dot && dot.parentNode) dot.replaceWith(avatar);
+      });
+      avatar.addEventListener("error", function () {});
+      avatar.src = launcherIconUrl;
+    }
 
     var panel = createEl("div", { class: "vibe-chatbot-panel", role: "dialog", "aria-hidden": "true" });
     panel.innerHTML =
