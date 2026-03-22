@@ -177,3 +177,28 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+// --- Vibe Chatbot embed (Express API + widget) ---
+// Set these 2 values (recommended via inline <script> before script.js):
+//   window.VIBE_CHATBOT_API_BASE = "https://<your-service>.onrender.com";
+//   window.VIBE_CHATBOT_WIDGET_KEY = "<your_widget_public_key>";
+// Or hardcode them below.
+(function () {
+  const API_BASE = window.VIBE_CHATBOT_API_BASE || '';
+  const WIDGET_KEY = window.VIBE_CHATBOT_WIDGET_KEY || '';
+
+  if (!API_BASE || !WIDGET_KEY) return;
+  if (window.VibeChatbot || document.getElementById('vibe-chatbot-embed')) return;
+
+  const base = String(API_BASE).replace(/\/$/, '');
+  const script = document.createElement('script');
+  script.id = 'vibe-chatbot-embed';
+  script.async = true;
+  script.src = `${base}/widget.js`;
+  script.onload = () => {
+    try {
+      window.VibeChatbot?.init?.({ apiBaseUrl: base, widgetKey: String(WIDGET_KEY), preload: true });
+    } catch {}
+  };
+  document.head.appendChild(script);
+})();
+
