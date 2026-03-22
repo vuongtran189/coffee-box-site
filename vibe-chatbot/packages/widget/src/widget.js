@@ -78,7 +78,7 @@
   function buildEmbedHelp(apiBaseUrl, widgetKey) {
     var base = apiBaseUrl.replace(/\/$/, "");
     return (
-      "VÃ­ dá»¥ nhÃºng widget:\n" +
+      "Ví dụ nhúng widget:\n" +
       '<script src="' +
       base +
       '/widget.js"></script>\n' +
@@ -134,7 +134,7 @@
     var launcher = createEl("button", {
       class: "vibe-chatbot-launcher",
       type: "button",
-      "aria-label": "Má»Ÿ chat tÆ° váº¥n Vibe Coffee"
+      "aria-label": "Mở chat tư vấn Vibe Coffee"
     });
     
     var dot = createEl("span", { class: "vibe-chatbot-launcher__dot", "aria-hidden": "true" });
@@ -158,14 +158,14 @@
     panel.innerHTML =
       '<div class="vibe-chatbot-header">' +
       '  <div class="vibe-chatbot-header__title">Vibe Coffee</div>' +
-      '  <div class="vibe-chatbot-header__sub">TÆ° váº¥n nhanh</div>' +
-      '  <button class="vibe-chatbot-header__close" type="button" aria-label="ÄÃ³ng">Ã—</button>' +
+      '  <div class="vibe-chatbot-header__sub">Tư vấn nhanh</div>' +
+      '  <button class="vibe-chatbot-header__close" type="button" aria-label="Đóng">×</button>' +
       "</div>" +
       '<div class="vibe-chatbot-body" role="log" aria-live="polite" aria-relevant="additions"></div>' +
       '<div class="vibe-chatbot-quick"></div>' +
       '<form class="vibe-chatbot-form" autocomplete="off">' +
-      '  <input class="vibe-chatbot-input" name="message" placeholder="Nháº­p cÃ¢u há»i..." />' +
-      '  <button class="vibe-chatbot-send" type="submit" aria-label="Gá»­i">âž¤</button>' +
+      '  <input class="vibe-chatbot-input" name="message" placeholder="Nhập câu hỏi..." />' +
+      '  <button class="vibe-chatbot-send" type="submit" aria-label="Gửi">➤</button>' +
       "</form>";
 
     var bodyEl = panel.querySelector(".vibe-chatbot-body");
@@ -245,7 +245,7 @@
 
     function replayLocalHistory() {
       if (!state.messages || !state.messages.length) {
-        renderBubble("assistant", "ChÃ o báº¡n! MÃ¬nh lÃ  trá»£ lÃ½ tÆ° váº¥n cá»§a Vibe Coffee. Báº¡n muá»‘n xem giÃ¡ hay tÆ° váº¥n chá»n vá»‹ áº¡?");
+        renderBubble("assistant", "Chào bạn! Mình là trợ lý tư vấn của Vibe Coffee. Bạn muốn xem giá hay tư vấn chọn vị ạ?");
         return;
       }
 
@@ -320,19 +320,19 @@
           renderTyping(false);
 
           if (!r.ok) {
-            renderSystemNotice("ChÆ°a gá»­i Ä‘Æ°á»£c. Báº¡n thá»­ láº¡i giÃºp mÃ¬nh nhÃ©.");
+            renderSystemNotice("Chưa gửi được. Bạn thử lại giúp mình nhé.");
             return;
           }
 
           var assistantText = safeText(r.body && r.body.assistant && r.body.assistant.text);
-          if (!assistantText) assistantText = "MÃ¬nh Ä‘Ã£ nháº­n Ä‘Æ°á»£c. Báº¡n cho mÃ¬nh thÃªm thÃ´ng tin Ä‘á»ƒ tÆ° váº¥n ká»¹ hÆ¡n nhÃ©?";
+          if (!assistantText) assistantText = "Mình đã nhận được. Bạn cho mình thêm thông tin để tư vấn kỹ hơn nhé?";
 
           renderBubble("assistant", assistantText);
           persistLocalMessage("assistant", assistantText);
         })
         .catch(function () {
           renderTyping(false);
-          renderSystemNotice("Káº¿t ná»‘i cÃ³ váº¥n Ä‘á». Báº¡n thá»­ láº¡i hoáº·c gá»i hotline 0908858522 nhÃ©.");
+          renderSystemNotice("Kết nối có vấn đề. Bạn thử lại hoặc gọi hotline 0908858522 nhé.");
         });
     }
 
