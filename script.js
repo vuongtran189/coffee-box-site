@@ -185,41 +185,53 @@ document.addEventListener('keydown', (event) => {
 (function () {
   const API_BASE = window.VIBE_CHATBOT_API_BASE || '';
   const WIDGET_KEY = window.VIBE_CHATBOT_WIDGET_KEY || '';
-  const FALLBACK_WIDGET_JS = new URL('assets/chatbot/widget.js', document.baseURI).toString();
-  const FALLBACK_WIDGET_CSS = new URL('assets/chatbot/widget.css', document.baseURI).toString();
+  const LOCAL_WIDGET_JS = new URL('assets/chatbot/widget.js', document.baseURI).toString();
+  const LOCAL_WIDGET_CSS = new URL('assets/chatbot/widget.css', document.baseURI).toString();
+  const PRELOAD = window.VIBE_CHATBOT_PRELOAD === true;
+  const PREFER_LOCAL = window.VIBE_CHATBOT_PREFER_LOCAL_WIDGET !== false;
 
   if (!API_BASE || !WIDGET_KEY) return;
   if (window.VibeChatbot || document.getElementById('vibe-chatbot-embed')) return;
 
   const base = String(API_BASE).replace(/\/$/, '');
-  const script = document.createElement('script');
-  script.id = 'vibe-chatbot-embed';
-  script.async = true;
-  script.src = `${base}/widget.js`;
-  script.onerror = () => {
-    if (document.getElementById('vibe-chatbot-embed-fallback')) return;
-    const fallback = document.createElement('script');
-    fallback.id = 'vibe-chatbot-embed-fallback';
-    fallback.async = true;
-    fallback.src = FALLBACK_WIDGET_JS;
-    fallback.onload = () => {
-      try {
-        window.VibeChatbot?.init?.({ apiBaseUrl: base, widgetKey: String(WIDGET_KEY), preload: true, cssUrl: FALLBACK_WIDGET_CSS });
-      } catch {}
-    };
-    document.head.appendChild(fallback);
-  };
-  script.onload = () => {
-    try {
-      window.VibeChatbot?.init?.({ apiBaseUrl: base, widgetKey: String(WIDGET_KEY), preload: true });
-    } catch {}
-  };
-  document.head.appendChild(script);
+  const remoteWidgetJs = `${base}/widget.js`;
+  const remoteWidgetCss = `${base}/widget.css`;
 
-  // If Render is sleeping or the remote script is slow, fall back to locally hosted widget assets.
-  setTimeout(() => {
-    if (window.VibeChatbot || document.getElementById('vibe-chatbot-embed-fallback')) return;
-    script.onerror?.(new Event('error'));
-  }, 8000);
+  function mountWidget({ id, src, cssUrl }) {
+    return new Promise((resolve, reject) => {
+      if (window.VibeChatbot) {
+        resolve();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.id = id;
+      script.async = true;
+      script.src = src;
+      script.onload = () => {
+        try {
+          window.VibeChatbot?.init?.({ apiBaseUrl: base, widgetKey: String(WIDGET_KEY), preload: PRELOAD, cssUrl });
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
+      };
+      script.onerror = () => reject(new Error('widget_load_failed'));
+      document.head.appendChild(script);
+    });
+  }
+
+  const primary = PREFER_LOCAL
+    ? { id: 'vibe-chatbot-embed-local', src: LOCAL_WIDGET_JS, cssUrl: LOCAL_WIDGET_CSS }
+    : { id: 'vibe-chatbot-embed-remote', src: remoteWidgetJs, cssUrl: remoteWidgetCss };
+
+  const fallback = PREFER_LOCAL
+    ? { id: 'vibe-chatbot-embed-remote', src: remoteWidgetJs, cssUrl: remoteWidgetCss }
+    : { id: 'vibe-chatbot-embed-local', src: LOCAL_WIDGET_JS, cssUrl: LOCAL_WIDGET_CSS };
+
+  mountWidget(primary).catch(() => {
+    if (document.getElementById(fallback.id) || window.VibeChatbot) return;
+    mountWidget(fallback).catch(() => {});
+  });
 })();
 

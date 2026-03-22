@@ -28,16 +28,21 @@ app.use(
     crossOriginResourcePolicy: { policy: "cross-origin" }
   })
 );
-app.use(
-  cors({
-    origin: function corsOrigin(origin, cb) {
-      if (!origin) return cb(null, true);
-      if (env.corsOrigins.length === 0) return cb(null, false);
-      return cb(null, env.corsOrigins.includes(origin));
-    },
-    credentials: false
-  })
-);
+const corsOptions = {
+  origin: function corsOrigin(origin, cb) {
+    if (!origin) return cb(null, true);
+    // If CORS_ORIGINS isn't configured, default to allow-all to avoid breaking the public widget.
+    if (env.corsOrigins.length === 0) return cb(null, true);
+    return cb(null, env.corsOrigins.includes(origin));
+  },
+  credentials: false,
+  methods: ["GET", "HEAD", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "x-widget-key"],
+  optionsSuccessStatus: 204,
+  maxAge: 86400
+};
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "256kb" }));
 app.use(express.urlencoded({ extended: true, limit: "256kb" }));
 
