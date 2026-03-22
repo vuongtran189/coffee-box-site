@@ -2,3 +2,10 @@
 .tmp-decap-cms.js
 tmp-decap-cms.js
 tmp-decap-proxy-index.ts
+
+# Codex local state
+.codex/
+
+# Local env / build outputs
+.env
+node_modules/

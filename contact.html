@@ -37,11 +37,14 @@
       </div>
 
       <form class="contact-form-card">
-        <input type="text" placeholder="Họ và tên" required />
-        <input type="tel" placeholder="Số điện thoại" required />
-        <input type="email" placeholder="Email" />
-        <input type="text" placeholder="Nhu cầu: lẻ / sỉ / đại lý" />
-        <textarea placeholder="Nội dung cần tư vấn" rows="5"></textarea>
+        <input name="name" type="text" placeholder="Họ và tên" autocomplete="name" required />
+        <input name="phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" required />
+        <input name="email" type="email" placeholder="Email" autocomplete="email" />
+        <input name="need" type="text" placeholder="Nhu cầu: lẻ / sỉ / đại lý" />
+        <textarea name="message" placeholder="Nội dung cần tư vấn" rows="5"></textarea>
+        <input name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:1px;width:1px;opacity:0;" />
+        <input name="form_ts" type="hidden" value="" />
+        <input name="page" type="hidden" value="contact" />
         <button class="btn btn-primary" type="submit">Gửi yêu cầu</button>
       </form>
     </section>

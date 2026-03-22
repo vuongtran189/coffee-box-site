@@ -102,8 +102,10 @@ function renderHome(data) {
   slideEls.forEach((slide, idx) => {
     const item = slides[idx];
     const src = typeof item === 'string' ? item : item?.image;
-    if (src) {
-      slide.style.setProperty('--bg', `url('${src}')`);
+    const url = normalizeAssetUrl(src);
+    if (url) {
+      const safeUrl = url.replace(/"/g, '%22');
+      slide.style.setProperty('--bg', `url("${safeUrl}")`);
     }
   });
 
@@ -177,7 +179,8 @@ function renderProducts(data) {
 
     grid.innerHTML = visibleItems.map((item) => {
       const imageClass = getProductImageClass(item);
-      return `<article class="product-card"><button class="product-image-zoom" type="button" aria-label="Phóng to ảnh ${item.title || 'sản phẩm'}"><img class="${imageClass}" src="${item.image || ''}" alt="${item.title || ''}" /></button><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`;
+      const imageSrc = normalizeAssetUrl(item?.image);
+      return `<article class="product-card"><button class="product-image-zoom" type="button" aria-label="Phóng to ảnh ${item.title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${item.title || ''}" /></button><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`;
     }).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
     animateCards(Array.from(grid.querySelectorAll('.product-card')));
@@ -210,9 +213,10 @@ function renderNews(data) {
 
   const grid = document.getElementById('news-grid');
   if (grid && Array.isArray(n.posts)) {
-    grid.innerHTML = n.posts.map((post) =>
-      `<article class="news-card"><img src="${post.image || ''}" alt="${post.title || ''}" /><div><time>${post.date || ''}</time><h3>${post.title || ''}</h3><p>${post.excerpt || ''}</p></div><a href="${post.link || 'contact.html'}">Xem chi tiết</a></article>`
-    ).join('');
+    grid.innerHTML = n.posts.map((post) => {
+      const imageSrc = normalizeAssetUrl(post?.image);
+      return `<article class="news-card"><img src="${imageSrc}" alt="${post.title || ''}" /><div><time>${post.date || ''}</time><h3>${post.title || ''}</h3><p>${post.excerpt || ''}</p></div><a href="${post.link || 'contact.html'}">Xem chi tiết</a></article>`;
+    }).join('');
     animateCards(Array.from(grid.querySelectorAll('.news-card')));
   }
 }

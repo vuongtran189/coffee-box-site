@@ -67,32 +67,62 @@ if (revSlider && revSlides.length) {
 }
 
 const reveals = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.16 }
+  );
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.16 }
-);
-
-reveals.forEach((el, idx) => {
-  el.style.transitionDelay = `${Math.min(idx * 0.08, 0.45)}s`;
-  observer.observe(el);
-});
+  reveals.forEach((el, idx) => {
+    el.style.transitionDelay = `${Math.min(idx * 0.08, 0.45)}s`;
+    observer.observe(el);
+  });
+} else {
+  reveals.forEach((el) => el.classList.add('in'));
+}
 
 const forms = document.querySelectorAll('form');
 forms.forEach((form) => {
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
+
     const button = form.querySelector('button');
+    const originalText = button?.textContent || 'Gửi yêu cầu';
+
+    const tsEl = form.querySelector('input[name="form_ts"]');
+    if (tsEl && !tsEl.value) tsEl.value = String(Date.now());
+
+    const data = new FormData(form);
+
     if (button) {
-      button.textContent = 'Đã gửi thông tin';
       button.disabled = true;
+      button.textContent = 'Đang gửi...';
+    }
+
+    try {
+      const res = await fetch('/lead', { method: 'POST', body: data });
+      const json = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(json?.error || 'Gửi thất bại');
+      }
+
+      if (button) {
+        button.textContent = 'Đã gửi thông tin';
+      }
+      form.reset();
+    } catch (err) {
+      if (button) {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+      alert('Chưa gửi được. Vui lòng thử lại hoặc gọi hotline.');
     }
   });
 });
@@ -121,7 +151,7 @@ function closeZoomModal() {
 function openZoomModal(src, alt) {
   if (!src || !zoomImageEl) return;
   zoomImageEl.src = src;
-  zoomImageEl.alt = alt || 'Anh san pham';
+  zoomImageEl.alt = alt || 'Ảnh sản phẩm';
   zoomModal.hidden = false;
   zoomModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';

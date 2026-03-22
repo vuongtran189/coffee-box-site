@@ -14,6 +14,13 @@
 
 Set these for both `Production` and `Preview`.
 
+### 2.1) Contact form delivery (optional but recommended)
+The contact form submits to `POST /lead` (Cloudflare Pages Functions).
+
+Pick one delivery method:
+- Webhook (recommended): set `LEAD_WEBHOOK_URL` (optional `LEAD_WEBHOOK_TOKEN`)
+- Email (MailChannels): set `LEAD_EMAIL_TO` and `LEAD_EMAIL_FROM` (optional `LEAD_EMAIL_FROM_NAME`)
+
 ## 3) Create GitHub OAuth App
 - GitHub -> Settings -> Developer settings -> OAuth Apps -> New OAuth App.
 - Homepage URL: your Cloudflare Pages domain (example: `https://your-site.pages.dev`).

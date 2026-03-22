@@ -1,37 +1,20 @@
-﻿# CMS Admin Setup (WordPress-style workflow)
+# CMS Admin Setup (GitHub OAuth)
 
-Website now includes Decap CMS at:
-- /admin/
+Website includes Decap CMS at:
+- `/admin/`
 
-To make login/publish work reliably, use Netlify Identity + Git Gateway.
+This repo uses GitHub OAuth via Cloudflare Pages Functions (no Netlify Identity / Git Gateway).
 
-## 1) Connect GitHub repo to Netlify
-1. Open Netlify and choose "Add new site" -> "Import an existing project".
-2. Select GitHub repo: `vuongtran189/coffee-box-site`.
-3. Build command: leave empty (static site).
-4. Publish directory: `.`
-5. Deploy.
+## Setup
+Follow: `CLOUDFLARE-PAGES-SETUP.md`
 
-## 2) Enable Identity
-1. In Netlify site dashboard -> Identity -> Enable Identity.
-2. In Identity -> Settings:
-   - Registration preferences: Invite only (recommended)
-   - External providers: optional
-
-## 3) Enable Git Gateway
-1. In Identity -> Services -> Git Gateway -> Enable Git Gateway.
-
-## 4) Invite admin user
-1. Identity -> Invite users.
-2. Send invite to your email.
-3. Accept invite from email and set password.
-
-## 5) Access CMS
-- Open: `https://<your-netlify-site>.netlify.app/admin/`
-- Login with invited account.
+## Access CMS
+- Open: `https://<your-site>.pages.dev/admin/`
+- Log in with GitHub OAuth.
 - Edit content and publish.
 
 ## Notes
 - Content is stored in `assets/cms-data.json`.
 - All 5 pages read from this file via `cms-render.js`.
-- You can keep GitHub Pages for public site and use Netlify URL only for admin, or move public domain to Netlify entirely.
+- Contact form submits to `POST /lead` (see `CLOUDFLARE-PAGES-SETUP.md` for delivery env vars).
+
