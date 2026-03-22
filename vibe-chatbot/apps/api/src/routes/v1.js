@@ -6,9 +6,11 @@ import { extractPhoneNumbers } from "../phone.js";
 import { inferIntentTags } from "../intent.js";
 import { addConversationTags, appendMessage, createConversation, getConversation, linkLead } from "../services/conversations.js";
 import { upsertLeadByPhone } from "../services/leads.js";
+import { requireWidgetKey } from "../auth.js";
 
 export function v1Router({ env }) {
   const router = express.Router();
+  router.use(requireWidgetKey(env));
 
   router.post("/v1/widget/init", async (req, res) => {
     const body = req.body || {};
