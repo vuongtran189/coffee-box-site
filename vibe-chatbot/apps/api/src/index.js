@@ -21,7 +21,13 @@ const widgetDistDir = path.resolve(__dirname, "../../../packages/widget/dist");
 
 app.disable("x-powered-by");
 app.use(createHttpLogger(logger));
-app.use(helmet());
+// Allow this API to serve embeddable assets (widget.js/widget.css) cross-origin.
+// Helmet defaults to Cross-Origin-Resource-Policy: same-origin which blocks <script src="..."> from other sites.
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+  })
+);
 app.use(
   cors({
     origin: function corsOrigin(origin, cb) {
