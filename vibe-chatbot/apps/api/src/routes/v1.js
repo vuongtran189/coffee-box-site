@@ -17,12 +17,19 @@ export function v1Router({ env }) {
     const body = req.body || {};
     const visitorId = String(body.visitor_id || "").trim() || crypto.randomUUID();
 
-    const { db } = await getMongo(env);
-    const convo = await createConversation(db, { visitorId });
+    let conversationId = null;
+    try {
+      const { db } = await getMongo(env);
+      const convo = await createConversation(db, { visitorId });
+      conversationId = convo.id;
+    } catch {
+      // Degraded mode (no DB): still allow the widget to run.
+      conversationId = crypto.randomUUID();
+    }
 
     res.json({
       visitor_id: visitorId,
-      conversation_id: convo.id,
+      conversation_id: conversationId,
       quick_replies: [
         { id: "pricing", text: "Xem giá" },
         { id: "recommend", text: "Tư vấn chọn vị" },
@@ -41,23 +48,30 @@ export function v1Router({ env }) {
       return res.status(400).json({ ok: false, error: "Missing visitor_id, conversation_id, or message.text" });
     }
 
-    const { db } = await getMongo(env);
-    const convo = await getConversation(db, conversationId);
-    if (!convo) {
-      return res.status(404).json({ ok: false, error: "Conversation not found" });
+    let db = null;
+    let convo = null;
+    try {
+      ({ db } = await getMongo(env));
+      convo = await getConversation(db, conversationId);
+    } catch {
+      db = null;
+      convo = null;
     }
 
-    await appendMessage(db, conversationId, { role: "user", text, ts: new Date() });
+    // If DB is down or conversation missing, continue in stateless mode.
+    if (db && convo) {
+      await appendMessage(db, conversationId, { role: "user", text, ts: new Date() });
+    }
 
     const inferredTags = inferIntentTags(text);
-    if (inferredTags.length) {
+    if (db && convo && inferredTags.length) {
       await addConversationTags(db, conversationId, inferredTags);
     }
 
     // Extract & save phone automatically (best-effort).
     const phones = extractPhoneNumbers(text);
     let autoLeadId = null;
-    if (phones.length) {
+    if (db && phones.length) {
       const phone = phones[0];
       const { id } = await upsertLeadByPhone(db, {
         phone,
@@ -74,7 +88,7 @@ export function v1Router({ env }) {
     try {
       assistantText = await generateAssistantReply({
         env,
-        conversation: convo,
+        conversation: convo || { messages: [] },
         userText: text,
         context: { page_url: body?.context?.page_url || body?.page_url || null, extracted: { phones, tags: inferredTags } }
       });
@@ -87,7 +101,9 @@ export function v1Router({ env }) {
         ? "Cảm ơn bạn! Mình đã ghi nhận số điện thoại. Bạn cho mình xin thêm nhu cầu (uống hằng ngày / làm quà / dùng thử / đại lý) để tư vấn đúng nhất nhé?"
         : "Dạ mình hỗ trợ bạn nhanh ạ. Bạn mua để uống hằng ngày, làm quà tặng, hay muốn dùng thử trước?";
     }
-await appendMessage(db, conversationId, { role: "assistant", text: assistantText, ts: new Date() });
+    if (db && convo) {
+      await appendMessage(db, conversationId, { role: "assistant", text: assistantText, ts: new Date() });
+    }
 
     res.json({
       ok: true,

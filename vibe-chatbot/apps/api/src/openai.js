@@ -46,8 +46,13 @@ export async function generateAssistantReply({ env, conversation, userText, cont
     });
   }
 
+  const ac = new AbortController();
+  const timeoutMs = 8000;
+  const t = setTimeout(() => ac.abort(), timeoutMs);
+
   const res = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
+    signal: ac.signal,
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json"
@@ -58,7 +63,7 @@ export async function generateAssistantReply({ env, conversation, userText, cont
       input,
       max_output_tokens: maxOutputTokens
     })
-  });
+  }).finally(() => clearTimeout(t));
 
   if (!res.ok) {
     const errText = await res.text().catch(() => "");
@@ -77,4 +82,3 @@ export async function generateAssistantReply({ env, conversation, userText, cont
 
   return null;
 }
-

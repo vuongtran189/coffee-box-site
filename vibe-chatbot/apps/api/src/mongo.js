@@ -7,7 +7,11 @@ export async function getMongo(env) {
   if (cached) return cached;
 
   const client = new MongoClient(env.MONGODB_URI, {
-    maxPoolSize: 10
+    maxPoolSize: 10,
+    // Fail fast to avoid upstream 502s on cold starts / transient network issues.
+    serverSelectionTimeoutMS: 5000,
+    connectTimeoutMS: 5000,
+    socketTimeoutMS: 10000
   });
 
   await client.connect();
