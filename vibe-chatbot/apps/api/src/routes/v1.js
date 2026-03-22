@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import crypto from "node:crypto";
 
 import { getMongo } from "../mongo.js";
@@ -7,6 +7,7 @@ import { inferIntentTags } from "../intent.js";
 import { addConversationTags, appendMessage, createConversation, getConversation, linkLead } from "../services/conversations.js";
 import { upsertLeadByPhone } from "../services/leads.js";
 import { requireWidgetKey } from "../auth.js";
+import { generateAssistantReply } from "../openai.js";
 
 export function v1Router({ env }) {
   const router = express.Router();
@@ -69,13 +70,24 @@ export function v1Router({ env }) {
         await linkLead(db, conversationId, autoLeadId);
       }
     }
+    let assistantText = null;
+    try {
+      assistantText = await generateAssistantReply({
+        env,
+        conversation: convo,
+        userText: text,
+        context: { page_url: body?.context?.page_url || body?.page_url || null, extracted: { phones, tags: inferredTags } }
+      });
+    } catch {
+      assistantText = null;
+    }
 
-    // Placeholder assistant message; Phase 3 will replace with OpenAI output.
-    const assistantText = autoLeadId
-      ? "Cảm ơn bạn! Mình đã ghi nhận số điện thoại. Bạn cho mình xin thêm nhu cầu (uống hằng ngày / làm quà / dùng thử / đại lý) để tư vấn đúng nhất nhé?"
-      : "Dạ mình hỗ trợ bạn nhanh ạ. Bạn mua để uống hằng ngày, làm quà tặng, hay muốn dùng thử trước?";
-
-    await appendMessage(db, conversationId, { role: "assistant", text: assistantText, ts: new Date() });
+    if (!assistantText) {
+      assistantText = autoLeadId
+        ? "Cảm ơn bạn! Mình đã ghi nhận số điện thoại. Bạn cho mình xin thêm nhu cầu (uống hằng ngày / làm quà / dùng thử / đại lý) để tư vấn đúng nhất nhé?"
+        : "Dạ mình hỗ trợ bạn nhanh ạ. Bạn mua để uống hằng ngày, làm quà tặng, hay muốn dùng thử trước?";
+    }
+await appendMessage(db, conversationId, { role: "assistant", text: assistantText, ts: new Date() });
 
     res.json({
       ok: true,
@@ -162,3 +174,5 @@ export function v1Router({ env }) {
 
   return router;
 }
+
+

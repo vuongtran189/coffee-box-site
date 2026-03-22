@@ -10,6 +10,11 @@ const EnvSchema = z.object({
   CORS_ORIGINS: z.string().default(""),
   WIDGET_PUBLIC_KEY: z.string().min(8).default("dev_public_key_change_me"),
 
+  OPENAI_API_KEY: z.string().optional(),
+  OPENAI_MODEL: z.string().default("gpt-4o-mini"),
+  OPENAI_MAX_OUTPUT_TOKENS: z.coerce.number().int().min(16).max(4000).default(350),
+  OPENAI_INSTRUCTIONS: z.string().default(""),
+
   MONGODB_URI: z
     .string()
     .min(1)
@@ -28,6 +33,9 @@ export function loadEnv() {
   if (env.NODE_ENV === "production") {
     if (env.WIDGET_PUBLIC_KEY === "dev_public_key_change_me") {
       throw new Error("Invalid env: WIDGET_PUBLIC_KEY must be set in production.");
+    }
+    if (!env.OPENAI_API_KEY) {
+      // OpenAI is optional; keep API usable for lead capture even if not configured.
     }
   }
   const corsOrigins = env.CORS_ORIGINS
