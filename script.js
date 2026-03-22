@@ -185,8 +185,8 @@ document.addEventListener('keydown', (event) => {
 (function () {
   const API_BASE = window.VIBE_CHATBOT_API_BASE || '';
   const WIDGET_KEY = window.VIBE_CHATBOT_WIDGET_KEY || '';
-  const FALLBACK_WIDGET_JS = '/assets/chatbot/widget.js';
-  const FALLBACK_WIDGET_CSS = '/assets/chatbot/widget.css';
+  const FALLBACK_WIDGET_JS = new URL('assets/chatbot/widget.js', document.baseURI).toString();
+  const FALLBACK_WIDGET_CSS = new URL('assets/chatbot/widget.css', document.baseURI).toString();
 
   if (!API_BASE || !WIDGET_KEY) return;
   if (window.VibeChatbot || document.getElementById('vibe-chatbot-embed')) return;
