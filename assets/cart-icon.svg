@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Giỏ hàng">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#3f7b4f"/>
+      <stop offset="100%" stop-color="#1f442b"/>
+    </radialGradient>
+  </defs>
+  <circle cx="128" cy="128" r="120" fill="url(#bg)"/>
+  <circle cx="128" cy="128" r="120" fill="none" stroke="#e9efd9" stroke-width="4" opacity="0.9"/>
+  <g fill="none" stroke="#bfe27a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 90h22l12 86h88l14-62H99"/>
+    <path d="M102 114h104"/>
+    <path d="M122 114v56"/>
+    <path d="M154 114v56"/>
+    <path d="M186 114v56"/>
+  </g>
+  <g fill="#bfe27a">
+    <circle cx="120" cy="194" r="12"/>
+    <circle cx="188" cy="194" r="12"/>
+  </g>
+</svg>
+

@@ -347,7 +347,7 @@ document.addEventListener('keydown', (event) => {
       btn.id = 'vibe-cart-btn';
       btn.type = 'button';
       btn.className = 'cart-btn';
-      btn.innerHTML = `Giỏ hàng <span id="vibe-cart-badge" class="cart-badge" hidden>0</span>`;
+      btn.innerHTML = `<img class="cart-icon" src="assets/cart-icon.svg" alt="" aria-hidden="true" /> Giỏ hàng <span id="vibe-cart-badge" class="cart-badge" hidden>0</span>`;
       btn.addEventListener('click', () => openCart());
       topbarWrap.appendChild(btn);
     }
