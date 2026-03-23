@@ -83,12 +83,18 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
 - Source-of-truth để sửa text: `vibe-chatbot/packages/widget/src/widget.js`
 - Sau khi sửa, cần rebuild widget và copy sang `assets/chatbot/widget.js` để GitHub Pages dùng bản mới.
 
-## Trạng thái hiện tại (tóm tắt)
-- Widget hiển thị tiếng Việt OK + có avatar tư vấn viên.
-- API đã fix CORS preflight (`OPTIONS`) và tránh crash/treo gây 502 bằng timeout + degraded mode.
-- Đã thêm favicon link để tránh 404 `/favicon.ico`.
+## Tiến độ (cập nhật: 2026-03-23)
+### Đã hoàn thành
+- [x] Website tĩnh (GitHub Pages) + các trang chính (`index.html`, `products.html`, `news.html`, `about.html`, `contact.html`).
+- [x] Widget nhúng hiển thị tiếng Việt + có avatar launcher (`assets/chatbot/agent.png`).
+- [x] Website ưu tiên load widget local: `assets/chatbot/widget.js` + `assets/chatbot/widget.css`.
+- [x] API chatbot (Render) có health check `GET /health`.
+- [x] API xử lý CORS preflight (`OPTIONS`) ổn định.
+- [x] API có timeout + chế độ **degraded/stateless** khi MongoDB lỗi để giảm 502.
+- [x] Đã thêm favicon link để tránh 404 `/favicon.ico`.
 
-## Gợi ý bước tiếp theo (nếu muốn nâng cấp tư vấn viên)
-- Soạn `OPENAI_INSTRUCTIONS` chuẩn (giọng điệu + quy trình hỏi nhu cầu + chốt SĐT/Zalo).
-- Tạo file “knowledge/FAQ” (Markdown) và tích hợp RAG (đọc tài liệu theo ngữ cảnh) để AI trả lời đúng sản phẩm/chính sách.
-
+### Việc cần làm tiếp (khuyến nghị)
+- [x] Soạn nội dung `OPENAI_INSTRUCTIONS` (giọng điệu + quy trình hỏi nhu cầu + chốt lead SĐT/Zalo).
+- [ ] Rà soát cấu hình Render env vars (đặc biệt: `CORS_ORIGINS`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
+- [x] Tạo knowledge base (Markdown) và nạp vào prompt để AI trả lời đúng sản phẩm/FAQ.
+- [ ] (Tuỳ chọn) Nâng cấp RAG (truy xuất theo ngữ cảnh) nếu knowledge lớn.

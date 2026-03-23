@@ -15,6 +15,10 @@ const EnvSchema = z.object({
   OPENAI_MAX_OUTPUT_TOKENS: z.coerce.number().int().min(16).max(4000).default(350),
   OPENAI_INSTRUCTIONS: z.string().default(""),
 
+  VIBE_KNOWLEDGE_PATH: z.string().default(""),
+  VIBE_KNOWLEDGE_TEXT: z.string().default(""),
+  VIBE_KNOWLEDGE_MAX_CHARS: z.coerce.number().int().min(0).max(20000).default(8000),
+
   MONGODB_URI: z
     .string()
     .min(1)

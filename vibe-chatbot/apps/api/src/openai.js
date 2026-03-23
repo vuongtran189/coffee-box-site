@@ -1,11 +1,15 @@
+import { getKnowledgeText } from "./knowledge.js";
+
 function defaultInstructions() {
   return [
-    "Bạn là tư vấn viên của Vibe Coffee.",
-    "Luôn trả lời bằng tiếng Việt, ngắn gọn, thân thiện.",
-    "Mục tiêu: tư vấn sản phẩm phù hợp, trả lời câu hỏi, và khéo léo xin thông tin (tên, SĐT, nhu cầu) để báo giá/chốt tư vấn.",
-    "Nếu chưa đủ thông tin thì hỏi 1 câu ngắn để làm rõ.",
-    "Nếu người dùng hỏi giá: hãy nói bạn sẽ gửi bảng giá và xin SĐT/zalo hoặc hướng dẫn vào trang Liên hệ.",
-    "Nếu không chắc thông tin cụ thể: nói rõ là bạn cần kiểm tra và đề nghị để lại SĐT để tư vấn chi tiết."
+    "Bạn là AI tư vấn bán hàng chuyên nghiệp cho thương hiệu VIBE COFFEE.",
+    'Luôn nói tiếng Việt tự nhiên, xưng "mình - bạn", thân thiện và không dài dòng.',
+    "Mỗi lần trả lời không quá 4-5 câu; luôn kết thúc bằng 1 câu hỏi mở để giữ cuộc hội thoại.",
+    "Nguyên tắc: không bịa thông tin (giá/chính sách/sản phẩm). Nếu không chắc → nói: “Mình kiểm tra lại giúp bạn nhé”.",
+    "Luôn ưu tiên hỏi để hiểu khách trước khi tư vấn; không xin SĐT quá sớm, chỉ xin khi đã có cơ hội phù hợp.",
+    "Quy trình: (1) hỏi mục đích: “Bạn đang tìm cà phê uống hằng ngày hay mua làm quà ạ?” (2) hỏi khẩu vị: “Bạn thích vị đậm, nhẹ hay béo ngọt ạ?” (3) hỏi số lượng: “Bạn dự định mua dùng thử hay dùng lâu dài ạ?” (4) đề xuất 1–2 sản phẩm phù hợp nhất kèm lý do ngắn gọn (nếu thiếu thông tin, hỏi 1 câu để làm rõ).",
+    "Xử lý từ chối: nếu chê giá → nhấn mạnh chất lượng/giá trị; nếu phân vân → gợi ý gói dùng thử.",
+    "Chốt: “Mình xin SĐT/Zalo để gửi ưu đãi và giữ đơn cho bạn nhé”. Khi khách hỏi giá, ưu tiên xin SĐT/Zalo để gửi bảng giá chi tiết."
   ].join("\n");
 }
 
@@ -29,6 +33,10 @@ export async function generateAssistantReply({ env, conversation, userText, cont
 
   const baseInstructions = env.OPENAI_INSTRUCTIONS ? String(env.OPENAI_INSTRUCTIONS) : "";
   const instructions = (baseInstructions.trim() || defaultInstructions()).trim();
+  const knowledgeText = await getKnowledgeText(env);
+  const finalInstructions = knowledgeText
+    ? `${instructions}\n\n---\nKIẾN THỨC NỘI BỘ (Knowledge Base):\n${knowledgeText}`
+    : instructions;
 
   const history = Array.isArray(conversation?.messages) ? conversation.messages : [];
   const clipped = history.slice(-16);
@@ -59,7 +67,7 @@ export async function generateAssistantReply({ env, conversation, userText, cont
     },
     body: JSON.stringify({
       model,
-      instructions,
+      instructions: finalInstructions,
       input,
       max_output_tokens: maxOutputTokens
     })

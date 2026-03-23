@@ -8,6 +8,7 @@ import { addConversationTags, appendMessage, createConversation, getConversation
 import { upsertLeadByPhone } from "../services/leads.js";
 import { requireWidgetKey } from "../auth.js";
 import { generateAssistantReply } from "../openai.js";
+import { generateFallbackReply } from "../fallback.js";
 
 export function v1Router({ env }) {
   const router = express.Router();
@@ -92,14 +93,14 @@ export function v1Router({ env }) {
         userText: text,
         context: { page_url: body?.context?.page_url || body?.page_url || null, extracted: { phones, tags: inferredTags } }
       });
-    } catch {
+    } catch (err) {
+      // Log to help diagnose issues in Render logs (401/429/timeouts, etc.)
+      console.error("openai_generateAssistantReply_failed", err?.message || err);
       assistantText = null;
     }
 
     if (!assistantText) {
-      assistantText = autoLeadId
-        ? "Cảm ơn bạn! Mình đã ghi nhận số điện thoại. Bạn cho mình xin thêm nhu cầu (uống hằng ngày / làm quà / dùng thử / đại lý) để tư vấn đúng nhất nhé?"
-        : "Dạ mình hỗ trợ bạn nhanh ạ. Bạn mua để uống hằng ngày, làm quà tặng, hay muốn dùng thử trước?";
+      assistantText = generateFallbackReply({ text, tags: inferredTags, phones });
     }
     if (db && convo) {
       await appendMessage(db, conversationId, { role: "assistant", text: assistantText, ts: new Date() });

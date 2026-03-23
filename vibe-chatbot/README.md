@@ -50,6 +50,19 @@ Then the API serves:
   - `MONGODB_URI` = your Atlas connection string
   - `WIDGET_PUBLIC_KEY` = a long random string (public, but used as a simple gate)
   - `CORS_ORIGINS` = your website domains (comma-separated), e.g. `https://coffee-box-site.pages.dev`
+  - `OPENAI_API_KEY` = OpenAI API key (optional)
+  - `OPENAI_INSTRUCTIONS` = tư vấn viên prompt (copy từ `vibe-chatbot/OPENAI_INSTRUCTIONS.txt`)
+
+### Knowledge base (tuỳ chọn)
+- Mặc định API sẽ nạp knowledge từ `vibe-chatbot/knowledge/vibe-coffee.md` để AI trả lời đúng nội dung sản phẩm/FAQ.
+- Có thể override bằng env var:
+  - `VIBE_KNOWLEDGE_TEXT` (dán trực tiếp nội dung)
+  - `VIBE_KNOWLEDGE_PATH` (đường dẫn file knowledge trên server/repo)
+  - `VIBE_KNOWLEDGE_MAX_CHARS` (giới hạn độ dài, mặc định 8000)
+
+### Khi OpenAI lỗi (fallback)
+- Nếu OpenAI không cấu hình hoặc lỗi (401/429/timeout), API sẽ tự trả lời theo kịch bản tư vấn cơ bản (không lặp câu hỏi Bước 1 khi khách đã trả lời).
+- Xem Render Logs với prefix: `openai_generateAssistantReply_failed` để biết lý do lỗi.
 
 ### 3) Embed on website
 Use this snippet on your website (replace values):
