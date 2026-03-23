@@ -13,6 +13,14 @@ function defaultInstructions() {
   ].join("\n");
 }
 
+function renderInstructionsTemplate(template, { knowledgeText, userText }) {
+  const t = String(template || "");
+  if (!t.includes("{{knowledge_chunks}}") && !t.includes("{{user_message}}")) return null;
+  const kb = knowledgeText && String(knowledgeText).trim() ? String(knowledgeText).trim() : "(Không có dữ liệu trong CONTEXT)";
+  const um = userText != null ? String(userText) : "";
+  return t.replaceAll("{{knowledge_chunks}}", kb).replaceAll("{{user_message}}", um).trim();
+}
+
 function messagesToResponsesInput(messages) {
   const input = [];
   for (const m of messages || []) {
@@ -34,9 +42,12 @@ export async function generateAssistantReply({ env, conversation, userText, cont
   const baseInstructions = env.OPENAI_INSTRUCTIONS ? String(env.OPENAI_INSTRUCTIONS) : "";
   const instructions = (baseInstructions.trim() || defaultInstructions()).trim();
   const knowledgeText = await getKnowledgeText(env);
-  const finalInstructions = knowledgeText
-    ? `${instructions}\n\n---\nKIẾN THỨC NỘI BỘ (Knowledge Base):\n${knowledgeText}`
-    : instructions;
+  const rendered = renderInstructionsTemplate(instructions, { knowledgeText, userText });
+  const finalInstructions = rendered
+    ? rendered
+    : knowledgeText
+      ? `${instructions}\n\n---\nKIẾN THỨC NỘI BỘ (Knowledge Base):\n${knowledgeText}`
+      : instructions;
 
   const history = Array.isArray(conversation?.messages) ? conversation.messages : [];
   const clipped = history.slice(-16);
