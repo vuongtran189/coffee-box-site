@@ -51,7 +51,11 @@ Trong Render service `vibe-chatbot-api`, cần set (không commit secrets vào g
 Tuỳ chọn:
 - `OPENAI_MODEL` (default: `gpt-4o-mini`)
 - `OPENAI_MAX_OUTPUT_TOKENS` (default: 350)
-- `OPENAI_INSTRUCTIONS`: “system prompt” cho tư vấn viên (khuyến nghị set để giọng điệu chuyên nghiệp + quy trình chốt lead)
+- `OPENAI_INSTRUCTIONS`: “system prompt” cho tư vấn viên
+  - Hỗ trợ placeholder: `{{knowledge_chunks}}`, `{{user_message}}` (API sẽ tự render trước khi gọi OpenAI)
+- `VIBE_KNOWLEDGE_TEXT`: dán trực tiếp knowledge base (Markdown/text) để AI bám theo nội dung sản phẩm/FAQ
+- `VIBE_KNOWLEDGE_MAX_CHARS` (default: 8000): giới hạn độ dài knowledge đưa vào prompt
+- `VIBE_KNOWLEDGE_PATH`: đường dẫn file knowledge trên server/repo (nếu không dùng `VIBE_KNOWLEDGE_TEXT`)
 
 ## Local dev (tối thiểu)
 ### Website
@@ -78,6 +82,7 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
 - Render Logs khi gửi tin nhắn:
   - Nếu `openai_error_401` → sai key/thiếu quyền
   - Nếu `openai_error_429` → bị rate limit
+  - Nếu thấy `openai_generateAssistantReply_failed` → OpenAI đang lỗi/timeout, API sẽ dùng fallback
 
 ### 5) “Bể tiếng Việt” trong widget?
 - Source-of-truth để sửa text: `vibe-chatbot/packages/widget/src/widget.js`
@@ -98,3 +103,15 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
 - [ ] Rà soát cấu hình Render env vars (đặc biệt: `CORS_ORIGINS`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
 - [x] Tạo knowledge base (Markdown) và nạp vào prompt để AI trả lời đúng sản phẩm/FAQ.
 - [ ] (Tuỳ chọn) Nâng cấp RAG (truy xuất theo ngữ cảnh) nếu knowledge lớn.
+
+## Nhật ký thay đổi (để quay lại nhanh)
+### 2026-03-23
+- Thêm prompt template + file tham chiếu:
+  - `vibe-chatbot/OPENAI_INSTRUCTIONS.txt` (dùng placeholder `{{knowledge_chunks}}`, `{{user_message}}`)
+  - `vibe-chatbot/knowledge/vibe-coffee.md` (knowledge base)
+- API:
+  - Nạp knowledge vào prompt + hỗ trợ render placeholder: `vibe-chatbot/apps/api/src/openai.js`
+  - Fallback trả lời theo flow (không lặp Bước 1) khi OpenAI lỗi/không cấu hình: `vibe-chatbot/apps/api/src/fallback.js`
+  - Log chẩn đoán lỗi OpenAI: prefix `openai_generateAssistantReply_failed` trong Render Logs
+- Env vars liên quan knowledge: `VIBE_KNOWLEDGE_TEXT`, `VIBE_KNOWLEDGE_PATH`, `VIBE_KNOWLEDGE_MAX_CHARS`
+- Git commits đã push lên `main`: `725f535`, `2a18970` (Render cần redeploy để nhận thay đổi)
