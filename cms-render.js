@@ -51,6 +51,14 @@ function normalizeText(value) {
     .trim();
 }
 
+function slugify(value) {
+  const t = normalizeText(value);
+  return t
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+
 function detectProductCategory(item) {
   const normalizedCategory = normalizeText(item?.category);
   if (normalizedCategory.includes('combo')) return 'combo';
@@ -180,7 +188,9 @@ function renderProducts(data) {
     grid.innerHTML = visibleItems.map((item) => {
       const imageClass = getProductImageClass(item);
       const imageSrc = normalizeAssetUrl(item?.image);
-      return `<article class="product-card"><button class="product-image-zoom" type="button" aria-label="Phóng to ảnh ${item.title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${item.title || ''}" /></button><h3>${item.title || ''}</h3><p>${item.subtitle || ''}</p><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></article>`;
+      const slug = item?.slug ? slugify(item.slug) : slugify(item?.title);
+      const detailLink = slug ? `product.html?slug=${encodeURIComponent(slug)}` : 'products.html';
+      return `<article class="product-card"><a class="product-card__media" href="${detailLink}" aria-label="Xem chi tiết ${item.title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${item.title || ''}" /></a><h3><a class="product-card__titlelink" href="${detailLink}">${item.title || ''}</a></h3><p>${item.subtitle || ''}</p><div class="product-card__actions"><a class="btn btn-ghost" href="${detailLink}">Xem chi tiết</a><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></div></article>`;
     }).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
     animateCards(Array.from(grid.querySelectorAll('.product-card')));
@@ -202,6 +212,43 @@ function renderProducts(data) {
         renderProductItems(filter);
       });
     });
+  }
+}
+
+function renderProductDetail(data) {
+  const p = data.products || {};
+  const allItems = Array.isArray(p.items) ? p.items : [];
+  const params = new URLSearchParams(window.location.search || '');
+  const slug = String(params.get('slug') || '').trim();
+
+  const item = allItems.find((x) => slugify(x?.slug || x?.title) === slug) || null;
+  const title = item?.title || 'Sản phẩm';
+
+  setText('product-breadcrumb', title);
+  setText('product-eyebrow', p.eyebrow || 'SẢN PHẨM');
+  setText('product-title', title);
+  setText('product-subtitle', item?.subtitle || '');
+  setImage('product-image', item?.image || '', title);
+
+  if (title) document.title = `Vibe Coffee | ${title}`;
+
+  const descEl = document.getElementById('product-description');
+  if (descEl) {
+    const desc = item?.description || item?.detail || '';
+    if (desc) {
+      descEl.innerHTML = `<p>${String(desc).replace(/\n/g, '<br />')}</p>`;
+    } else if (!item) {
+      descEl.innerHTML = `<p>Không tìm thấy sản phẩm. Bạn quay lại trang <a href="products.html">Sản phẩm</a> để chọn lại nhé.</p>`;
+    } else {
+      descEl.innerHTML = `<p>Mô tả chi tiết đang được cập nhật. Bạn bấm “Nhận báo giá / Tư vấn” để mình hỗ trợ nhanh theo nhu cầu của bạn nhé.</p>`;
+    }
+  }
+
+  const hiWrap = document.getElementById('product-highlights');
+  const highlights = Array.isArray(item?.highlights) ? item.highlights : [];
+  if (hiWrap && highlights.length) {
+    hiWrap.hidden = false;
+    hiWrap.innerHTML = `<h2>Điểm nổi bật</h2><ul>${highlights.map((h) => `<li>${h}</li>`).join('')}</ul>`;
   }
 }
 
@@ -252,6 +299,7 @@ function renderGlobal(data) {
   if (page === 'home') renderHome(data);
   if (page === 'about') renderAbout(data);
   if (page === 'products') renderProducts(data);
+  if (page === 'product-detail') renderProductDetail(data);
   if (page === 'news') renderNews(data);
   if (page === 'contact') renderContact(data);
 })();

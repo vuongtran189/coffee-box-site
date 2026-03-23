@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibe Coffee | Sản phẩm</title>
+  <meta name="description" content="Chi tiết sản phẩm Vibe Coffee." />
+  <link rel="icon" href="assets/logo-vibe-coffee.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="product-detail">
+  <div class="page-glow"></div>
+  <header class="topbar">
+    <div class="container topbar-wrap">
+      <a class="brand" href="index.html" aria-label="Vibe Coffee"><img class="brand-logo" src="assets/logo-vibe-coffee.png" alt="Logo Vibe Coffee" /></a>
+      <nav class="nav-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></nav>
+      <a class="btn btn-primary" href="contact.html">Nhận báo giá</a>
+    </div>
+  </header>
+
+  <main class="container page-main reveal">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <span aria-hidden="true">/</span>
+      <a href="products.html">Sản phẩm</a>
+      <span aria-hidden="true">/</span>
+      <span id="product-breadcrumb">Chi tiết</span>
+    </nav>
+
+    <section class="product-detail">
+      <div class="product-detail__media">
+        <button class="product-image-zoom" type="button" aria-label="Phóng to ảnh sản phẩm">
+          <img id="product-image" class="product-detail__image" src="assets/hero-box-cutout.png" alt="Sản phẩm" />
+        </button>
+      </div>
+
+      <div class="product-detail__content">
+        <p id="product-eyebrow" class="eyebrow">SẢN PHẨM</p>
+        <h1 id="product-title" class="product-detail__title">Đang tải...</h1>
+        <p id="product-subtitle" class="product-detail__subtitle"></p>
+
+        <div id="product-description" class="product-detail__desc"></div>
+
+        <div id="product-highlights" class="product-detail__highlights" hidden></div>
+
+        <div class="product-detail__cta">
+          <a class="btn btn-primary" href="contact.html">Nhận báo giá / Tư vấn</a>
+          <a class="btn btn-ghost" href="products.html">Xem sản phẩm khác</a>
+        </div>
+
+        <p class="product-detail__note">
+          Nếu bạn cần giá sỉ/đại lý hoặc combo theo nhu cầu, bấm “Nhận báo giá” để mình tư vấn nhanh nhé.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer-grid"><div><p><strong data-brand-name>Vibe Coffee</strong></p><p data-site-tagline>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div><div class="footer-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></div></div></footer>
+
+  <script src="cms-render.js"></script>
+  <script>
+    window.VIBE_CHATBOT_API_BASE = "https://vibe-chatbot-api.onrender.com";
+    window.VIBE_CHATBOT_WIDGET_KEY = "Vibe_widget_9e2f6a0c7d3e1f0a4b9f2c8a6c9d2e5f8a1b7c3d";
+    window.VIBE_CHATBOT_LAUNCHER_ICON_URL = new URL("assets/chatbot/agent.png", document.baseURI).toString();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
+
