@@ -190,7 +190,11 @@ function renderProducts(data) {
       const imageSrc = normalizeAssetUrl(item?.image);
       const slug = item?.slug ? slugify(item.slug) : slugify(item?.title);
       const detailLink = slug ? `product.html?slug=${encodeURIComponent(slug)}` : 'products.html';
-      return `<article class="product-card"><a class="product-card__media" href="${detailLink}" aria-label="Xem chi tiết ${item.title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${item.title || ''}" /></a><h3><a class="product-card__titlelink" href="${detailLink}">${item.title || ''}</a></h3><p>${item.subtitle || ''}</p><div class="product-card__actions"><a class="btn btn-ghost" href="${detailLink}">Xem chi tiết</a><a class="btn btn-ghost" href="${item.link || 'contact.html'}">Liên hệ</a></div></article>`;
+      const id = slug || '';
+      const title = item?.title || '';
+      const subtitle = item?.subtitle || '';
+      const price = item?.price != null ? String(item.price) : '';
+      return `<article class="product-card"><a class="product-card__media" href="${detailLink}" aria-label="Xem chi tiết ${title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${title}" /></a><h3><a class="product-card__titlelink" href="${detailLink}">${title}</a></h3><p>${subtitle}</p><div class="product-card__actions"><a class="btn btn-ghost" href="${detailLink}">Xem chi tiết</a><button class="btn btn-primary btn-cart" type="button" data-add-to-cart="1" data-product-id="${encodeURIComponent(id)}" data-product-title="${encodeURIComponent(title)}" data-product-subtitle="${encodeURIComponent(subtitle)}" data-product-image="${encodeURIComponent(imageSrc)}" data-product-price="${encodeURIComponent(price)}">Thêm vào giỏ</button></div></article>`;
     }).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
     animateCards(Array.from(grid.querySelectorAll('.product-card')));
@@ -249,6 +253,18 @@ function renderProductDetail(data) {
   if (hiWrap && highlights.length) {
     hiWrap.hidden = false;
     hiWrap.innerHTML = `<h2>Điểm nổi bật</h2><ul>${highlights.map((h) => `<li>${h}</li>`).join('')}</ul>`;
+  }
+
+  const addBtn = document.getElementById('product-add-to-cart');
+  if (addBtn instanceof HTMLElement) {
+    const id = slug || slugify(item?.slug || item?.title) || '';
+    addBtn.dataset.addToCart = '1';
+    addBtn.dataset.productId = id;
+    addBtn.dataset.productTitle = item?.title || '';
+    addBtn.dataset.productSubtitle = item?.subtitle || '';
+    addBtn.dataset.productImage = normalizeAssetUrl(item?.image) || '';
+    addBtn.dataset.productPrice = item?.price != null ? String(item.price) : '';
+    addBtn.toggleAttribute('disabled', !item);
   }
 }
 

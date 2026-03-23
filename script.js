@@ -242,3 +242,285 @@ document.addEventListener('keydown', (event) => {
   });
 })();
 
+// --- Simple cart (localStorage) ---
+(function () {
+  const CART_KEY = 'vibe_cart_v1';
+  const CHECKOUT_DRAFT_KEY = 'vibe_checkout_draft_v1';
+
+  function safeDecode(value) {
+    try {
+      return decodeURIComponent(String(value || ''));
+    } catch {
+      return String(value || '');
+    }
+  }
+
+  function readCart() {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      const items = Array.isArray(parsed?.items) ? parsed.items : [];
+      return { items: items.filter((x) => x && x.id && x.qty > 0) };
+    } catch {
+      return { items: [] };
+    }
+  }
+
+  function writeCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    window.dispatchEvent(new CustomEvent('vibe_cart_updated'));
+  }
+
+  function cartCount(cart) {
+    return (cart?.items || []).reduce((sum, it) => sum + Number(it.qty || 0), 0);
+  }
+
+  function upsertItem(item, qtyDelta = 1) {
+    const cart = readCart();
+    const idx = cart.items.findIndex((x) => x.id === item.id);
+    if (idx >= 0) {
+      cart.items[idx].qty = Math.max(1, Number(cart.items[idx].qty || 1) + qtyDelta);
+    } else {
+      cart.items.unshift({ ...item, qty: Math.max(1, Number(qtyDelta || 1)) });
+    }
+    writeCart(cart);
+    return cart;
+  }
+
+  function setQty(id, qty) {
+    const cart = readCart();
+    const idx = cart.items.findIndex((x) => x.id === id);
+    if (idx < 0) return cart;
+    const nextQty = Number(qty || 0);
+    if (!Number.isFinite(nextQty) || nextQty <= 0) {
+      cart.items.splice(idx, 1);
+    } else {
+      cart.items[idx].qty = Math.min(99, Math.max(1, Math.round(nextQty)));
+    }
+    writeCart(cart);
+    return cart;
+  }
+
+  function removeItem(id) {
+    const cart = readCart();
+    const idx = cart.items.findIndex((x) => x.id === id);
+    if (idx >= 0) cart.items.splice(idx, 1);
+    writeCart(cart);
+    return cart;
+  }
+
+  function ensureCartUi() {
+    if (document.getElementById('vibe-cart-drawer')) return;
+
+    const drawer = document.createElement('div');
+    drawer.id = 'vibe-cart-drawer';
+    drawer.className = 'cart-drawer';
+    drawer.hidden = true;
+    drawer.innerHTML = `
+      <div class="cart-backdrop" data-cart-close="1" aria-hidden="true"></div>
+      <aside class="cart-panel" role="dialog" aria-modal="true" aria-label="Giỏ hàng">
+        <div class="cart-header">
+          <h2>Giỏ hàng</h2>
+          <button class="cart-close" type="button" data-cart-close="1" aria-label="Đóng">×</button>
+        </div>
+        <div id="vibe-cart-items" class="cart-items"></div>
+        <div class="cart-footer">
+          <div class="cart-summary">
+            <span id="vibe-cart-summary">0 sản phẩm</span>
+            <span id="vibe-cart-total"></span>
+          </div>
+          <div class="cart-actions">
+            <button class="btn btn-primary" type="button" id="vibe-cart-checkout">Gửi đơn đặt hàng</button>
+            <button class="btn btn-ghost" type="button" data-cart-close="1">Tiếp tục xem</button>
+          </div>
+          <div class="cart-summary" style="font-weight:600;">
+            <span>Giá sẽ được xác nhận khi tư vấn.</span>
+          </div>
+        </div>
+      </aside>
+    `;
+    document.body.appendChild(drawer);
+
+    const topbarWrap = document.querySelector('.topbar-wrap');
+    if (topbarWrap && !document.getElementById('vibe-cart-btn')) {
+      const btn = document.createElement('button');
+      btn.id = 'vibe-cart-btn';
+      btn.type = 'button';
+      btn.className = 'cart-btn';
+      btn.innerHTML = `Giỏ hàng <span id="vibe-cart-badge" class="cart-badge" hidden>0</span>`;
+      btn.addEventListener('click', () => openCart());
+      topbarWrap.appendChild(btn);
+    }
+
+    drawer.addEventListener('click', (event) => {
+      const el = event.target instanceof Element ? event.target : null;
+      if (!el) return;
+      if (el.closest('[data-cart-close="1"]')) closeCart();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeCart();
+    });
+
+    const checkoutBtn = drawer.querySelector('#vibe-cart-checkout');
+    checkoutBtn?.addEventListener('click', () => {
+      const cart = readCart();
+      if (!cart.items.length) return;
+      const lines = cart.items.map((it, idx) => `${idx + 1}) ${it.title}${it.subtitle ? ` — ${it.subtitle}` : ''} x${it.qty}`);
+      const draft = {
+        need: 'Đặt hàng online',
+        message: `Mình muốn đặt các sản phẩm sau:\n${lines.join('\n')}\n\nNhờ Vibe Coffee gọi/Zalo xác nhận giúp mình nhé.`,
+        created_at: Date.now()
+      };
+      localStorage.setItem(CHECKOUT_DRAFT_KEY, JSON.stringify(draft));
+      window.location.href = 'contact.html?from_cart=1';
+    });
+
+    renderCart();
+  }
+
+  function renderCart() {
+    const cart = readCart();
+    const itemsWrap = document.getElementById('vibe-cart-items');
+    const summaryEl = document.getElementById('vibe-cart-summary');
+    const badge = document.getElementById('vibe-cart-badge');
+    if (badge) {
+      const c = cartCount(cart);
+      badge.hidden = c <= 0;
+      badge.textContent = String(c);
+    }
+
+    if (summaryEl) summaryEl.textContent = `${cart.items.length} sản phẩm`;
+    if (!itemsWrap) return;
+
+    if (!cart.items.length) {
+      itemsWrap.innerHTML = `<div class="cart-empty">Giỏ hàng đang trống. Bạn chọn sản phẩm rồi bấm “Thêm vào giỏ” nhé.</div>`;
+      return;
+    }
+
+    itemsWrap.innerHTML = cart.items.map((it) => {
+      const img = it.image ? String(it.image) : 'assets/hero-box-cutout.png';
+      const title = String(it.title || '');
+      const subtitle = String(it.subtitle || '');
+      return `
+        <div class="cart-item" data-cart-item="${encodeURIComponent(it.id)}">
+          <img src="${img}" alt="${title}" />
+          <div>
+            <h3>${title}</h3>
+            ${subtitle ? `<p>${subtitle}</p>` : `<p></p>`}
+            <div class="cart-row">
+              <div class="cart-qty" aria-label="Số lượng">
+                <button type="button" data-qty-minus="1" aria-label="Giảm">−</button>
+                <span>${it.qty}</span>
+                <button type="button" data-qty-plus="1" aria-label="Tăng">+</button>
+              </div>
+              <button class="cart-remove" type="button" data-remove="1">Xoá</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function openCart() {
+    ensureCartUi();
+    const drawer = document.getElementById('vibe-cart-drawer');
+    if (!drawer) return;
+    drawer.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    const drawer = document.getElementById('vibe-cart-drawer');
+    if (!drawer || drawer.hidden) return;
+    drawer.hidden = true;
+    document.body.style.removeProperty('overflow');
+  }
+
+  function attachCartActions() {
+    document.addEventListener('click', (event) => {
+      const el = event.target instanceof Element ? event.target : null;
+      if (!el) return;
+
+      const addBtn = el.closest('[data-add-to-cart="1"]');
+      if (addBtn instanceof HTMLElement) {
+        const id = safeDecode(addBtn.dataset.productId || '');
+        const title = safeDecode(addBtn.dataset.productTitle || '');
+        if (!id || !title) return;
+
+        const item = {
+          id,
+          title,
+          subtitle: safeDecode(addBtn.dataset.productSubtitle || ''),
+          image: safeDecode(addBtn.dataset.productImage || ''),
+          price: safeDecode(addBtn.dataset.productPrice || '')
+        };
+        upsertItem(item, 1);
+        openCart();
+        return;
+      }
+
+      const itemEl = el.closest('[data-cart-item]');
+      if (itemEl instanceof HTMLElement) {
+        const id = safeDecode(itemEl.dataset.cartItem || '');
+        if (!id) return;
+        if (el.closest('[data-remove="1"]')) {
+          removeItem(id);
+          renderCart();
+          return;
+        }
+        if (el.closest('[data-qty-minus="1"]')) {
+          const cart = readCart();
+          const current = cart.items.find((x) => x.id === id)?.qty || 1;
+          setQty(id, Number(current) - 1);
+          renderCart();
+          return;
+        }
+        if (el.closest('[data-qty-plus="1"]')) {
+          const cart = readCart();
+          const current = cart.items.find((x) => x.id === id)?.qty || 1;
+          setQty(id, Number(current) + 1);
+          renderCart();
+          return;
+        }
+      }
+    });
+
+    window.addEventListener('vibe_cart_updated', () => renderCart());
+  }
+
+  function prefillContactFromCart() {
+    if (document.body?.dataset?.page !== 'contact') return;
+    const params = new URLSearchParams(window.location.search || '');
+    if (params.get('from_cart') !== '1') return;
+
+    let draft = null;
+    try {
+      draft = JSON.parse(localStorage.getItem(CHECKOUT_DRAFT_KEY) || 'null');
+    } catch {
+      draft = null;
+    }
+    if (!draft?.message) return;
+
+    const form = document.querySelector('form.contact-form-card');
+    if (!form) return;
+
+    const need = form.querySelector('input[name="need"]');
+    const message = form.querySelector('textarea[name="message"]');
+    if (need && !need.value) need.value = String(draft.need || 'Đặt hàng online');
+    if (message && !message.value) message.value = String(draft.message || '');
+
+    localStorage.removeItem(CHECKOUT_DRAFT_KEY);
+  }
+
+  ensureCartUi();
+  attachCartActions();
+  prefillContactFromCart();
+
+  window.VibeCart = {
+    open: openCart,
+    close: closeCart,
+    get: readCart
+  };
+})();
+
