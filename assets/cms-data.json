@@ -4,7 +4,13 @@
     "tagline": "Trọn vị cà phê - Trọn từng khoảnh khắc.",
     "hotline": "0908858522",
     "email": "vibecoffee.vn@gmail.com",
-    "address": "80/17/137 Dương Quảng Hàm, Phường An Nhơn, TP Hồ Chí Minh, Việt Nam"
+    "address": "80/17/137 Dương Quảng Hàm, Phường An Nhơn, TP Hồ Chí Minh, Việt Nam",
+    "payments": {
+      "bank_name": "",
+      "bank_account_number": "",
+      "bank_account_name": "",
+      "momo_phone": ""
+    }
   },
   "home": {
     "slides": [
