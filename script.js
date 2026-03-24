@@ -366,14 +366,7 @@ document.addEventListener('keydown', (event) => {
     checkoutBtn?.addEventListener('click', () => {
       const cart = readCart();
       if (!cart.items.length) return;
-      const lines = cart.items.map((it, idx) => `${idx + 1}) ${it.title}${it.subtitle ? ` — ${it.subtitle}` : ''} x${it.qty}`);
-      const draft = {
-        need: 'Đặt hàng online',
-        message: `Mình muốn đặt các sản phẩm sau:\n${lines.join('\n')}\n\nNhờ Vibe Coffee gọi/Zalo xác nhận giúp mình nhé.`,
-        created_at: Date.now()
-      };
-      localStorage.setItem(CHECKOUT_DRAFT_KEY, JSON.stringify(draft));
-      window.location.href = 'contact.html?from_cart=1';
+      window.location.href = 'checkout.html';
     });
 
     renderCart();
@@ -513,9 +506,132 @@ document.addEventListener('keydown', (event) => {
     localStorage.removeItem(CHECKOUT_DRAFT_KEY);
   }
 
+  function getCmsPayments() {
+    const data = window.VibeCmsData || null;
+    const s = data && typeof data === 'object' ? data.site || {} : {};
+    const payments = s && typeof s === 'object' ? s.payments || {} : {};
+    const hotline = s && typeof s.hotline === 'string' ? s.hotline : '';
+    return { payments, hotline };
+  }
+
+  function renderCheckoutCart(cart) {
+    const wrap = document.getElementById('checkout-cart');
+    if (!wrap) return;
+    if (!cart.items.length) {
+      wrap.innerHTML = `<div class="cart-empty">Giỏ hàng đang trống. Bạn quay lại <a href="products.html">Sản phẩm</a> để chọn nhé.</div>`;
+      return;
+    }
+    wrap.innerHTML = cart.items.map((it) => {
+      const img = it.image ? String(it.image) : 'assets/hero-box-cutout.png';
+      const title = String(it.title || '');
+      const subtitle = String(it.subtitle || '');
+      return `<div class="checkout-item"><img src="${img}" alt="${title}" /><div><strong>${title}</strong>${subtitle ? `<div class="checkout-sub">${subtitle}</div>` : ''}<div class="checkout-sub">Số lượng: <strong>${it.qty}</strong></div></div></div>`;
+    }).join('');
+  }
+
+  function setPayInstructions(method) {
+    const box = document.getElementById('pay-instructions');
+    if (!box) return;
+    const { payments, hotline } = getCmsPayments();
+
+    if (method === 'COD') {
+      box.innerHTML = `<p>COD: bạn thanh toán khi nhận hàng. Vibe Coffee sẽ gọi xác nhận trước khi gửi.</p>`;
+      return;
+    }
+
+    if (method === 'BANK') {
+      const bankName = String(payments.bank_name || '').trim();
+      const accountNo = String(payments.bank_account_number || '').trim();
+      const accountName = String(payments.bank_account_name || '').trim();
+      if (!bankName || !accountNo || !accountName) {
+        box.innerHTML = `<p>Thông tin chuyển khoản đang được cập nhật. Mình kiểm tra lại giúp bạn nhé${hotline ? ` (hoặc gọi ${hotline})` : ''}.</p>`;
+        return;
+      }
+      box.innerHTML = `<p>Chuyển khoản theo thông tin:</p><ul><li>Ngân hàng: <strong>${bankName}</strong></li><li>Số TK: <strong>${accountNo}</strong></li><li>Chủ TK: <strong>${accountName}</strong></li></ul><p>Sau khi gửi đơn, Vibe Coffee sẽ nhắn xác nhận và hướng dẫn nội dung chuyển khoản.</p>`;
+      return;
+    }
+
+    if (method === 'MOMO') {
+      const momoPhone = String(payments.momo_phone || '').trim();
+      if (!momoPhone) {
+        box.innerHTML = `<p>Thông tin MoMo đang được cập nhật. Mình kiểm tra lại giúp bạn nhé${hotline ? ` (hoặc gọi ${hotline})` : ''}.</p>`;
+        return;
+      }
+      box.innerHTML = `<p>MoMo: chuyển tới SĐT <strong>${momoPhone}</strong>. Sau khi gửi đơn, Vibe Coffee sẽ nhắn xác nhận và hướng dẫn nội dung chuyển khoản.</p>`;
+      return;
+    }
+
+    box.innerHTML = '';
+  }
+
+  function initCheckoutPage() {
+    if (document.body?.dataset?.page !== 'checkout') return;
+
+    const cart = readCart();
+    renderCheckoutCart(cart);
+
+    const form = document.getElementById('checkout-form');
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const method = form.querySelector('input[name="pay_method"]:checked')?.value || 'COD';
+    setPayInstructions(method);
+    form.addEventListener('change', () => {
+      const m = form.querySelector('input[name="pay_method"]:checked')?.value || 'COD';
+      setPayInstructions(m);
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!cart.items.length) return;
+
+      const button = form.querySelector('button[type="submit"]');
+      const originalText = button?.textContent || 'Gửi đơn';
+      const data = new FormData(form);
+
+      const payMethod = String(data.get('pay_method') || 'COD');
+      const address = String(data.get('address') || '').trim();
+      const note = String(data.get('message') || '').trim();
+      const lines = cart.items.map((it, idx) => `${idx + 1}) ${it.title}${it.subtitle ? ` — ${it.subtitle}` : ''} x${it.qty}`);
+      const composed = [
+        `Đơn hàng:`,
+        ...lines,
+        '',
+        `Thanh toán: ${payMethod === 'BANK' ? 'Chuyển khoản' : payMethod === 'MOMO' ? 'MoMo' : 'COD'}`,
+        `Địa chỉ: ${address}`,
+        note ? `Ghi chú: ${note}` : null
+      ].filter(Boolean).join('\n');
+
+      data.set('need', `Đặt hàng online - ${payMethod}`);
+      data.set('message', composed);
+      const tsEl = form.querySelector('input[name="form_ts"]');
+      if (tsEl && !tsEl.value) tsEl.value = String(Date.now());
+
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Đang gửi...';
+      }
+
+      try {
+        const res = await fetch('/lead', { method: 'POST', body: data });
+        const json = await res.json().catch(() => null);
+        if (!res.ok) throw new Error(json?.error || 'Gửi thất bại');
+
+        if (button) button.textContent = 'Đã gửi đơn';
+        writeCart({ items: [] });
+      } catch (err) {
+        if (button) {
+          button.disabled = false;
+          button.textContent = originalText;
+        }
+        alert('Chưa gửi được. Vui lòng thử lại hoặc gọi hotline.');
+      }
+    });
+  }
+
   ensureCartUi();
   attachCartActions();
   prefillContactFromCart();
+  initCheckoutPage();
 
   window.VibeCart = {
     open: openCart,

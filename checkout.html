@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibe Coffee | Thanh toán</title>
+  <meta name="description" content="Xác nhận đơn hàng và chọn phương thức thanh toán (COD, chuyển khoản, MoMo)." />
+  <link rel="icon" href="assets/logo-vibe-coffee.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="checkout">
+  <div class="page-glow"></div>
+  <header class="topbar">
+    <div class="container topbar-wrap">
+      <a class="brand" href="index.html" aria-label="Vibe Coffee"><img class="brand-logo" src="assets/logo-vibe-coffee.png" alt="Logo Vibe Coffee" /></a>
+      <nav class="nav-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></nav>
+      <a class="btn btn-primary" href="contact.html">Nhận báo giá</a>
+    </div>
+  </header>
+
+  <main class="container page-main reveal">
+    <section class="page-hero">
+      <p class="eyebrow">THANH TOÁN</p>
+      <h1>Xác nhận đơn hàng</h1>
+      <p>Chọn phương thức thanh toán và để lại thông tin để Vibe Coffee xác nhận đơn.</p>
+    </section>
+
+    <section class="checkout-layout">
+      <div class="checkout-card">
+        <h2>Đơn hàng của bạn</h2>
+        <div id="checkout-cart" class="checkout-cart"></div>
+        <p class="checkout-muted">Giá/khuyến mãi sẽ được xác nhận khi tư vấn (nếu bạn chưa set giá trên sản phẩm).</p>
+      </div>
+
+      <form id="checkout-form" class="contact-form-card">
+        <h2>Thông tin nhận hàng</h2>
+        <input name="name" type="text" placeholder="Họ và tên" autocomplete="name" required />
+        <input name="phone" type="tel" placeholder="Số điện thoại" autocomplete="tel" required />
+        <input name="email" type="email" placeholder="Email (tuỳ chọn)" autocomplete="email" />
+        <input name="address" type="text" placeholder="Địa chỉ nhận hàng" autocomplete="street-address" required />
+
+        <div class="pay-box">
+          <p class="pay-title">Phương thức thanh toán</p>
+          <label class="pay-opt"><input type="radio" name="pay_method" value="COD" checked /> COD (nhận hàng trả tiền)</label>
+          <label class="pay-opt"><input type="radio" name="pay_method" value="BANK" /> Chuyển khoản ngân hàng</label>
+          <label class="pay-opt"><input type="radio" name="pay_method" value="MOMO" /> MoMo</label>
+          <div id="pay-instructions" class="pay-instructions"></div>
+        </div>
+
+        <input name="need" type="hidden" value="Đặt hàng online" />
+        <textarea name="message" placeholder="Ghi chú thêm (tuỳ chọn)" rows="4"></textarea>
+        <input name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:1px;width:1px;opacity:0;" />
+        <input name="form_ts" type="hidden" value="" />
+        <input name="page" type="hidden" value="checkout" />
+        <button class="btn btn-primary" type="submit">Gửi đơn</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer-grid"><div><p><strong data-brand-name>Vibe Coffee</strong></p><p data-site-tagline>Trọn vị cà phê - Trọn từng khoảnh khắc.</p></div><div class="footer-links"><a href="index.html">Trang chủ</a><a href="about.html">Giới thiệu</a><a href="products.html">Sản phẩm</a><a href="news.html">Tin tức</a><a href="contact.html">Liên hệ</a></div></div></footer>
+
+  <script src="cms-render.js"></script>
+  <script>
+    window.VIBE_CHATBOT_API_BASE = "https://vibe-chatbot-api.onrender.com";
+    window.VIBE_CHATBOT_WIDGET_KEY = "Vibe_widget_9e2f6a0c7d3e1f0a4b9f2c8a6c9d2e5f8a1b7c3d";
+    window.VIBE_CHATBOT_LAUNCHER_ICON_URL = new URL("assets/chatbot/agent.png", document.baseURI).toString();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
+

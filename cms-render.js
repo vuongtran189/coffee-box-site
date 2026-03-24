@@ -308,6 +308,7 @@ function renderGlobal(data) {
 (async () => {
   const data = await loadCmsData();
   if (!data) return;
+  window.VibeCmsData = data;
 
   const page = document.body.dataset.page;
   renderGlobal(data);
