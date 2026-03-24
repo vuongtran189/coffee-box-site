@@ -22,7 +22,7 @@
     "hero": {
       "secondary_link": "about.html",
       "secondary_label": "Tìm hiểu thương hiệu",
-      "eyebrow": "ĐÓNG HỘP TIỆN LỢI | 20 G X 10 GÓI",
+      "eyebrow": "ĐÓNG HỘP TIỆN LỢI | 22 G X 10 GÓI",
       "primary_link": "products.html",
       "primary_label": "Xem sản phẩm",
       "subtitle": "Cho khoảnh khắc đầy cảm hứng",
@@ -32,7 +32,7 @@
     },
     "metrics": [
       {
-        "value": "200g",
+        "value": "220g",
         "label": "Khối lượng tịnh"
       },
       {
@@ -107,13 +107,13 @@
       {
         "category": "bestseller",
         "title": "Cà phê muối vị Truyền Thống",
-        "subtitle": "Hộp 200g (20 g x 10 gói)",
+        "subtitle": "Hộp 220g (22g x 10 gói)",
         "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772445062/TRUYEN_THONG_PNG_pbv1do.png",
         "link": "contact.html"
       },
       {
         "title": "Cà phê muối vị phô mai",
-        "subtitle": "Hộp 200g (20 g x 10 gói)",
+        "subtitle": "Hộp 220g (22g x 10 gói)",
         "category": "bestseller",
         "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772454965/PH%C3%94_MAI_PNG_m21xh9.png",
         "link": "contact.html",
@@ -132,7 +132,7 @@
       {
         "category": "bestseller",
         "title": "Cà phê muối vị Dừa",
-        "subtitle": "Hộp 200g (20 g x 10 gói)",
+        "subtitle": "Hộp 220g (22g x 10 gói)",
         "link": "contact.html",
         "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772459184/VI_DUA_PNG_r0jsxv.png"
       },
