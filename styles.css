@@ -796,7 +796,7 @@ input {
 
 .product-price__current {
   font-weight: 900;
-  color: var(--brand-strong);
+  color: #c02626;
   font-size: 1.12rem;
 }
 
