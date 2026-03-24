@@ -57,6 +57,22 @@ Tuỳ chọn:
 - `VIBE_KNOWLEDGE_MAX_CHARS` (default: 8000): giới hạn độ dài knowledge đưa vào prompt
 - `VIBE_KNOWLEDGE_PATH`: đường dẫn file knowledge trên server/repo (nếu không dùng `VIBE_KNOWLEDGE_TEXT`)
 
+## Bán hàng online (Giỏ hàng + Checkout)
+### Giỏ hàng
+- Nút “Thêm vào giỏ” nằm ở trang `products.html` và `product.html`.
+- Giỏ hàng lưu ở `localStorage` (key: `vibe_cart_v1`) và mở dạng drawer ở góc phải.
+
+### Checkout (COD / Chuyển khoản / MoMo)
+- Trang checkout: `checkout.html` (từ giỏ hàng bấm “Gửi đơn đặt hàng”).
+- Đơn sẽ được gửi bằng `POST /lead` (Cloudflare Pages Functions). Nếu deploy thuần GitHub Pages (không có Functions) thì cần:
+  - Deploy theo Cloudflare Pages để dùng `functions/lead.js`, hoặc
+  - Đổi sang webhook endpoint riêng để nhận đơn.
+- Cấu hình thông tin thanh toán nằm trong `assets/cms-data.json`:
+  - `site.payments.bank_name`
+  - `site.payments.bank_account_number`
+  - `site.payments.bank_account_name`
+  - `site.payments.momo_phone`
+
 ## Local dev (tối thiểu)
 ### Website
 - Mở trực tiếp file HTML vẫn chạy được, nhưng tốt nhất dùng server tĩnh để tránh vấn đề đường dẫn:
@@ -115,3 +131,9 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
   - Log chẩn đoán lỗi OpenAI: prefix `openai_generateAssistantReply_failed` trong Render Logs
 - Env vars liên quan knowledge: `VIBE_KNOWLEDGE_TEXT`, `VIBE_KNOWLEDGE_PATH`, `VIBE_KNOWLEDGE_MAX_CHARS`
 - Git commits đã push lên `main`: `725f535`, `2a18970` (Render cần redeploy để nhận thay đổi)
+
+### 2026-03-24
+- Thêm trang chi tiết sản phẩm: `product.html` (link từ `products.html` qua `?slug=...`).
+- Thêm giỏ hàng (localStorage) + icon nút giỏ hàng trên header.
+- Thêm trang thanh toán: `checkout.html` (COD / chuyển khoản / MoMo) và gửi đơn qua `POST /lead`.
+- Thêm config thanh toán trong `assets/cms-data.json` (`site.payments.*`).
