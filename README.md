@@ -73,6 +73,10 @@ Tuỳ chọn:
   - `site.payments.bank_account_name`
   - `site.payments.momo_phone`
 
+## Quy chuẩn ảnh (gợi ý)
+- Ảnh đại diện bài viết (card tin tức + trang bài viết) đang hiển thị theo khung ngang và crop bằng `object-fit: cover`.
+- Tỉ lệ khung khuyến nghị ~ **2.7:1** (ví dụ `1600x600` hoặc `1920x720`). Chuẩn social `1200x630` vẫn dùng được nhưng sẽ bị crop trên/dưới.
+
 ## Local dev (tối thiểu)
 ### Website
 - Mở trực tiếp file HTML vẫn chạy được, nhưng tốt nhất dùng server tĩnh để tránh vấn đề đường dẫn:
