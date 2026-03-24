@@ -116,7 +116,16 @@
         "subtitle": "Hộp 200g (20 g x 10 gói)",
         "category": "bestseller",
         "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772454965/PH%C3%94_MAI_PNG_m21xh9.png",
-        "link": "contact.html"
+        "link": "contact.html",
+        "slug": "ca-phe-muoi-vi-pho-mai",
+        "description": "CÀ PHÊ MUỐI PHÔ MAI – VIBE COFFEE\n\nĐậm vị cà phê – Béo nhẹ phô mai – Chạm cảm xúc từng “vibe”\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Phô Mai VIBE Coffee là dòng cà phê hòa tan cao cấp 5in1, kết hợp độc đáo giữa:\n- Cà phê nguyên chất từ hạt cà phê Việt Nam\n- Vị mặn tinh tế của muối biển Việt\n- Độ béo mịn của phô mai\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – béo nhẹ – hậu vị cân bằng, không gắt.\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn tiện lợi – nhanh chóng – dễ pha.",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 5in1",
+          "Đậm vị cà phê, béo nhẹ phô mai",
+          "Muối biển Việt mặn tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
       },
       {
         "category": "bestseller",
