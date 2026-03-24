@@ -59,6 +59,33 @@ function slugify(value) {
     .replace(/-+$/, '');
 }
 
+function formatVnd(amount) {
+  const n = Number(amount);
+  if (!Number.isFinite(n) || n <= 0) return "";
+  return `${Math.round(n).toLocaleString("vi-VN")}đ`;
+}
+
+function getPriceInfo(item) {
+  const base = Number(item?.price_vnd ?? item?.price ?? 0);
+  if (!Number.isFinite(base) || base <= 0) return null;
+  const discount = Number(item?.discount_percent ?? 0);
+  const hasDiscount = Number.isFinite(discount) && discount > 0 && discount < 100;
+  const final = hasDiscount ? Math.round(base * (1 - discount / 100)) : Math.round(base);
+  return {
+    base: Math.round(base),
+    final,
+    discount: hasDiscount ? Math.round(discount) : 0
+  };
+}
+
+function renderPriceHtml(info) {
+  if (!info) return "";
+  const current = formatVnd(info.final);
+  const original = info.discount ? formatVnd(info.base) : "";
+  const badge = info.discount ? `-${info.discount}%` : "";
+  return `<div class="product-price"><span class="product-price__current">${current}</span>${original ? `<span class="product-price__original">${original}</span>` : ""}${badge ? `<span class="product-price__badge">${badge}</span>` : ""}</div>`;
+}
+
 function detectProductCategory(item) {
   const normalizedCategory = normalizeText(item?.category);
   if (normalizedCategory.includes('combo')) return 'combo';
@@ -193,8 +220,11 @@ function renderProducts(data) {
       const id = slug || '';
       const title = item?.title || '';
       const subtitle = item?.subtitle || '';
-      const price = item?.price != null ? String(item.price) : '';
-      return `<article class="product-card"><a class="product-card__media" href="${detailLink}" aria-label="Xem chi tiết ${title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${title}" /></a><h3><a class="product-card__titlelink" href="${detailLink}">${title}</a></h3><p>${subtitle}</p><div class="product-card__actions"><a class="btn btn-ghost" href="${detailLink}">Xem chi tiết</a><button class="btn btn-primary btn-cart" type="button" data-add-to-cart="1" data-product-id="${encodeURIComponent(id)}" data-product-title="${encodeURIComponent(title)}" data-product-subtitle="${encodeURIComponent(subtitle)}" data-product-image="${encodeURIComponent(imageSrc)}" data-product-price="${encodeURIComponent(price)}">Thêm vào giỏ</button></div></article>`;
+      const priceInfo = getPriceInfo(item);
+      const priceHtml = renderPriceHtml(priceInfo);
+      const basePrice = priceInfo ? String(priceInfo.base) : "";
+      const discount = priceInfo ? String(priceInfo.discount || 0) : "";
+      return `<article class="product-card"><a class="product-card__media" href="${detailLink}" aria-label="Xem chi tiết ${title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${title}" /></a><h3><a class="product-card__titlelink" href="${detailLink}">${title}</a></h3><p>${subtitle}</p>${priceHtml}<div class="product-card__actions"><a class="btn btn-ghost" href="${detailLink}">Xem chi tiết</a><button class="btn btn-primary btn-cart" type="button" data-add-to-cart="1" data-product-id="${encodeURIComponent(id)}" data-product-title="${encodeURIComponent(title)}" data-product-subtitle="${encodeURIComponent(subtitle)}" data-product-image="${encodeURIComponent(imageSrc)}" data-product-price="${encodeURIComponent(basePrice)}" data-product-discount="${encodeURIComponent(discount)}">Thêm vào giỏ</button></div></article>`;
     }).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
     animateCards(Array.from(grid.querySelectorAll('.product-card')));
@@ -255,6 +285,22 @@ function renderProductDetail(data) {
     hiWrap.innerHTML = `<h2>Điểm nổi bật</h2><ul>${highlights.map((h) => `<li>${h}</li>`).join('')}</ul>`;
   }
 
+  const priceInfo = getPriceInfo(item);
+  const priceEl = document.getElementById('product-price');
+  const priceOrigEl = document.getElementById('product-price-original');
+  const discountEl = document.getElementById('product-discount');
+  if (priceEl) priceEl.textContent = priceInfo ? formatVnd(priceInfo.final) : '';
+  if (priceOrigEl) {
+    const show = !!(priceInfo && priceInfo.discount);
+    priceOrigEl.hidden = !show;
+    priceOrigEl.textContent = show ? formatVnd(priceInfo.base) : '';
+  }
+  if (discountEl) {
+    const show = !!(priceInfo && priceInfo.discount);
+    discountEl.hidden = !show;
+    discountEl.textContent = show ? `-${priceInfo.discount}%` : '';
+  }
+
   const addBtn = document.getElementById('product-add-to-cart');
   if (addBtn instanceof HTMLElement) {
     const id = slug || slugify(item?.slug || item?.title) || '';
@@ -263,7 +309,8 @@ function renderProductDetail(data) {
     addBtn.dataset.productTitle = item?.title || '';
     addBtn.dataset.productSubtitle = item?.subtitle || '';
     addBtn.dataset.productImage = normalizeAssetUrl(item?.image) || '';
-    addBtn.dataset.productPrice = item?.price != null ? String(item.price) : '';
+    addBtn.dataset.productPrice = priceInfo ? String(priceInfo.base) : '';
+    addBtn.dataset.productDiscount = priceInfo ? String(priceInfo.discount || 0) : '';
     addBtn.toggleAttribute('disabled', !item);
   }
 }

@@ -787,6 +787,46 @@ input {
   flex-wrap: wrap;
 }
 
+.product-price {
+  display: flex;
+  gap: 0.55rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.product-price__current {
+  font-weight: 900;
+  color: var(--brand-strong);
+  font-size: 1.12rem;
+}
+
+.product-price__original {
+  color: #7a846f;
+  text-decoration: line-through;
+  font-weight: 750;
+}
+
+.product-price__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: rgba(186, 143, 57, 0.18);
+  border: 1px solid rgba(186, 143, 57, 0.35);
+  color: #7a5a12;
+  font-weight: 900;
+  font-size: 0.85rem;
+}
+
+.product-price-wrap {
+  display: flex;
+  gap: 0.55rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin: 0.15rem 0 0.55rem;
+}
+
 .product-card .product-image-zoom {
   display: block;
   margin: 0;

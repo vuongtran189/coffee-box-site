@@ -255,6 +255,32 @@ document.addEventListener('keydown', (event) => {
     }
   }
 
+  function formatVnd(amount) {
+    const n = Number(amount);
+    if (!Number.isFinite(n) || n <= 0) return '';
+    return `${Math.round(n).toLocaleString('vi-VN')}đ`;
+  }
+
+  function itemFinalPrice(it) {
+    const base = Number(it?.price_vnd || 0);
+    if (!Number.isFinite(base) || base <= 0) return 0;
+    const discount = Number(it?.discount_percent || 0);
+    const hasDiscount = Number.isFinite(discount) && discount > 0 && discount < 100;
+    return hasDiscount ? Math.round(base * (1 - discount / 100)) : Math.round(base);
+  }
+
+  function calcCartTotal(cart) {
+    const items = Array.isArray(cart?.items) ? cart.items : [];
+    if (!items.length) return { known: true, total: 0 };
+    let total = 0;
+    for (const it of items) {
+      const unit = itemFinalPrice(it);
+      if (!unit) return { known: false, total: 0 };
+      total += unit * Number(it.qty || 0);
+    }
+    return { known: true, total: Math.round(total) };
+  }
+
   function readCart() {
     try {
       const raw = localStorage.getItem(CART_KEY);
@@ -376,6 +402,7 @@ document.addEventListener('keydown', (event) => {
     const cart = readCart();
     const itemsWrap = document.getElementById('vibe-cart-items');
     const summaryEl = document.getElementById('vibe-cart-summary');
+    const totalEl = document.getElementById('vibe-cart-total');
     const badge = document.getElementById('vibe-cart-badge');
     if (badge) {
       const c = cartCount(cart);
@@ -384,6 +411,10 @@ document.addEventListener('keydown', (event) => {
     }
 
     if (summaryEl) summaryEl.textContent = `${cart.items.length} sản phẩm`;
+    if (totalEl) {
+      const t = calcCartTotal(cart);
+      totalEl.textContent = t.known && t.total > 0 ? `Tạm tính: ${formatVnd(t.total)}` : '';
+    }
     if (!itemsWrap) return;
 
     if (!cart.items.length) {
@@ -395,12 +426,15 @@ document.addEventListener('keydown', (event) => {
       const img = it.image ? String(it.image) : 'assets/hero-box-cutout.png';
       const title = String(it.title || '');
       const subtitle = String(it.subtitle || '');
+      const unit = itemFinalPrice(it);
+      const priceLine = unit ? `<p>Giá: <strong>${formatVnd(unit)}</strong> / sp</p>` : '';
       return `
         <div class="cart-item" data-cart-item="${encodeURIComponent(it.id)}">
           <img src="${img}" alt="${title}" />
           <div>
             <h3>${title}</h3>
             ${subtitle ? `<p>${subtitle}</p>` : `<p></p>`}
+            ${priceLine}
             <div class="cart-row">
               <div class="cart-qty" aria-label="Số lượng">
                 <button type="button" data-qty-minus="1" aria-label="Giảm">−</button>
@@ -446,7 +480,8 @@ document.addEventListener('keydown', (event) => {
           title,
           subtitle: safeDecode(addBtn.dataset.productSubtitle || ''),
           image: safeDecode(addBtn.dataset.productImage || ''),
-          price: safeDecode(addBtn.dataset.productPrice || '')
+          price_vnd: Number(safeDecode(addBtn.dataset.productPrice || '0')) || 0,
+          discount_percent: Number(safeDecode(addBtn.dataset.productDiscount || '0')) || 0
         };
         upsertItem(item, 1);
         openCart();
@@ -521,12 +556,18 @@ document.addEventListener('keydown', (event) => {
       wrap.innerHTML = `<div class="cart-empty">Giỏ hàng đang trống. Bạn quay lại <a href="products.html">Sản phẩm</a> để chọn nhé.</div>`;
       return;
     }
+    const totals = calcCartTotal(cart);
     wrap.innerHTML = cart.items.map((it) => {
       const img = it.image ? String(it.image) : 'assets/hero-box-cutout.png';
       const title = String(it.title || '');
       const subtitle = String(it.subtitle || '');
-      return `<div class="checkout-item"><img src="${img}" alt="${title}" /><div><strong>${title}</strong>${subtitle ? `<div class="checkout-sub">${subtitle}</div>` : ''}<div class="checkout-sub">Số lượng: <strong>${it.qty}</strong></div></div></div>`;
+      const unit = itemFinalPrice(it);
+      const price = unit ? `<div class="checkout-sub">Giá: <strong>${formatVnd(unit)}</strong> / sp</div>` : '';
+      return `<div class="checkout-item"><img src="${img}" alt="${title}" /><div><strong>${title}</strong>${subtitle ? `<div class="checkout-sub">${subtitle}</div>` : ''}${price}<div class="checkout-sub">Số lượng: <strong>${it.qty}</strong></div></div></div>`;
     }).join('');
+    if (totals.known && totals.total > 0) {
+      wrap.innerHTML += `<div class="checkout-item"><div></div><div><strong>Tạm tính:</strong> ${formatVnd(totals.total)}</div></div>`;
+    }
   }
 
   function setPayInstructions(method) {
@@ -591,11 +632,17 @@ document.addEventListener('keydown', (event) => {
       const payMethod = String(data.get('pay_method') || 'COD');
       const address = String(data.get('address') || '').trim();
       const note = String(data.get('message') || '').trim();
-      const lines = cart.items.map((it, idx) => `${idx + 1}) ${it.title}${it.subtitle ? ` — ${it.subtitle}` : ''} x${it.qty}`);
+      const lines = cart.items.map((it, idx) => {
+        const unit = itemFinalPrice(it);
+        const price = unit ? ` (${formatVnd(unit)}/sp)` : '';
+        return `${idx + 1}) ${it.title}${it.subtitle ? ` — ${it.subtitle}` : ''} x${it.qty}${price}`;
+      });
+      const totals = calcCartTotal(cart);
       const composed = [
         `Đơn hàng:`,
         ...lines,
         '',
+        totals.known && totals.total > 0 ? `Tạm tính: ${formatVnd(totals.total)}` : null,
         `Thanh toán: ${payMethod === 'BANK' ? 'Chuyển khoản' : payMethod === 'MOMO' ? 'MoMo' : 'COD'}`,
         `Địa chỉ: ${address}`,
         note ? `Ghi chú: ${note}` : null
