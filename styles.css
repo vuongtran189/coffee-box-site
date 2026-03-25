@@ -151,6 +151,81 @@ img {
   background: transparent;
 }
 
+.rev-badges {
+  position: absolute;
+  z-index: 2;
+  left: 26px;
+  bottom: 54px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  pointer-events: none;
+}
+
+.rev-badge {
+  width: 86px;
+  height: 86px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #f3e2b1;
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.18), transparent 45%),
+              linear-gradient(180deg, rgba(54, 96, 60, 0.96), rgba(23, 58, 37, 0.96));
+  border: 2px solid rgba(216, 186, 110, 0.95);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.28), inset 0 0 0 2px rgba(0, 0, 0, 0.18);
+}
+
+.rev-badge svg {
+  width: 42px;
+  height: 42px;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
+}
+
+.rev-badge__text {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1.05;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28));
+}
+
+.rev-badge__text strong {
+  font-family: "Playfair Display", serif;
+  font-size: 1.65rem;
+  letter-spacing: -0.01em;
+}
+
+.rev-badge__text small {
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.rev-badge__sub {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  opacity: 0.95;
+}
+
+.rev-badge--dense {
+  padding: 0.55rem;
+}
+
+.rev-badge--dense .rev-badge__text strong {
+  font-size: 1.25rem;
+}
+
+.rev-badge--dense .rev-badge__text small {
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
 .rev-inner {
   position: absolute;
   z-index: 2;
@@ -992,26 +1067,24 @@ input {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   border-radius: 999px;
-  padding: 0.6rem 1rem;
-  border: 1px solid rgba(212, 204, 183, 0.9);
-  background: rgba(255, 255, 255, 0.75);
-  color: var(--brand-strong);
-  font-weight: 800;
+  gap: 0;
   cursor: pointer;
+  padding: 0;
+  border: none;
+  background: none;
 }
 
-.cart-icon {
-  width: 22px;
-  height: 22px;
+.cart-btn__img {
   display: block;
+  width: 168px;
+  height: auto;
 }
 
 .cart-badge {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: -8px;
+  right: -8px;
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
@@ -1540,6 +1613,14 @@ textarea:focus {
     height: clamp(340px, 72vw, 520px);
   }
 
+  .rev-badges {
+    left: 16px;
+    bottom: 28px;
+    transform: scale(0.9);
+    transform-origin: left bottom;
+    gap: 12px;
+  }
+
   .rev-nav {
     width: 40px;
     height: 40px;
@@ -1621,6 +1702,13 @@ textarea:focus {
     width: calc(100% - 1rem);
     margin-top: 0.7rem;
     border-radius: 16px;
+  }
+
+  .rev-badges {
+    left: 10px;
+    bottom: 20px;
+    transform: scale(0.78);
+    transform-origin: left bottom;
   }
 
   .rev-kicker { letter-spacing: 1px; }
