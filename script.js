@@ -374,7 +374,7 @@ document.addEventListener('keydown', (event) => {
       btn.type = 'button';
       btn.className = 'cart-btn';
       btn.innerHTML = `
-        <img class="cart-btn__img" src="assets/Gio hang button xoa phong.png" alt="Giỏ hàng" />
+        <img class="cart-btn__img" src="assets/Gio hang button newest.png" alt="Giỏ hàng" />
         <span id="vibe-cart-badge" class="cart-badge" hidden>0</span>
       `.trim();
       btn.addEventListener('click', () => openCart());
