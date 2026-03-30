@@ -130,11 +130,21 @@
         ]
       },
       {
-        "category": "bestseller",
-        "title": "Cà phê muối Capuchino Dừa",
+        "discount_percent": 5,
+        "price_vnd": 86000,
         "subtitle": "Hộp 220g (22g x 10 gói)",
+        "title": "Cà phê muối Capuchino Dừa",
         "link": "contact.html",
-        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774840111/CAPUCHINO_DUA_PNG_ebwi4q.png"
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774840111/CAPUCHINO_DUA_PNG_ebwi4q.png",
+        "description": "CÀ PHÊ MUỐI CAPUCHINO DỪA – VIBE COFFEE\n\nĐậm vị cà phê – Capuchino Dừa béo thơm – Chạm cảm xúc từng “vibe”\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Capuchino Dừa VIBE Coffee là dòng cà phê hòa tan cao cấp 5in1, kết hợp độc đáo giữa:\n- Cà phê nguyên chất từ hạt cà phê Việt Nam\n- Vị mặn tinh tế của muối biển Việt\n- Độ béo thơm của Capuchino Dừa\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – béo nhẹ – hậu vị cân bằng, không gắt.\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn tiện lợi – nhanh chóng – dễ pha.",
+        "category": "bestseller",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 5in1",
+          "Đậm vị cà phê, béo thơm Capuchino dừa",
+          "Muối biển Việt mặn nhẹ tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
       },
       {
         "title": "Combo quà tặng doanh nghiệp",
