@@ -1,4 +1,4 @@
-# Vibe Coffee — Website + Chatbot (coffee-box-site)
+﻿# Vibe Coffee — Website + Chatbot (coffee-box-site)
 
 Repo này gồm 2 phần:
 - **Website tĩnh** (GitHub Pages): các trang `index.html`, `products.html`, `news.html`, `about.html`, `contact.html`.
@@ -75,7 +75,7 @@ Tuỳ chọn:
 
 ## Quy chuẩn ảnh (gợi ý)
 - Ảnh đại diện bài viết (card tin tức + trang bài viết) đang hiển thị theo khung ngang và crop bằng `object-fit: cover`.
-- Tỉ lệ khung khuyến nghị ~ **2.7:1** (ví dụ `1600x600` hoặc `1920x720`). Chuẩn social `1200x630` vẫn dùng được nhưng sẽ bị crop trên/dưới.
+- Tỷ lệ khung khuyến nghị ~ **2.7:1** (ví dụ `1600x600` hoặc `1920x720`). Chuẩn social `1200x630` vẫn dùng được nhưng sẽ bị crop trên/dưới.
 
 ## Local dev (tối thiểu)
 ### Website
@@ -122,7 +122,7 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
 - [x] Soạn nội dung `OPENAI_INSTRUCTIONS` (giọng điệu + quy trình hỏi nhu cầu + chốt lead SĐT/Zalo).
 - [ ] Rà soát cấu hình Render env vars (đặc biệt: `CORS_ORIGINS`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
 - [x] Tạo knowledge base (Markdown) và nạp vào prompt để AI trả lời đúng sản phẩm/FAQ.
-- [ ] (Tuỳ chọn) Nâng cấp RAG (truy xuất theo ngữ cảnh) nếu knowledge lớn.
+- [ ] (Tuỳ chọn) nâng cấp RAG (truy xuất theo ngữ cảnh) nếu knowledge lớn.
 
 ## Nhật ký thay đổi (để quay lại nhanh)
 ### 2026-03-23
