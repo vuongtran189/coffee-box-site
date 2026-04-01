@@ -191,25 +191,21 @@
         ]
       },
       {
-        "title": "Gói trưng bày quầy",
-        "subtitle": "Tối ưu nhận diện tại điểm bán",
-        "category": "all",
-        "image": "assets/slider-3.png",
-        "link": "contact.html"
-      },
-      {
-        "title": "Gói văn phòng",
-        "subtitle": "Pha nhanh - dễ bảo quản",
-        "category": "all",
-        "image": "assets/slider-2.png",
-        "link": "contact.html"
-      },
-      {
-        "title": "Gói dùng thử",
-        "subtitle": "Phù hợp giới thiệu sản phẩm mới",
-        "category": "all",
-        "image": "assets/hero-box-cutout.png",
-        "link": "contact.html"
+        "discount_percent": 5,
+        "price_vnd": 136000,
+        "subtitle": "Túi 2 hộp cà phê muối Truyền Thống Vibe Coffee",
+        "title": "Set Quà Tặng Vibe Coffee – Đậm Đà Nguyên Bản",
+        "link": "contact.html",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775043905/TUI_TT_5_ykmhyb.jpg",
+        "description": "CÀ PHÊ MUỐI TRUYỀN THỐNG – VIBE COFFEE\n\nĐậm vị cà phê – Mặn nhẹ tinh tế – Chuẩn gu nguyên bản\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Truyền Thống VIBE Coffee là dòng cà phê hòa tan cao cấp (4in1), kết hợp hài hòa giữa:\n\n-Cà phê nguyên chất từ hạt cà phê Việt Nam\n-Muối biển Việt mang vị mặn nhẹ đặc trưng\n-Công thức cân bằng giúp tôn lên vị cà phê nguyên bản\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – mặn nhẹ – hậu vị sâu và sạch, không gắt.\n\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn đảm bảo tiện lợi – nhanh chóng – dễ pha, phù hợp cho mọi “vibe” trong ngày.",
+        "category": "combo",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 4in1",
+          "Cà phê nguyên chất từ hạt cà phê Việt Nam",
+          "Muối biển Việt mặn tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
       }
     ]
   },
