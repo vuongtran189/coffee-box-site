@@ -1,11 +1,23 @@
-﻿async function loadCmsData() {
-  try {
-    const res = await fetch('assets/cms-data.json', { cache: 'no-store' });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
+async function loadCmsData() {
+  const candidates = [
+    'assets/cms-data.json',
+    new URL('assets/cms-data.json', document.baseURI).toString(),
+    `assets/cms-data.json?v=${Date.now()}`
+  ];
+
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) continue;
+      const text = await res.text();
+      const cleaned = text.charCodeAt(0) === 0xFEFF ? text.slice(1) : text;
+      return JSON.parse(cleaned);
+    } catch (err) {
+      console.warn('[vibe] loadCmsData failed:', url, err);
+    }
   }
+
+  return null;
 }
 
 function setText(id, value) {
@@ -354,7 +366,14 @@ function renderGlobal(data) {
 
 (async () => {
   const data = await loadCmsData();
-  if (!data) return;
+  if (!data) {
+    const page = document.body?.dataset?.page || '';
+    if (page === 'products') {
+      setText('products-count', 'Không tải được dữ liệu sản phẩm. Vui lòng tải lại trang (F5).');
+    }
+    console.warn('[vibe] CMS data not loaded. Check Network for assets/cms-data.json.');
+    return;
+  }
   window.VibeCmsData = data;
 
   const page = document.body.dataset.page;
