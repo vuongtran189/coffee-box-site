@@ -52,7 +52,7 @@ img {
 }
 
 .topbar-wrap {
-  min-height: 78px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -66,8 +66,9 @@ img {
 }
 
 .brand-logo {
-  height: 112px;
+  height: 64px;
   width: auto;
+  max-width: min(260px, 34vw);
   object-fit: contain;
 }
 
@@ -1696,7 +1697,10 @@ textarea:focus {
 
   .topbar-wrap { min-height: auto; }
 
-  .brand-logo { height: 88px; }
+  .brand-logo {
+    height: 52px;
+    max-width: min(220px, 56vw);
+  }
 
   .rev-slider {
     width: calc(100% - 1rem);
