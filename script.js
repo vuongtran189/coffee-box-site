@@ -89,6 +89,46 @@ if ('IntersectionObserver' in window) {
 }
 
 const forms = document.querySelectorAll('form');
+
+function getLeadSubmitConfig() {
+  const apiBase = String(window.VIBE_CHATBOT_API_BASE || '').replace(/\/$/, '');
+  const widgetKey = String(window.VIBE_CHATBOT_WIDGET_KEY || '');
+  if (apiBase && widgetKey) {
+    return {
+      endpoint: `${apiBase}/v1/leads`,
+      headers: { 'content-type': 'application/json', 'x-widget-key': widgetKey },
+      mode: 'json'
+    };
+  }
+  // Cloudflare Pages Functions (or same-origin backend) fallback.
+  return { endpoint: '/lead', headers: null, mode: 'form' };
+}
+
+async function submitLead({ endpoint, headers, mode }, formData) {
+  if (mode === 'json') {
+    const payload = {};
+    for (const [key, value] of formData.entries()) payload[key] = String(value ?? '');
+    // normalize common field names
+    payload.phone = payload.phone || payload.tel || payload.hotline || '';
+    payload.need = payload.need || payload.needs || '';
+    payload.page_url = payload.page_url || window.location.href;
+
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(json?.error || 'Gửi thất bại');
+    return json;
+  }
+
+  const res = await fetch(endpoint, { method: 'POST', body: formData });
+  const json = await res.json().catch(() => null);
+  if (!res.ok) throw new Error(json?.error || 'Gửi thất bại');
+  return json;
+}
+
 forms.forEach((form) => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -107,11 +147,7 @@ forms.forEach((form) => {
     }
 
     try {
-      const res = await fetch('/lead', { method: 'POST', body: data });
-      const json = await res.json().catch(() => null);
-      if (!res.ok) {
-        throw new Error(json?.error || 'Gửi thất bại');
-      }
+      await submitLead(getLeadSubmitConfig(), data);
 
       if (button) {
         button.textContent = 'Đã gửi thông tin';
@@ -662,9 +698,7 @@ document.addEventListener('keydown', (event) => {
       }
 
       try {
-        const res = await fetch('/lead', { method: 'POST', body: data });
-        const json = await res.json().catch(() => null);
-        if (!res.ok) throw new Error(json?.error || 'Gửi thất bại');
+        await submitLead(getLeadSubmitConfig(), data);
 
         if (button) button.textContent = 'Đã gửi đơn';
         writeCart({ items: [] });

@@ -9,3 +9,7 @@ tmp-decap-proxy-index.ts
 # Local env / build outputs
 .env
 node_modules/
+
+# Local deployment bundles
+_deploy_cpanel/
+vibecoffee.vn-site.zip
