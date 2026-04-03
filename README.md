@@ -6,6 +6,7 @@ Repo này gồm 2 phần:
 
 ## Link production (tham khảo)
 - Website (GitHub Pages): `https://vuongtran189.github.io/coffee-box-site/`
+- Website (Domain/Hosting): `https://vibecoffee.vn/` (cần DNS + SSL + upload lên hosting)
 - API (Render): `https://vibe-chatbot-api.onrender.com/`
   - Health check: `GET /health`
 
@@ -15,6 +16,7 @@ Repo này gồm 2 phần:
 - `assets/`: ảnh + static assets
   - `assets/chatbot/widget.js`, `assets/chatbot/widget.css`: **bản widget dùng trên GitHub Pages** (ưu tiên load local).
   - `assets/chatbot/agent.png`: avatar “tư vấn viên” cho nút launcher.
+- `assets/logo-vibe-coffee-web.png`: logo header (đã crop để cân đối topbar).
 - `admin/`: cấu hình CMS (Decap/Netlify CMS style).
 - `cms-render.js`: render nội dung (phụ thuộc cấu hình CMS/nội dung).
 - `functions/`: serverless functions (dùng cho Cloudflare Pages nếu deploy theo hướng đó).
@@ -22,6 +24,7 @@ Repo này gồm 2 phần:
   - `apps/api`: API Express + MongoDB + OpenAI integration
   - `packages/widget`: source widget + build ra `dist/`
   - `render.yaml`, `Dockerfile`: cấu hình deploy Render
+- `san-pham/`, `ve-chung-toi/`: trang redirect thân thiện (SEO) về `products.html` và `about.html` (đã tối ưu cho deploy ở root domain).
 
 ## Chatbot hoạt động như thế nào
 ### Nhúng widget trên website
@@ -43,7 +46,7 @@ API route `/v1/chat` sẽ cố gắng gọi OpenAI Responses API nếu có `OPEN
 
 ## Render — Environment Variables (quan trọng)
 Trong Render service `vibe-chatbot-api`, cần set (không commit secrets vào git):
-- `CORS_ORIGINS`: ví dụ `https://vuongtran189.github.io`
+- `CORS_ORIGINS`: ví dụ `https://vuongtran189.github.io,https://vibecoffee.vn,https://www.vibecoffee.vn`
 - `MONGODB_URI`: MongoDB connection string (Atlas)
 - `WIDGET_PUBLIC_KEY`: phải trùng với `window.VIBE_CHATBOT_WIDGET_KEY` trên website
 - `OPENAI_API_KEY`: OpenAI API key
@@ -64,14 +67,30 @@ Tuỳ chọn:
 
 ### Checkout (COD / Chuyển khoản / MoMo)
 - Trang checkout: `checkout.html` (từ giỏ hàng bấm “Gửi đơn đặt hàng”).
-- Đơn sẽ được gửi bằng `POST /lead` (Cloudflare Pages Functions). Nếu deploy thuần GitHub Pages (không có Functions) thì cần:
-  - Deploy theo Cloudflare Pages để dùng `functions/lead.js`, hoặc
-  - Đổi sang webhook endpoint riêng để nhận đơn.
+- Hiện tại form **tự chọn endpoint**:
+  - Nếu có `window.VIBE_CHATBOT_API_BASE` + `window.VIBE_CHATBOT_WIDGET_KEY` → gửi về `POST {API_BASE}/v1/leads` (khuyến nghị cho GitHub Pages / Linux hosting tĩnh).
+  - Nếu không có cấu hình chatbot → fallback `POST /lead` (dành cho Cloudflare Pages Functions / backend cùng origin).
 - Cấu hình thông tin thanh toán nằm trong `assets/cms-data.json`:
   - `site.payments.bank_name`
   - `site.payments.bank_account_number`
   - `site.payments.bank_account_name`
   - `site.payments.momo_phone`
+
+## Deploy lên Linux hosting (cPanel) — vibecoffee.vn
+### 1) DNS
+- Tạo bản ghi:
+  - `A` cho `@` → IP hosting (vd `103.28.36.205`)
+  - `A` cho `www` → IP hosting
+
+### 2) Upload website
+- Upload và Extract file zip build sẵn: `vibecoffee.vn-site.zip` vào `public_html/`.
+
+### 3) SSL
+- cPanel → `SSL/TLS Status` → `Run AutoSSL` cho `vibecoffee.vn` và `www.vibecoffee.vn` (yêu cầu DNS đã hoạt động).
+
+### 4) Chatbot + form đặt hàng
+- Cập nhật `CORS_ORIGINS` trên Render để include domain mới:
+  - `https://vibecoffee.vn,https://www.vibecoffee.vn`
 
 ## Quy chuẩn ảnh (gợi ý)
 - Ảnh đại diện bài viết (card tin tức + trang bài viết) đang hiển thị theo khung ngang và crop bằng `object-fit: cover`.
@@ -108,7 +127,11 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
 - Source-of-truth để sửa text: `vibe-chatbot/packages/widget/src/widget.js`
 - Sau khi sửa, cần rebuild widget và copy sang `assets/chatbot/widget.js` để GitHub Pages dùng bản mới.
 
-## Tiến độ (cập nhật: 2026-03-23)
+### 6) Form gửi lead/đơn hàng chạy?
+- Nếu deploy tĩnh (GitHub Pages / cPanel): đảm bảo `window.VIBE_CHATBOT_API_BASE` + `window.VIBE_CHATBOT_WIDGET_KEY` được set để form gửi về `POST /v1/leads`.
+- Nếu Render báo CORS: kiểm tra `CORS_ORIGINS` đã include đúng origin (`https://vibecoffee.vn`, không có path).
+
+## Tiến độ (cập nhật: 2026-04-03)
 ### Đã hoàn thành
 - [x] Website tĩnh (GitHub Pages) + các trang chính (`index.html`, `products.html`, `news.html`, `about.html`, `contact.html`).
 - [x] Widget nhúng hiển thị tiếng Việt + có avatar launcher (`assets/chatbot/agent.png`).
@@ -117,10 +140,15 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
 - [x] API xử lý CORS preflight (`OPTIONS`) ổn định.
 - [x] API có timeout + chế độ **degraded/stateless** khi MongoDB lỗi để giảm 502.
 - [x] Đã thêm favicon link để tránh 404 `/favicon.ico`.
+- [x] Đã bỏ nút “Nhận báo giá” trên trang chi tiết sản phẩm (`product.html`).
+- [x] Đã fix trang `products.html` không còn kẹt “0 sản phẩm” khi fetch JSON lỗi (có fallback message + parse JSON robust).
+- [x] Đã cập nhật logo header cân đối (`assets/logo-vibe-coffee-web.png`) + chỉnh CSS topbar.
+- [x] Đã đổi flow submit form (liên hệ + checkout) để chạy được trên hosting tĩnh: ưu tiên `POST /v1/leads` (Render API) thay vì phụ thuộc `POST /lead`.
+- [x] Đã sửa redirect `san-pham/` và `ve-chung-toi/` để chạy đúng khi deploy ở root domain (không còn `/coffee-box-site/...`).
 
 ### Việc cần làm tiếp (khuyến nghị)
 - [x] Soạn nội dung `OPENAI_INSTRUCTIONS` (giọng điệu + quy trình hỏi nhu cầu + chốt lead SĐT/Zalo).
-- [ ] Rà soát cấu hình Render env vars (đặc biệt: `CORS_ORIGINS`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
+- [ ] Rà soát cấu hình Render env vars (đặc biệt: `CORS_ORIGINS` cho `vibecoffee.vn`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
 - [x] Tạo knowledge base (Markdown) và nạp vào prompt để AI trả lời đúng sản phẩm/FAQ.
 - [ ] (Tuỳ chọn) nâng cấp RAG (truy xuất theo ngữ cảnh) nếu knowledge lớn.
 
@@ -141,3 +169,13 @@ Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
 - Thêm giỏ hàng (localStorage) + icon nút giỏ hàng trên header.
 - Thêm trang thanh toán: `checkout.html` (COD / chuyển khoản / MoMo) và gửi đơn qua `POST /lead`.
 - Thêm config thanh toán trong `assets/cms-data.json` (`site.payments.*`).
+
+### 2026-04-02
+- Fix `cms-data.json` hiển thị tiếng Việt chuẩn (UTF-8) + cập nhật nội dung sản phẩm (giá/giảm giá).
+- Fix `cms-render.js` load CMS data ổn định hơn (fallback + parse JSON) và không để UI kẹt “0 sản phẩm”.
+- Cập nhật logo header + chỉnh lại kích thước logo/topbar cho cân đối.
+
+### 2026-04-03
+- Bỏ toàn bộ CTA “Nhận báo giá” trên `product.html` (header + CTA + note).
+- Cập nhật `script.js` để submit lead/đơn hàng ưu tiên `POST {API_BASE}/v1/leads` (Render) khi deploy tĩnh (GitHub Pages / cPanel).
+- Sửa redirect `san-pham/` và `ve-chung-toi/` cho deploy ở root domain.
