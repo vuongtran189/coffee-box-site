@@ -119,6 +119,22 @@ async function bootstrap() {
     }
   });
 
+  $("btn-import").addEventListener("click", async () => {
+    try {
+      setStatus(editorStatus, "Đang nhập từ /assets/cms-data.json ...");
+      const res = await fetch("/assets/cms-data.json", { cache: "no-store" });
+      if (!res.ok) throw new Error(`Không tải được /assets/cms-data.json (HTTP ${res.status})`);
+      const text = await res.text();
+      const cleaned = text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
+      const parsed = JSON.parse(cleaned);
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("File cms-data.json không hợp lệ");
+      jsonTextarea.value = prettyJson(parsed);
+      setStatus(editorStatus, "Đã nhập từ file đang chạy. Bấm “Lưu (MongoDB)” để áp dụng.");
+    } catch (err) {
+      setStatus(editorStatus, String(err?.message || err), "error");
+    }
+  });
+
   $("btn-format").addEventListener("click", () => {
     try {
       const parsed = JSON.parse(jsonTextarea.value || "null");
@@ -166,4 +182,3 @@ async function bootstrap() {
 bootstrap().catch((err) => {
   console.error(err);
 });
-
