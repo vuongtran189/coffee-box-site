@@ -26,7 +26,8 @@ function writeState(patch) {
 }
 
 function apiUrl(apiBase, path) {
-  const base = String(apiBase || "").replace(/\/$/, "");
+  let base = String(apiBase || "").trim();
+  while (base.endsWith("/")) base = base.slice(0, -1);
   return `${base}${path}`;
 }
 
