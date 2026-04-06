@@ -17,6 +17,27 @@
     window.location.replace(next.toString());
   }
 })();
+
+// --- Robust <picture> fallback (when modern sources 404) ---
+(() => {
+  const imgs = Array.from(document.querySelectorAll('picture > img.brand-logo'));
+  imgs.forEach((img) => {
+    if (!(img instanceof HTMLImageElement)) return;
+    img.addEventListener('error', () => {
+      if (img.dataset.fallbackApplied === '1') return;
+      const fallbackSrc = img.getAttribute('src') || '';
+      if (!fallbackSrc) return;
+      img.dataset.fallbackApplied = '1';
+      img.removeAttribute('srcset');
+      img.removeAttribute('sizes');
+      const picture = img.parentElement;
+      if (picture && picture.tagName === 'PICTURE') {
+        picture.querySelectorAll('source').forEach((s) => s.remove());
+      }
+      img.src = fallbackSrc;
+    });
+  });
+})();
 const revSlider = document.querySelector('.rev-slider');
 const revSlides = Array.from(document.querySelectorAll('.rev-slide'));
 const revDotsWrap = document.querySelector('.rev-dots');
