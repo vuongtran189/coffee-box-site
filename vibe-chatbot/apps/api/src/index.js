@@ -19,6 +19,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const widgetDistDir = path.resolve(__dirname, "../../../packages/widget/dist");
 
+const adminOpen = ["1", "true", "yes", "on"].includes(String(env.ADMIN_OPEN || "").trim().toLowerCase());
+const normalizeOrigin = (value) => String(value || "").trim().replace(/\/$/, "");
+
 app.disable("x-powered-by");
 app.use(createHttpLogger(logger));
 // Allow this API to serve embeddable assets (widget.js/widget.css) cross-origin.
@@ -31,9 +34,12 @@ app.use(
 const corsOptions = {
   origin: function corsOrigin(origin, cb) {
     if (!origin) return cb(null, true);
+    if (adminOpen) return cb(null, true);
     // If CORS_ORIGINS isn't configured, default to allow-all to avoid breaking the public widget.
     if (env.corsOrigins.length === 0) return cb(null, true);
-    return cb(null, env.corsOrigins.includes(origin));
+    const requestOrigin = normalizeOrigin(origin);
+    const allowed = env.corsOrigins.some((o) => normalizeOrigin(o) === requestOrigin);
+    return cb(null, allowed);
   },
   credentials: false,
   methods: ["GET", "HEAD", "POST", "PUT", "OPTIONS"],
