@@ -1,4 +1,5 @@
-const DEFAULT_API_BASE = "https://vibe-chatbot-api.onrender.com";
+const DEFAULT_API_BASE = "https://cms.vibecoffee.vn";
+const LEGACY_API_BASE = "https://vibe-chatbot-api.onrender.com";
 const LS_API_BASE = "vibe_admin_api_base";
 const LS_WIDGET_KEY = "vibe_admin_widget_key";
 const LS_TOKEN = "vibe_admin_token";
@@ -14,8 +15,12 @@ function setStatus(el, msg, type = "info") {
 }
 
 function readState() {
+  const storedApiBase = localStorage.getItem(LS_API_BASE) || "";
+  // Migrate away from legacy Render API to Cloudflare CMS API by default.
+  // Users can still manually override in Settings.
+  const migratedApiBase = storedApiBase.includes("onrender.com") ? "" : storedApiBase;
   return {
-    apiBase: localStorage.getItem(LS_API_BASE) || DEFAULT_API_BASE,
+    apiBase: migratedApiBase || DEFAULT_API_BASE,
     widgetKey: localStorage.getItem(LS_WIDGET_KEY) || "",
     token: localStorage.getItem(LS_TOKEN) || ""
   };
