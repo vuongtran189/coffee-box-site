@@ -14,8 +14,7 @@ function readState() {
   return {
     apiBase: localStorage.getItem("vibe_admin_api_base") || DEFAULT_API_BASE,
     widgetKey: localStorage.getItem("vibe_admin_widget_key") || "",
-    token: localStorage.getItem("vibe_admin_token") || "",
-    password: localStorage.getItem("vibe_admin_password") || ""
+    token: ""
   };
 }
 
@@ -23,10 +22,6 @@ function writeState(patch) {
   const next = { ...readState(), ...patch };
   localStorage.setItem("vibe_admin_api_base", next.apiBase);
   localStorage.setItem("vibe_admin_widget_key", next.widgetKey);
-  if (next.password) localStorage.setItem("vibe_admin_password", next.password);
-  else localStorage.removeItem("vibe_admin_password");
-  if (next.token) localStorage.setItem("vibe_admin_token", next.token);
-  else localStorage.removeItem("vibe_admin_token");
   return next;
 }
 
@@ -39,7 +34,6 @@ async function apiFetch(state, path, opts = {}) {
   const headers = new Headers(opts.headers || {});
   headers.set("content-type", "application/json");
   if (state.widgetKey) headers.set("x-widget-key", state.widgetKey);
-  if (state.token) headers.set("authorization", `Bearer ${state.token}`);
 
   const res = await fetch(apiUrl(state.apiBase, path), { ...opts, headers });
   const json = await res.json().catch(() => null);
@@ -48,10 +42,6 @@ async function apiFetch(state, path, opts = {}) {
     throw new Error(msg);
   }
   return json;
-}
-
-function setAuthedUi(isAuthed) {
-  $("btn-logout").hidden = !isAuthed;
 }
 
 function prettyJson(value) {
@@ -63,23 +53,18 @@ async function bootstrap() {
   const editorStatus = $("editor-status");
   const apiBaseInput = $("api-base");
   const widgetKeyInput = $("widget-key");
-  const passwordInput = $("password");
   const jsonTextarea = $("json");
   const settingsModal = $("settings-modal");
 
   let state = readState();
   apiBaseInput.value = state.apiBase || DEFAULT_API_BASE;
   widgetKeyInput.value = state.widgetKey || "";
-  passwordInput.value = state.password || "";
 
   apiBaseInput.addEventListener("change", () => {
     state = writeState({ apiBase: apiBaseInput.value.trim() || DEFAULT_API_BASE });
   });
   widgetKeyInput.addEventListener("change", () => {
     state = writeState({ widgetKey: widgetKeyInput.value.trim() });
-  });
-  passwordInput.addEventListener("change", () => {
-    state = writeState({ password: passwordInput.value });
   });
 
   function openSettings() {
@@ -113,62 +98,22 @@ async function bootstrap() {
     setStatus(editorStatus, data?.updatedAt ? `Lần cập nhật gần nhất: ${data.updatedAt}` : "Chưa có nội dung trong MongoDB.");
   }
 
-  async function loginWithPassword(password) {
-    const res = await apiFetch(
-      { ...state, token: "" },
-      "/v1/admin/login",
-      { method: "POST", body: JSON.stringify({ password }) }
-    );
-    state = writeState({ token: String(res.token || "") });
-    setAuthedUi(Boolean(state.token));
-  }
-
   async function ensureAuth() {
     if (!state.widgetKey) {
       setStatus(editorStatus, "Thiếu widget key. Bấm “Cài đặt” để nhập.", "error");
       openSettings();
       return false;
     }
-    if (state.token) return true;
-    const password = String(state.password || "").trim();
-    if (!password) {
-      setStatus(editorStatus, "Chưa kết nối admin. Bấm “Cài đặt” → nhập mật khẩu → “Kết nối”.", "error");
-      openSettings();
-      return false;
-    }
-    try {
-      setStatus(editorStatus, "Đang kết nối...");
-      await loginWithPassword(password);
-      return Boolean(state.token);
-    } catch (err) {
-      setStatus(editorStatus, String(err?.message || err), "error");
-      openSettings();
-      return false;
-    }
+    return true;
   }
 
-  $("btn-connect")?.addEventListener("click", async () => {
-    try {
-      setStatus(loginStatus, "Đang kết nối...");
-      state = writeState({ apiBase: apiBaseInput.value.trim() || DEFAULT_API_BASE, widgetKey: widgetKeyInput.value.trim() });
-
-      const password = String(passwordInput.value || "");
-      state = writeState({ password });
-      await loginWithPassword(password);
-      closeSettings();
-      await tryLoadCurrent();
-      setStatus(loginStatus, "");
-    } catch (err) {
-      setStatus(loginStatus, String(err?.message || err), "error");
-    }
-  });
-
-  $("btn-logout").addEventListener("click", () => {
-    state = writeState({ token: "" });
-    setAuthedUi(false);
-    setStatus(editorStatus, "");
-    setStatus(loginStatus, "");
-    openSettings();
+  $("btn-save-settings")?.addEventListener("click", () => {
+    state = writeState({
+      apiBase: apiBaseInput.value.trim() || DEFAULT_API_BASE,
+      widgetKey: widgetKeyInput.value.trim()
+    });
+    setStatus(loginStatus, "Đã lưu.");
+    closeSettings();
   });
 
   $("btn-load").addEventListener("click", async () => {
@@ -225,17 +170,13 @@ async function bootstrap() {
     }
   });
 
-  // Always show editor; auto-connect if possible.
-  setAuthedUi(Boolean(state.token));
+  // Always show editor; prompt for settings if needed.
   if (await ensureAuth()) {
     try {
       await tryLoadCurrent();
     } catch (err) {
-      // Token might be expired; clear and retry once.
-      state = writeState({ token: "" });
-      setAuthedUi(false);
-      if (await ensureAuth()) await tryLoadCurrent();
-      else setStatus(editorStatus, String(err?.message || err), "error");
+      setStatus(editorStatus, String(err?.message || err), "error");
+      openSettings();
     }
   }
 }

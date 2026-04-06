@@ -16,6 +16,9 @@ export function v1Router({ env }) {
   const router = express.Router();
   router.use(requireWidgetKey(env));
 
+  const adminOpen = ["1", "true", "yes", "on"].includes(String(env.ADMIN_OPEN || "").trim().toLowerCase());
+  const requireAdminIfNeeded = adminOpen ? (_req, _res, next) => next() : requireAdmin(env);
+
   // Public (widget-key protected) site content read for vibecoffee.vn pages.
   router.get("/v1/site/content", async (_req, res) => {
     const { db } = await getMongo(env);
@@ -27,6 +30,7 @@ export function v1Router({ env }) {
   // Admin auth
   router.post("/v1/admin/login", async (req, res) => {
     if (!isAdminConfigured(env)) {
+      if (adminOpen) return res.json({ ok: true, token: "" });
       return res.status(501).json({ ok: false, error: "Admin not configured" });
     }
     const password = String(req.body?.password || "");
@@ -37,13 +41,13 @@ export function v1Router({ env }) {
     res.json({ ok: true, token });
   });
 
-  router.get("/v1/admin/site/content", requireAdmin(env), async (_req, res) => {
+  router.get("/v1/admin/site/content", requireAdminIfNeeded, async (_req, res) => {
     const { db } = await getMongo(env);
     const hit = await getSiteContent(db);
     res.json({ ok: true, data: hit?.data || null, updatedAt: hit?.updatedAt || null });
   });
 
-  router.put("/v1/admin/site/content", requireAdmin(env), async (req, res) => {
+  router.put("/v1/admin/site/content", requireAdminIfNeeded, async (req, res) => {
     const payload = req.body?.data ?? req.body;
     if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
       return res.status(400).json({ ok: false, error: "Body must be a JSON object (or { data: object })" });

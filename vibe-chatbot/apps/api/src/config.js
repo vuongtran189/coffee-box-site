@@ -14,6 +14,7 @@ const EnvSchema = z.object({
   ADMIN_PASSWORD: z.string().default(""),
   ADMIN_JWT_SECRET: z.string().default(""),
   ADMIN_TOKEN_TTL_SECONDS: z.coerce.number().int().min(300).max(30 * 24 * 3600).default(7 * 24 * 3600),
+  ADMIN_OPEN: z.string().default(""),
 
   OPENAI_API_KEY: z.string().optional(),
   OPENAI_MODEL: z.string().default("gpt-4o-mini"),
