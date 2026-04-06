@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vibe Coffee Admin</title>
   <meta name="robots" content="noindex,nofollow" />
-  <link rel="stylesheet" href="./admin.css?v=20260407b" />
+  <link rel="stylesheet" href="./admin.css?v=20260407ui" />
 </head>
 <body>
   <div class="wrap">
     <header class="top">
       <div>
         <div class="brand">Vibe Coffee</div>
-        <div class="sub">Dashboard quản trị nội dung (MongoDB)</div>
+        <div class="sub">Dashboard quản trị nội dung (Cloudflare KV)</div>
       </div>
       <div class="top-actions">
         <button id="btn-settings" class="btn btn-ghost" type="button">Cài đặt</button>
@@ -27,7 +27,7 @@
             <button id="btn-load" class="btn" type="button">Tải nội dung hiện tại</button>
             <button id="btn-import" class="btn" type="button">Nhập từ file đang chạy</button>
             <button id="btn-format" class="btn" type="button">Format JSON</button>
-            <button id="btn-save" class="btn btn-primary" type="button">Lưu (MongoDB)</button>
+            <button id="btn-save" class="btn btn-primary" type="button">Lưu (CMS)</button>
           </div>
         </div>
 
@@ -35,7 +35,14 @@
           Sau khi lưu, trang <code>vibecoffee.vn</code> sẽ tự đọc nội dung mới từ API khi tải lại trang.
         </p>
 
-        <label class="field">
+        <div class="tabs" role="tablist" aria-label="Chế độ chỉnh sửa">
+          <button id="tab-form" class="tab" type="button" role="tab" aria-selected="true">Giao diện</button>
+          <button id="tab-json" class="tab" type="button" role="tab" aria-selected="false">JSON</button>
+        </div>
+
+        <div id="form-wrap" class="panel"></div>
+
+        <label id="json-field" class="field" hidden>
           <span>JSON</span>
           <textarea id="json" spellcheck="false" rows="22" placeholder="{ ... }"></textarea>
         </label>
@@ -48,8 +55,8 @@
     </main>
 
     <footer class="foot muted">
-      Tip: Render env cần có <code>ADMIN_PASSWORD</code>, <code>ADMIN_JWT_SECRET</code>; CORS include
-      <code>https://vibecoffee.vn</code>.
+      Tip: Cloudflare Pages env cần có <code>VIBE_CONTENT_KV</code>, <code>WIDGET_PUBLIC_KEY</code>, <code>ADMIN_PASSWORD</code>, <code>ADMIN_JWT_SECRET</code>;
+      CORS include <code>https://vibecoffee.vn</code>.
     </footer>
   </div>
 
@@ -63,7 +70,7 @@
       <p class="muted">Thông tin được lưu trên trình duyệt này.</p>
       <label class="field">
         <span>API base</span>
-        <input id="api-base" type="url" placeholder="https://vibe-chatbot-api.onrender.com" />
+        <input id="api-base" type="url" placeholder="https://cms.vibecoffee.vn" />
       </label>
       <label class="field">
         <span>Widget key</span>
@@ -82,6 +89,7 @@
     </div>
   </div>
 
-  <script src="./admin.js?v=20260407e"></script>
+  <script type="module" src="./admin.js?v=20260407ui"></script>
 </body>
 </html>
+
