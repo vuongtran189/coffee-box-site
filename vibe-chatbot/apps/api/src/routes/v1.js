@@ -162,6 +162,15 @@ export function v1Router({ env }) {
   // Public lead save endpoint (explicit submission)
   router.post("/v1/leads", async (req, res) => {
     const body = req.body || {};
+
+    // Basic anti-spam (matches the static site's hidden fields).
+    const honeypot = String(body.company || "").trim();
+    if (honeypot) return res.status(200).json({ ok: true, spam: true });
+    const ts = Number(body.form_ts || 0);
+    if (Number.isFinite(ts) && ts > 0 && Date.now() - ts < 1500) {
+      return res.status(200).json({ ok: true, spam: true });
+    }
+
     const visitorId = String(body.visitor_id || "").trim() || null;
     const conversationId = String(body.conversation_id || "").trim() || null;
     const name = body.name != null ? String(body.name).trim() : null;

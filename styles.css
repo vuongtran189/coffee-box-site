@@ -140,6 +140,38 @@ img {
   background-position: center;
 }
 
+.rev-slide[data-index="0"] {
+  --bg: image-set(
+    url("assets/slider-1-1280.avif") type("image/avif"),
+    url("assets/slider-1-1280.webp") type("image/webp"),
+    url("assets/slider-1.png") type("image/png")
+  );
+}
+
+.rev-slide[data-index="1"] {
+  --bg: image-set(
+    url("assets/slider-2-1280.avif") type("image/avif"),
+    url("assets/slider-2-1280.webp") type("image/webp"),
+    url("assets/slider-2.png") type("image/png")
+  );
+}
+
+.rev-slide[data-index="2"] {
+  --bg: image-set(
+    url("assets/slider-3-1280.avif") type("image/avif"),
+    url("assets/slider-3-1280.webp") type("image/webp"),
+    url("assets/slider-3.png") type("image/png")
+  );
+}
+
+.rev-slide[data-index="3"] {
+  --bg: image-set(
+    url("assets/slider-4-1280.avif") type("image/avif"),
+    url("assets/slider-4-1280.webp") type("image/webp"),
+    url("assets/slider-4.png") type("image/png")
+  );
+}
+
 .rev-slide.is-active {
   opacity: 1;
   pointer-events: auto;
@@ -1690,9 +1722,37 @@ textarea:focus {
 }
 
 @media (max-width: 620px) {
+  .rev-slide[data-index="0"] {
+    --bg: image-set(
+      url("assets/slider-1-768.avif") type("image/avif"),
+      url("assets/slider-1-768.webp") type("image/webp"),
+      url("assets/slider-1.png") type("image/png")
+    );
+  }
+
   .rev-slide[data-index="1"] {
-    background-image: url('assets/slider-2-mobile.png') !important;
+    --bg: image-set(
+      url("assets/slider-2-mobile-768.avif") type("image/avif"),
+      url("assets/slider-2-mobile-768.webp") type("image/webp"),
+      url("assets/slider-2-mobile.png") type("image/png")
+    );
     background-position: center;
+  }
+
+  .rev-slide[data-index="2"] {
+    --bg: image-set(
+      url("assets/slider-3-768.avif") type("image/avif"),
+      url("assets/slider-3-768.webp") type("image/webp"),
+      url("assets/slider-3.png") type("image/png")
+    );
+  }
+
+  .rev-slide[data-index="3"] {
+    --bg: image-set(
+      url("assets/slider-4-768.avif") type("image/avif"),
+      url("assets/slider-4-768.webp") type("image/webp"),
+      url("assets/slider-4.png") type("image/png")
+    );
   }
 
   .topbar-wrap { min-height: auto; }

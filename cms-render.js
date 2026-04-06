@@ -45,6 +45,38 @@ function setHtml(id, value) {
   if (el && value !== undefined) el.innerHTML = value;
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function safeHref(href) {
+  const raw = String(href ?? "").trim();
+  if (!raw) return "#";
+  if (/^(https?:)/i.test(raw)) return raw;
+  // Allow site-local relative links only (no protocol-relative, no javascript:).
+  if (raw.startsWith("/") && !raw.startsWith("//")) return raw;
+  if (!raw.includes(":") && !raw.startsWith("//")) return raw;
+  return "#";
+}
+
+function escapedTextWithBreaks(text) {
+  return escapeHtml(text).replace(/\n/g, "<br />");
+}
+
+const SEO_BASE_URL = "https://vibecoffee.vn/";
+
+function toAbsoluteSeoUrl(maybeRelativeUrl) {
+  const raw = String(maybeRelativeUrl ?? "").trim();
+  if (!raw) return "";
+  if (/^(https?:)/i.test(raw)) return raw;
+  return new URL(raw.replace(/^\//, ""), SEO_BASE_URL).toString();
+}
+
 function normalizeAssetUrl(src) {
   const raw = String(src || '').trim();
   if (!raw) return '';
@@ -192,19 +224,23 @@ function renderHome(data) {
 
   const metricWrap = document.getElementById('home-metrics');
   if (metricWrap && Array.isArray(home.metrics)) {
-    metricWrap.innerHTML = home.metrics.map((m) => `<div><strong>${m.value || ''}</strong><span>${m.label || ''}</span></div>`).join('');
+    metricWrap.innerHTML = home.metrics
+      .map((m) => `<div><strong>${escapeHtml(m.value || '')}</strong><span>${escapeHtml(m.label || '')}</span></div>`)
+      .join('');
   }
 
   const featureWrap = document.getElementById('home-features');
   if (featureWrap && Array.isArray(home.features)) {
-    featureWrap.innerHTML = home.features.map((f) => `<article><h3>${f.title || ''}</h3><p>${f.text || ''}</p></article>`).join('');
+    featureWrap.innerHTML = home.features
+      .map((f) => `<article><h3>${escapeHtml(f.title || '')}</h3><p>${escapeHtml(f.text || '')}</p></article>`)
+      .join('');
   }
 
   const previewWrap = document.getElementById('home-previews');
   if (previewWrap && Array.isArray(home.previews)) {
     previewWrap.innerHTML = home.previews.map((p, idx) => {
       const cls = idx === 0 ? 'btn btn-primary' : 'btn btn-ghost';
-      return `<article class="preview-card"><h2>${p.title || ''}</h2><p>${p.text || ''}</p><a class="${cls}" href="${p.link || '#'}">${p.label || 'Xem thêm'}</a></article>`;
+      return `<article class="preview-card"><h2>${escapeHtml(p.title || '')}</h2><p>${escapeHtml(p.text || '')}</p><a class="${cls}" href="${safeHref(p.link || '#')}">${escapeHtml(p.label || 'Xem thêm')}</a></article>`;
     }).join('');
   }
 }
@@ -220,7 +256,9 @@ function renderAbout(data) {
 
   const pointWrap = document.getElementById('about-points');
   if (pointWrap && Array.isArray(about.points)) {
-    pointWrap.innerHTML = about.points.map((p) => `<article><h3>${p.title || ''}</h3><p>${p.text || ''}</p></article>`).join('');
+    pointWrap.innerHTML = about.points
+      .map((p) => `<article><h3>${escapeHtml(p.title || '')}</h3><p>${escapeHtml(p.text || '')}</p></article>`)
+      .join('');
   }
 }
 
@@ -245,13 +283,16 @@ function renderProducts(data) {
       const slug = item?.slug ? slugify(item.slug) : slugify(item?.title);
       const detailLink = slug ? `product.html?slug=${encodeURIComponent(slug)}` : 'products.html';
       const id = slug || '';
-      const title = item?.title || '';
-      const subtitle = item?.subtitle || '';
+      const title = String(item?.title || '');
+      const subtitle = String(item?.subtitle || '');
+      const safeTitle = escapeHtml(title);
+      const safeSubtitle = escapeHtml(subtitle);
+      const safeAriaLabel = escapeHtml(`Xem chi tiết ${title || 'sản phẩm'}`);
       const priceInfo = getPriceInfo(item);
       const priceHtml = renderPriceHtml(priceInfo);
       const basePrice = priceInfo ? String(priceInfo.base) : "";
       const discount = priceInfo ? String(priceInfo.discount || 0) : "";
-      return `<article class="product-card"><a class="product-card__media" href="${detailLink}" aria-label="Xem chi tiết ${title || 'sản phẩm'}"><img class="${imageClass}" src="${imageSrc}" alt="${title}" /></a><h3><a class="product-card__titlelink" href="${detailLink}">${title}</a></h3><p>${subtitle}</p>${priceHtml}<div class="product-card__actions"><a class="btn btn-ghost" href="${detailLink}">Xem chi tiết</a><button class="btn btn-primary btn-cart" type="button" data-add-to-cart="1" data-product-id="${encodeURIComponent(id)}" data-product-title="${encodeURIComponent(title)}" data-product-subtitle="${encodeURIComponent(subtitle)}" data-product-image="${encodeURIComponent(imageSrc)}" data-product-price="${encodeURIComponent(basePrice)}" data-product-discount="${encodeURIComponent(discount)}">Thêm vào giỏ</button></div></article>`;
+      return `<article class="product-card"><a class="product-card__media" href="${detailLink}" aria-label="${safeAriaLabel}"><img class="${imageClass}" src="${imageSrc}" alt="${safeTitle}" /></a><h3><a class="product-card__titlelink" href="${detailLink}">${safeTitle}</a></h3><p>${safeSubtitle}</p>${priceHtml}<div class="product-card__actions"><a class="btn btn-ghost" href="${detailLink}">Xem chi tiết</a><button class="btn btn-primary btn-cart" type="button" data-add-to-cart="1" data-product-id="${encodeURIComponent(id)}" data-product-title="${encodeURIComponent(title)}" data-product-subtitle="${encodeURIComponent(subtitle)}" data-product-image="${encodeURIComponent(imageSrc)}" data-product-price="${encodeURIComponent(basePrice)}" data-product-discount="${encodeURIComponent(discount)}">Thêm vào giỏ</button></div></article>`;
     }).join('');
     setText('products-count', `Hiển thị ${visibleItems.length} sản phẩm`);
     animateCards(Array.from(grid.querySelectorAll('.product-card')));
@@ -293,11 +334,56 @@ function renderProductDetail(data) {
 
   if (title) document.title = `Vibe Coffee | ${title}`;
 
+  // SEO: dynamic canonical + social meta + Product JSON-LD.
+  const canonicalUrl = slug
+    ? `https://vibecoffee.vn/product.html?slug=${encodeURIComponent(slug)}`
+    : "https://vibecoffee.vn/product.html";
+  const canonicalEl = document.getElementById("canonical-link");
+  if (canonicalEl) canonicalEl.setAttribute("href", canonicalUrl);
+
+  const ogUrlEl = document.getElementById("og-url");
+  if (ogUrlEl) ogUrlEl.setAttribute("content", canonicalUrl);
+  const ogTitleEl = document.getElementById("og-title");
+  if (ogTitleEl) ogTitleEl.setAttribute("content", `Vibe Coffee | ${title}`);
+  const ogDescEl = document.getElementById("og-description");
+  if (ogDescEl) ogDescEl.setAttribute("content", item?.subtitle ? String(item.subtitle) : "Chi tiết sản phẩm Vibe Coffee.");
+
+  const twTitleEl = document.getElementById("twitter-title");
+  if (twTitleEl) twTitleEl.setAttribute("content", `Vibe Coffee | ${title}`);
+  const twDescEl = document.getElementById("twitter-description");
+  if (twDescEl) twDescEl.setAttribute("content", item?.subtitle ? String(item.subtitle) : "Chi tiết sản phẩm Vibe Coffee.");
+
+  const jsonLdEl = document.getElementById("product-jsonld");
+  if (jsonLdEl && item) {
+    const priceInfo = getPriceInfo(item);
+    const imageUrl = toAbsoluteSeoUrl(normalizeAssetUrl(item?.image || ""));
+    const desc = String(item?.description || item?.detail || "").trim();
+    const productJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: String(title),
+      description: desc ? desc.slice(0, 5000) : undefined,
+      image: imageUrl ? [imageUrl] : undefined,
+      sku: slug || undefined,
+      brand: { "@type": "Brand", name: "Vibe Coffee" },
+      offers: priceInfo
+        ? {
+            "@type": "Offer",
+            priceCurrency: "VND",
+            price: String(priceInfo.final),
+            url: canonicalUrl,
+            availability: "https://schema.org/InStock"
+          }
+        : undefined
+    };
+    jsonLdEl.textContent = JSON.stringify(productJsonLd);
+  }
+
   const descEl = document.getElementById('product-description');
   if (descEl) {
     const desc = item?.description || item?.detail || '';
     if (desc) {
-      descEl.innerHTML = `<p>${String(desc).replace(/\n/g, '<br />')}</p>`;
+      descEl.innerHTML = `<p>${escapedTextWithBreaks(desc)}</p>`;
     } else if (!item) {
       descEl.innerHTML = `<p>Không tìm thấy sản phẩm. Bạn quay lại trang <a href="products.html">Sản phẩm</a> để chọn lại nhé.</p>`;
     } else {
@@ -309,7 +395,7 @@ function renderProductDetail(data) {
   const highlights = Array.isArray(item?.highlights) ? item.highlights : [];
   if (hiWrap && highlights.length) {
     hiWrap.hidden = false;
-    hiWrap.innerHTML = `<h2>Điểm nổi bật</h2><ul>${highlights.map((h) => `<li>${h}</li>`).join('')}</ul>`;
+    hiWrap.innerHTML = `<h2>Điểm nổi bật</h2><ul>${highlights.map((h) => `<li>${escapeHtml(h)}</li>`).join('')}</ul>`;
   }
 
   const priceInfo = getPriceInfo(item);
@@ -352,7 +438,8 @@ function renderNews(data) {
   if (grid && Array.isArray(n.posts)) {
     grid.innerHTML = n.posts.map((post) => {
       const imageSrc = normalizeAssetUrl(post?.image);
-      return `<article class="news-card"><img src="${imageSrc}" alt="${post.title || ''}" /><div><time>${post.date || ''}</time><h3>${post.title || ''}</h3><p>${post.excerpt || ''}</p></div><a href="${post.link || 'contact.html'}">Xem chi tiết</a></article>`;
+      const title = String(post?.title || '');
+      return `<article class="news-card"><img src="${imageSrc}" alt="${escapeHtml(title)}" /><div><time>${escapeHtml(post.date || '')}</time><h3>${escapeHtml(title)}</h3><p>${escapeHtml(post.excerpt || '')}</p></div><a href="${safeHref(post.link || 'contact.html')}">Xem chi tiết</a></article>`;
     }).join('');
     animateCards(Array.from(grid.querySelectorAll('.news-card')));
   }

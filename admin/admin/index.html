@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibe Coffee Admin</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="./admin.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <div class="brand">Vibe Coffee</div>
+        <div class="sub">Dashboard quản trị nội dung (MongoDB)</div>
+      </div>
+      <div class="top-actions">
+        <button id="btn-logout" class="btn btn-ghost" type="button" hidden>Đăng xuất</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="login" class="card">
+        <h1>Đăng nhập</h1>
+        <p class="muted">Dashboard gọi API Render và lưu nội dung vào MongoDB.</p>
+        <label class="field">
+          <span>API base</span>
+          <input id="api-base" type="url" placeholder="https://vibe-chatbot-api.onrender.com" />
+        </label>
+        <label class="field">
+          <span>Widget key</span>
+          <input id="widget-key" type="text" placeholder="Vibe_widget_..." autocomplete="off" />
+        </label>
+        <label class="field">
+          <span>Mật khẩu admin</span>
+          <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" />
+        </label>
+        <div class="row">
+          <button id="btn-login" class="btn btn-primary" type="button">Đăng nhập</button>
+          <div id="login-status" class="muted"></div>
+        </div>
+      </section>
+
+      <section id="editor" class="card" hidden>
+        <div class="row row-between">
+          <h1>Nội dung website</h1>
+          <div class="row">
+            <button id="btn-load" class="btn" type="button">Tải nội dung hiện tại</button>
+            <button id="btn-import" class="btn" type="button">Nhập từ file đang chạy</button>
+            <button id="btn-format" class="btn" type="button">Format JSON</button>
+            <button id="btn-save" class="btn btn-primary" type="button">Lưu (MongoDB)</button>
+          </div>
+        </div>
+
+        <p class="muted">
+          Sau khi lưu, trang <code>vibecoffee.vn</code> sẽ tự đọc nội dung mới từ API khi tải lại trang.
+        </p>
+
+        <label class="field">
+          <span>JSON</span>
+          <textarea id="json" spellcheck="false" rows="22" placeholder="{ ... }"></textarea>
+        </label>
+
+        <div class="row row-between">
+          <div id="editor-status" class="muted"></div>
+          <div class="muted">Endpoint: <code>/v1/admin/site/content</code></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot muted">
+      Tip: Render env cần có <code>ADMIN_PASSWORD</code>, <code>ADMIN_JWT_SECRET</code>; CORS include
+      <code>https://vibecoffee.vn</code>.
+    </footer>
+  </div>
+
+  <script src="./admin.js"></script>
+</body>
+</html>

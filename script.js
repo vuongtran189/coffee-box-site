@@ -1,14 +1,20 @@
-﻿(() => {
+(() => {
   const tokenKeys = ['invite_token', 'recovery_token', 'confirmation_token'];
-  const searchParams = new URLSearchParams(window.location.search);
-  const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+  const url = new URL(window.location.href);
+  const searchParams = url.searchParams;
+  const hashParams = new URLSearchParams(url.hash.replace(/^#/, ''));
   const hasIdentityToken = tokenKeys.some((key) => searchParams.has(key) || hashParams.has(key));
-  const isAdminPath = /^\/admin\/?$/i.test(window.location.pathname);
+
+  const adminUrl = new URL('admin/', document.baseURI);
+  const adminPath = adminUrl.pathname.replace(/\/$/, '');
+  const pathname = url.pathname;
+  const isAdminPath = pathname === adminPath || pathname.startsWith(`${adminPath}/`);
 
   if (hasIdentityToken && !isAdminPath) {
-    const search = window.location.search || '';
-    const hash = window.location.hash || '';
-    window.location.replace(`/admin/${search}${hash}`);
+    const next = new URL(adminUrl.toString());
+    next.search = url.search || '';
+    next.hash = url.hash || '';
+    window.location.replace(next.toString());
   }
 })();
 const revSlider = document.querySelector('.rev-slider');
@@ -291,6 +297,25 @@ document.addEventListener('keydown', (event) => {
     }
   }
 
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function safeUrl(value, fallback) {
+    const raw = String(value ?? '').trim();
+    if (!raw) return escapeHtml(fallback || '');
+    if (/^(https?:|data:|blob:)/i.test(raw)) return escapeHtml(raw);
+    // Allow site-local relative paths only.
+    if (raw.startsWith('/') && !raw.startsWith('//')) return escapeHtml(raw);
+    if (!raw.includes(':') && !raw.startsWith('//')) return escapeHtml(raw);
+    return escapeHtml(fallback || '');
+  }
+
   function formatVnd(amount) {
     const n = Number(amount);
     if (!Number.isFinite(n) || n <= 0) return '';
@@ -462,9 +487,11 @@ document.addEventListener('keydown', (event) => {
     }
 
     itemsWrap.innerHTML = cart.items.map((it) => {
-      const img = it.image ? String(it.image) : 'assets/hero-box-cutout.png';
-      const title = String(it.title || '');
-      const subtitle = String(it.subtitle || '');
+      const img = safeUrl(it.image ? String(it.image) : '', 'assets/hero-box-cutout.png');
+      const titleText = String(it.title || '');
+      const subtitleText = String(it.subtitle || '');
+      const title = escapeHtml(titleText);
+      const subtitle = escapeHtml(subtitleText);
       const unit = itemFinalPrice(it);
       const priceLine = unit ? `<p>Giá: <strong>${formatVnd(unit)}</strong> / sp</p>` : '';
       return `
@@ -477,7 +504,7 @@ document.addEventListener('keydown', (event) => {
             <div class="cart-row">
               <div class="cart-qty" aria-label="Số lượng">
                 <button type="button" data-qty-minus="1" aria-label="Giảm">−</button>
-                <span>${it.qty}</span>
+                <span>${escapeHtml(it.qty)}</span>
                 <button type="button" data-qty-plus="1" aria-label="Tăng">+</button>
               </div>
               <button class="cart-remove" type="button" data-remove="1">Xoá</button>
@@ -597,12 +624,14 @@ document.addEventListener('keydown', (event) => {
     }
     const totals = calcCartTotal(cart);
     wrap.innerHTML = cart.items.map((it) => {
-      const img = it.image ? String(it.image) : 'assets/hero-box-cutout.png';
-      const title = String(it.title || '');
-      const subtitle = String(it.subtitle || '');
+      const img = safeUrl(it.image ? String(it.image) : '', 'assets/hero-box-cutout.png');
+      const titleText = String(it.title || '');
+      const subtitleText = String(it.subtitle || '');
+      const title = escapeHtml(titleText);
+      const subtitle = escapeHtml(subtitleText);
       const unit = itemFinalPrice(it);
       const price = unit ? `<div class="checkout-sub">Giá: <strong>${formatVnd(unit)}</strong> / sp</div>` : '';
-      return `<div class="checkout-item"><img src="${img}" alt="${title}" /><div><strong>${title}</strong>${subtitle ? `<div class="checkout-sub">${subtitle}</div>` : ''}${price}<div class="checkout-sub">Số lượng: <strong>${it.qty}</strong></div></div></div>`;
+      return `<div class="checkout-item"><img src="${img}" alt="${title}" /><div><strong>${title}</strong>${subtitle ? `<div class="checkout-sub">${subtitle}</div>` : ''}${price}<div class="checkout-sub">Số lượng: <strong>${escapeHtml(it.qty)}</strong></div></div></div>`;
     }).join('');
     if (totals.known && totals.total > 0) {
       wrap.innerHTML += `<div class="checkout-item"><div></div><div><strong>Tạm tính:</strong> ${formatVnd(totals.total)}</div></div>`;
@@ -624,20 +653,20 @@ document.addEventListener('keydown', (event) => {
       const accountNo = String(payments.bank_account_number || '').trim();
       const accountName = String(payments.bank_account_name || '').trim();
       if (!bankName || !accountNo || !accountName) {
-        box.innerHTML = `<p>Thông tin chuyển khoản đang được cập nhật. Mình kiểm tra lại giúp bạn nhé${hotline ? ` (hoặc gọi ${hotline})` : ''}.</p>`;
+        box.innerHTML = `<p>Thông tin chuyển khoản đang được cập nhật. Mình kiểm tra lại giúp bạn nhé${hotline ? ` (hoặc gọi ${escapeHtml(hotline)})` : ''}.</p>`;
         return;
       }
-      box.innerHTML = `<p>Chuyển khoản theo thông tin:</p><ul><li>Ngân hàng: <strong>${bankName}</strong></li><li>Số TK: <strong>${accountNo}</strong></li><li>Chủ TK: <strong>${accountName}</strong></li></ul><p>Sau khi gửi đơn, Vibe Coffee sẽ nhắn xác nhận và hướng dẫn nội dung chuyển khoản.</p>`;
+      box.innerHTML = `<p>Chuyển khoản theo thông tin:</p><ul><li>Ngân hàng: <strong>${escapeHtml(bankName)}</strong></li><li>Số TK: <strong>${escapeHtml(accountNo)}</strong></li><li>Chủ TK: <strong>${escapeHtml(accountName)}</strong></li></ul><p>Sau khi gửi đơn, Vibe Coffee sẽ nhắn xác nhận và hướng dẫn nội dung chuyển khoản.</p>`;
       return;
     }
 
     if (method === 'MOMO') {
       const momoPhone = String(payments.momo_phone || '').trim();
       if (!momoPhone) {
-        box.innerHTML = `<p>Thông tin MoMo đang được cập nhật. Mình kiểm tra lại giúp bạn nhé${hotline ? ` (hoặc gọi ${hotline})` : ''}.</p>`;
+        box.innerHTML = `<p>Thông tin MoMo đang được cập nhật. Mình kiểm tra lại giúp bạn nhé${hotline ? ` (hoặc gọi ${escapeHtml(hotline)})` : ''}.</p>`;
         return;
       }
-      box.innerHTML = `<p>MoMo: chuyển tới SĐT <strong>${momoPhone}</strong>. Sau khi gửi đơn, Vibe Coffee sẽ nhắn xác nhận và hướng dẫn nội dung chuyển khoản.</p>`;
+      box.innerHTML = `<p>MoMo: chuyển tới SĐT <strong>${escapeHtml(momoPhone)}</strong>. Sau khi gửi đơn, Vibe Coffee sẽ nhắn xác nhận và hướng dẫn nội dung chuyển khoản.</p>`;
       return;
     }
 
