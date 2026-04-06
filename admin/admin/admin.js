@@ -14,7 +14,8 @@ function readState() {
   return {
     apiBase: localStorage.getItem("vibe_admin_api_base") || DEFAULT_API_BASE,
     widgetKey: localStorage.getItem("vibe_admin_widget_key") || "",
-    token: localStorage.getItem("vibe_admin_token") || ""
+    token: localStorage.getItem("vibe_admin_token") || "",
+    password: localStorage.getItem("vibe_admin_password") || ""
   };
 }
 
@@ -22,6 +23,8 @@ function writeState(patch) {
   const next = { ...readState(), ...patch };
   localStorage.setItem("vibe_admin_api_base", next.apiBase);
   localStorage.setItem("vibe_admin_widget_key", next.widgetKey);
+  if (next.password) localStorage.setItem("vibe_admin_password", next.password);
+  else localStorage.removeItem("vibe_admin_password");
   if (next.token) localStorage.setItem("vibe_admin_token", next.token);
   else localStorage.removeItem("vibe_admin_token");
   return next;
@@ -47,10 +50,8 @@ async function apiFetch(state, path, opts = {}) {
   return json;
 }
 
-function showEditor(visible) {
-  $("login").hidden = visible;
-  $("editor").hidden = !visible;
-  $("btn-logout").hidden = !visible;
+function setAuthedUi(isAuthed) {
+  $("btn-logout").hidden = !isAuthed;
 }
 
 function prettyJson(value) {
@@ -64,16 +65,45 @@ async function bootstrap() {
   const widgetKeyInput = $("widget-key");
   const passwordInput = $("password");
   const jsonTextarea = $("json");
+  const settingsModal = $("settings-modal");
 
   let state = readState();
   apiBaseInput.value = state.apiBase || DEFAULT_API_BASE;
   widgetKeyInput.value = state.widgetKey || "";
+  passwordInput.value = state.password || "";
 
   apiBaseInput.addEventListener("change", () => {
     state = writeState({ apiBase: apiBaseInput.value.trim() || DEFAULT_API_BASE });
   });
   widgetKeyInput.addEventListener("change", () => {
     state = writeState({ widgetKey: widgetKeyInput.value.trim() });
+  });
+  passwordInput.addEventListener("change", () => {
+    state = writeState({ password: passwordInput.value });
+  });
+
+  function openSettings() {
+    if (!settingsModal) return;
+    settingsModal.hidden = false;
+    settingsModal.setAttribute("aria-hidden", "false");
+    setStatus(loginStatus, "");
+    setTimeout(() => apiBaseInput?.focus?.(), 0);
+  }
+
+  function closeSettings() {
+    if (!settingsModal) return;
+    settingsModal.hidden = true;
+    settingsModal.setAttribute("aria-hidden", "true");
+  }
+
+  $("btn-settings")?.addEventListener("click", openSettings);
+  settingsModal?.addEventListener("click", (event) => {
+    const el = event.target instanceof Element ? event.target : null;
+    if (!el) return;
+    if (el.closest("[data-close=\"1\"]")) closeSettings();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeSettings();
   });
 
   async function tryLoadCurrent() {
@@ -83,20 +113,49 @@ async function bootstrap() {
     setStatus(editorStatus, data?.updatedAt ? `Lần cập nhật gần nhất: ${data.updatedAt}` : "Chưa có nội dung trong MongoDB.");
   }
 
-  $("btn-login").addEventListener("click", async () => {
+  async function loginWithPassword(password) {
+    const res = await apiFetch(
+      { ...state, token: "" },
+      "/v1/admin/login",
+      { method: "POST", body: JSON.stringify({ password }) }
+    );
+    state = writeState({ token: String(res.token || "") });
+    setAuthedUi(Boolean(state.token));
+  }
+
+  async function ensureAuth() {
+    if (!state.widgetKey) {
+      setStatus(editorStatus, "Thiếu widget key. Bấm “Cài đặt” để nhập.", "error");
+      openSettings();
+      return false;
+    }
+    if (state.token) return true;
+    const password = String(state.password || "").trim();
+    if (!password) {
+      setStatus(editorStatus, "Chưa kết nối admin. Bấm “Cài đặt” → nhập mật khẩu → “Kết nối”.", "error");
+      openSettings();
+      return false;
+    }
     try {
-      setStatus(loginStatus, "Đang đăng nhập...");
+      setStatus(editorStatus, "Đang kết nối...");
+      await loginWithPassword(password);
+      return Boolean(state.token);
+    } catch (err) {
+      setStatus(editorStatus, String(err?.message || err), "error");
+      openSettings();
+      return false;
+    }
+  }
+
+  $("btn-connect")?.addEventListener("click", async () => {
+    try {
+      setStatus(loginStatus, "Đang kết nối...");
       state = writeState({ apiBase: apiBaseInput.value.trim() || DEFAULT_API_BASE, widgetKey: widgetKeyInput.value.trim() });
 
-      const password = passwordInput.value;
-      const res = await apiFetch(
-        { ...state, token: "" },
-        "/v1/admin/login",
-        { method: "POST", body: JSON.stringify({ password }) }
-      );
-      state = writeState({ token: String(res.token || "") });
-      passwordInput.value = "";
-      showEditor(true);
+      const password = String(passwordInput.value || "");
+      state = writeState({ password });
+      await loginWithPassword(password);
+      closeSettings();
       await tryLoadCurrent();
       setStatus(loginStatus, "");
     } catch (err) {
@@ -106,13 +165,15 @@ async function bootstrap() {
 
   $("btn-logout").addEventListener("click", () => {
     state = writeState({ token: "" });
-    showEditor(false);
+    setAuthedUi(false);
     setStatus(editorStatus, "");
     setStatus(loginStatus, "");
+    openSettings();
   });
 
   $("btn-load").addEventListener("click", async () => {
     try {
+      if (!(await ensureAuth())) return;
       await tryLoadCurrent();
     } catch (err) {
       setStatus(editorStatus, String(err?.message || err), "error");
@@ -148,6 +209,7 @@ async function bootstrap() {
 
   $("btn-save").addEventListener("click", async () => {
     try {
+      if (!(await ensureAuth())) return;
       setStatus(editorStatus, "Đang lưu...");
       const parsed = JSON.parse(jsonTextarea.value || "null");
       if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
@@ -163,17 +225,18 @@ async function bootstrap() {
     }
   });
 
-  if (state.token) {
-    showEditor(true);
+  // Always show editor; auto-connect if possible.
+  setAuthedUi(Boolean(state.token));
+  if (await ensureAuth()) {
     try {
       await tryLoadCurrent();
-    } catch {
+    } catch (err) {
+      // Token might be expired; clear and retry once.
       state = writeState({ token: "" });
-      showEditor(false);
-      setStatus(loginStatus, "Phiên đăng nhập đã hết hạn. Đăng nhập lại.", "error");
+      setAuthedUi(false);
+      if (await ensureAuth()) await tryLoadCurrent();
+      else setStatus(editorStatus, String(err?.message || err), "error");
     }
-  } else {
-    showEditor(false);
   }
 }
 

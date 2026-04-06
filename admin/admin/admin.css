@@ -75,4 +75,29 @@ input:focus, textarea:focus { border-color: rgba(255, 184, 77, 0.5); box-shadow:
 .btn-primary:hover { filter: brightness(1.03); }
 .btn-ghost { background: transparent; }
 
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 50;
+}
+
+.modal[hidden] { display: none; }
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.52);
+  backdrop-filter: blur(3px);
+}
+
+.modal__panel {
+  position: relative;
+  width: min(620px, calc(100% - 1rem));
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+}
+
 .foot { margin-top: 14px; opacity: 0.95; }

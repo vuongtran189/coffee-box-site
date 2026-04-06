@@ -15,33 +15,13 @@
         <div class="sub">Dashboard quản trị nội dung (MongoDB)</div>
       </div>
       <div class="top-actions">
+        <button id="btn-settings" class="btn btn-ghost" type="button">Cài đặt</button>
         <button id="btn-logout" class="btn btn-ghost" type="button" hidden>Đăng xuất</button>
       </div>
     </header>
 
     <main>
-      <section id="login" class="card">
-        <h1>Đăng nhập</h1>
-        <p class="muted">Dashboard gọi API Render và lưu nội dung vào MongoDB.</p>
-        <label class="field">
-          <span>API base</span>
-          <input id="api-base" type="url" placeholder="https://vibe-chatbot-api.onrender.com" />
-        </label>
-        <label class="field">
-          <span>Widget key</span>
-          <input id="widget-key" type="text" placeholder="Vibe_widget_..." autocomplete="off" />
-        </label>
-        <label class="field">
-          <span>Mật khẩu admin</span>
-          <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" />
-        </label>
-        <div class="row">
-          <button id="btn-login" class="btn btn-primary" type="button">Đăng nhập</button>
-          <div id="login-status" class="muted"></div>
-        </div>
-      </section>
-
-      <section id="editor" class="card" hidden>
+      <section id="editor" class="card">
         <div class="row row-between">
           <h1>Nội dung website</h1>
           <div class="row">
@@ -72,6 +52,33 @@
       Tip: Render env cần có <code>ADMIN_PASSWORD</code>, <code>ADMIN_JWT_SECRET</code>; CORS include
       <code>https://vibecoffee.vn</code>.
     </footer>
+  </div>
+
+  <div id="settings-modal" class="modal" hidden aria-hidden="true">
+    <div class="modal__backdrop" data-close="1" aria-hidden="true"></div>
+    <div class="modal__panel card" role="dialog" aria-modal="true" aria-label="Cài đặt admin">
+      <div class="row row-between">
+        <h1>Cài đặt</h1>
+        <button class="btn btn-ghost" type="button" data-close="1" aria-label="Đóng">×</button>
+      </div>
+      <p class="muted">Thông tin được lưu trên trình duyệt này.</p>
+      <label class="field">
+        <span>API base</span>
+        <input id="api-base" type="url" placeholder="https://vibe-chatbot-api.onrender.com" />
+      </label>
+      <label class="field">
+        <span>Widget key</span>
+        <input id="widget-key" type="text" placeholder="Vibe_widget_..." autocomplete="off" />
+      </label>
+      <label class="field">
+        <span>Mật khẩu admin</span>
+        <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" />
+      </label>
+      <div class="row">
+        <button id="btn-connect" class="btn btn-primary" type="button">Kết nối</button>
+        <div id="login-status" class="muted"></div>
+      </div>
+    </div>
   </div>
 
   <script src="./admin.js"></script>
