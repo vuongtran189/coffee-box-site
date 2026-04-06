@@ -7,12 +7,57 @@ import { inferIntentTags } from "../intent.js";
 import { addConversationTags, appendMessage, createConversation, getConversation, linkLead } from "../services/conversations.js";
 import { upsertLeadByPhone } from "../services/leads.js";
 import { requireWidgetKey } from "../auth.js";
+import { createAdminToken, isAdminConfigured, requireAdmin, verifyAdminPassword } from "../adminAuth.js";
 import { generateAssistantReply } from "../openai.js";
 import { generateFallbackReply } from "../fallback.js";
+import { getSiteContent, upsertSiteContent } from "../services/siteContent.js";
 
 export function v1Router({ env }) {
   const router = express.Router();
   router.use(requireWidgetKey(env));
+
+  // Public (widget-key protected) site content read for vibecoffee.vn pages.
+  router.get("/v1/site/content", async (_req, res) => {
+    const { db } = await getMongo(env);
+    const hit = await getSiteContent(db);
+    if (!hit) return res.status(404).json({ ok: false, error: "No content found" });
+    res.json({ ok: true, data: hit.data, updatedAt: hit.updatedAt });
+  });
+
+  // Admin auth
+  router.post("/v1/admin/login", async (req, res) => {
+    if (!isAdminConfigured(env)) {
+      return res.status(501).json({ ok: false, error: "Admin not configured" });
+    }
+    const password = String(req.body?.password || "");
+    if (!verifyAdminPassword(env, password)) {
+      return res.status(401).json({ ok: false, error: "Invalid credentials" });
+    }
+    const token = createAdminToken(env);
+    res.json({ ok: true, token });
+  });
+
+  router.get("/v1/admin/site/content", requireAdmin(env), async (_req, res) => {
+    const { db } = await getMongo(env);
+    const hit = await getSiteContent(db);
+    res.json({ ok: true, data: hit?.data || null, updatedAt: hit?.updatedAt || null });
+  });
+
+  router.put("/v1/admin/site/content", requireAdmin(env), async (req, res) => {
+    const payload = req.body?.data ?? req.body;
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+      return res.status(400).json({ ok: false, error: "Body must be a JSON object (or { data: object })" });
+    }
+
+    const approxBytes = Buffer.byteLength(JSON.stringify(payload), "utf8");
+    if (approxBytes > 220_000) {
+      return res.status(413).json({ ok: false, error: "Content too large" });
+    }
+
+    const { db } = await getMongo(env);
+    const saved = await upsertSiteContent(db, payload);
+    res.json({ ok: true, updatedAt: saved.updatedAt });
+  });
 
   router.post("/v1/widget/init", async (req, res) => {
     const body = req.body || {};

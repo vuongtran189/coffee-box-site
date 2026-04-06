@@ -10,6 +10,11 @@ const EnvSchema = z.object({
   CORS_ORIGINS: z.string().default(""),
   WIDGET_PUBLIC_KEY: z.string().min(8).default("dev_public_key_change_me"),
 
+  // Admin dashboard (optional)
+  ADMIN_PASSWORD: z.string().default(""),
+  ADMIN_JWT_SECRET: z.string().default(""),
+  ADMIN_TOKEN_TTL_SECONDS: z.coerce.number().int().min(300).max(30 * 24 * 3600).default(7 * 24 * 3600),
+
   OPENAI_API_KEY: z.string().optional(),
   OPENAI_MODEL: z.string().default("gpt-4o-mini"),
   OPENAI_MAX_OUTPUT_TOKENS: z.coerce.number().int().min(16).max(4000).default(350),

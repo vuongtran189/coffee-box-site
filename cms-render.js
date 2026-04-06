@@ -1,19 +1,34 @@
 async function loadCmsData() {
-  const candidates = [
-    'assets/cms-data.json',
-    new URL('assets/cms-data.json', document.baseURI).toString(),
-    `assets/cms-data.json?v=${Date.now()}`
-  ];
+  const apiBase = String(window.VIBE_CHATBOT_API_BASE || "").replace(/\/$/, "");
+  const widgetKey = String(window.VIBE_CHATBOT_WIDGET_KEY || "");
 
-  for (const url of candidates) {
+  const candidates = [];
+  if (apiBase) {
+    candidates.push({
+      url: `${apiBase}/v1/site/content`,
+      opts: widgetKey
+        ? { cache: "no-store", headers: { "x-widget-key": widgetKey } }
+        : { cache: "no-store" }
+    });
+  }
+
+  candidates.push(
+    { url: "assets/cms-data.json", opts: { cache: "no-store" } },
+    { url: new URL("assets/cms-data.json", document.baseURI).toString(), opts: { cache: "no-store" } },
+    { url: `assets/cms-data.json?v=${Date.now()}`, opts: { cache: "no-store" } }
+  );
+
+  for (const { url, opts } of candidates) {
     try {
-      const res = await fetch(url, { cache: 'no-store' });
+      const res = await fetch(url, opts);
       if (!res.ok) continue;
       const text = await res.text();
-      const cleaned = text.charCodeAt(0) === 0xFEFF ? text.slice(1) : text;
-      return JSON.parse(cleaned);
+      const cleaned = text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
+      const json = JSON.parse(cleaned);
+      if (json && typeof json === "object" && json.data && typeof json.data === "object") return json.data;
+      return json;
     } catch (err) {
-      console.warn('[vibe] loadCmsData failed:', url, err);
+      console.warn("[vibe] loadCmsData failed:", url, err);
     }
   }
 

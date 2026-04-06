@@ -36,8 +36,8 @@ const corsOptions = {
     return cb(null, env.corsOrigins.includes(origin));
   },
   credentials: false,
-  methods: ["GET", "HEAD", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "x-widget-key"],
+  methods: ["GET", "HEAD", "POST", "PUT", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "x-widget-key"],
   optionsSuccessStatus: 204,
   maxAge: 86400
 };
