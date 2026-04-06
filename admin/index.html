@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vibe Coffee Admin</title>
   <meta name="robots" content="noindex,nofollow" />
-  <link rel="stylesheet" href="./admin.css?v=20260406" />
+  <link rel="stylesheet" href="./admin.css?v=20260407b" />
 </head>
 <body>
   <div class="wrap">
@@ -69,13 +69,19 @@
         <span>Widget key</span>
         <input id="widget-key" type="text" placeholder="Vibe_widget_..." autocomplete="off" />
       </label>
+      <label class="field">
+        <span>Admin password</span>
+        <input id="admin-password" type="password" placeholder="(không lưu)" autocomplete="current-password" />
+      </label>
       <div class="row">
         <button id="btn-save-settings" class="btn btn-primary" type="button">Lưu</button>
+        <button id="btn-login" class="btn" type="button">Đăng nhập</button>
+        <button id="btn-logout" class="btn btn-ghost" type="button">Đăng xuất</button>
         <div id="login-status" class="muted"></div>
       </div>
     </div>
   </div>
 
-  <script src="./admin.js?v=20260406"></script>
+  <script src="./admin.js?v=20260407c"></script>
 </body>
 </html>

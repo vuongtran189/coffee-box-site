@@ -1,5 +1,5 @@
 async function loadCmsData() {
-  const apiBase = String(window.VIBE_CHATBOT_API_BASE || "").replace(/\/$/, "");
+  const apiBase = String(window.VIBE_CMS_API_BASE || window.VIBE_CHATBOT_API_BASE || "").replace(/\/$/, "");
   const widgetKey = String(window.VIBE_CHATBOT_WIDGET_KEY || "");
 
   const candidates = [];

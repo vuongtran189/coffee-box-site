@@ -1,4 +1,7 @@
 const DEFAULT_API_BASE = "https://vibe-chatbot-api.onrender.com";
+const LS_API_BASE = "vibe_admin_api_base";
+const LS_WIDGET_KEY = "vibe_admin_widget_key";
+const LS_TOKEN = "vibe_admin_token";
 
 function $(id) {
   return document.getElementById(id);
@@ -12,16 +15,17 @@ function setStatus(el, msg, type = "info") {
 
 function readState() {
   return {
-    apiBase: localStorage.getItem("vibe_admin_api_base") || DEFAULT_API_BASE,
-    widgetKey: localStorage.getItem("vibe_admin_widget_key") || "",
-    token: ""
+    apiBase: localStorage.getItem(LS_API_BASE) || DEFAULT_API_BASE,
+    widgetKey: localStorage.getItem(LS_WIDGET_KEY) || "",
+    token: localStorage.getItem(LS_TOKEN) || ""
   };
 }
 
 function writeState(patch) {
   const next = { ...readState(), ...patch };
-  localStorage.setItem("vibe_admin_api_base", next.apiBase);
-  localStorage.setItem("vibe_admin_widget_key", next.widgetKey);
+  localStorage.setItem(LS_API_BASE, next.apiBase);
+  localStorage.setItem(LS_WIDGET_KEY, next.widgetKey);
+  if (patch.token !== undefined) localStorage.setItem(LS_TOKEN, next.token || "");
   return next;
 }
 
@@ -31,12 +35,74 @@ function apiUrl(apiBase, path) {
   return `${base}${path}`;
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isTransientApiError(err) {
+  const msg = String(err?.message || err || "");
+  return (
+    msg.includes("Failed to fetch (network)") ||
+    msg.includes("Failed to fetch (CORS)") ||
+    msg.includes("HTTP 502") ||
+    msg.includes("HTTP 503") ||
+    msg.includes("HTTP 504") ||
+    msg.toLowerCase().includes("bad gateway") ||
+    msg.toLowerCase().includes("service unavailable")
+  );
+}
+
+async function withRetries(fn, { retries = 3, baseDelayMs = 900, onRetry } = {}) {
+  let lastErr = null;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (attempt >= retries || !isTransientApiError(err)) throw err;
+      const wait = baseDelayMs * Math.pow(1.6, attempt);
+      onRetry?.({ attempt: attempt + 1, waitMs: Math.round(wait), err });
+      await sleep(wait);
+    }
+  }
+  throw lastErr;
+}
+
+async function probeHealth(apiBase) {
+  try {
+    const res = await fetch(apiUrl(apiBase, "/health"), { method: "GET", cache: "no-store" });
+    return { ok: res.ok, status: res.status };
+  } catch (err) {
+    return { ok: false, error: String(err?.message || err) };
+  }
+}
+
 async function apiFetch(state, path, opts = {}) {
   const headers = new Headers(opts.headers || {});
-  headers.set("content-type", "application/json");
+  const method = String(opts.method || "GET").toUpperCase();
+  const hasBody = opts.body != null && String(opts.body).length > 0;
+  if (hasBody || method === "POST" || method === "PUT" || method === "PATCH") {
+    headers.set("content-type", "application/json");
+  }
   if (state.widgetKey) headers.set("x-widget-key", state.widgetKey);
+  if (state.token && path.startsWith("/v1/admin/") && path !== "/v1/admin/login") {
+    headers.set("authorization", `Bearer ${state.token}`);
+  }
 
-  const res = await fetch(apiUrl(state.apiBase, path), { ...opts, headers });
+  let res;
+  try {
+    res = await fetch(apiUrl(state.apiBase, path), { ...opts, headers });
+  } catch (err) {
+    const msg = String(err?.message || err);
+    if (/failed to fetch/i.test(msg)) {
+      const health = await probeHealth(state.apiBase);
+      if (health.ok) {
+        throw new Error("Failed to fetch (CORS). API vẫn sống (/health OK) nhưng trình duyệt chặn do thiếu CORS header. Kiểm tra CORS_ORIGINS trên Render có include đúng origin của trang /admin/ (vd https://vibecoffee.vn) và restart service.");
+      }
+      throw new Error("Failed to fetch (network). Không kết nối được API (Render có thể đang sleep/khởi động). Mở /health để kiểm tra và thử lại sau 30–60 giây.");
+    }
+    throw err;
+  }
   const json = await res.json().catch(() => null);
   if (!res.ok) {
     const msg = json?.error || `HTTP ${res.status}`;
@@ -54,6 +120,7 @@ async function bootstrap() {
   const editorStatus = $("editor-status");
   const apiBaseInput = $("api-base");
   const widgetKeyInput = $("widget-key");
+  const adminPasswordInput = $("admin-password");
   const jsonTextarea = $("json");
   const settingsModal = $("settings-modal");
 
@@ -67,6 +134,10 @@ async function bootstrap() {
   widgetKeyInput.addEventListener("change", () => {
     state = writeState({ widgetKey: widgetKeyInput.value.trim() });
   });
+
+  function setToken(token) {
+    state = writeState({ token: String(token || "") });
+  }
 
   function openSettings() {
     if (!settingsModal) return;
@@ -94,7 +165,15 @@ async function bootstrap() {
 
   async function tryLoadCurrent() {
     setStatus(editorStatus, "Đang tải...");
-    const data = await apiFetch(state, "/v1/admin/site/content", { method: "GET" });
+    const data = await withRetries(
+      () => apiFetch(state, "/v1/admin/site/content", { method: "GET" }),
+      {
+        retries: 3,
+        onRetry: ({ attempt, waitMs }) => {
+          setStatus(editorStatus, `API đang khởi động/chập chờn. Thử lại lần ${attempt} sau ${Math.ceil(waitMs / 1000)}s...`);
+        }
+      }
+    );
     jsonTextarea.value = data?.data ? prettyJson(data.data) : "";
     setStatus(editorStatus, data?.updatedAt ? `Lần cập nhật gần nhất: ${data.updatedAt}` : "Chưa có nội dung trong MongoDB.");
   }
@@ -108,6 +187,39 @@ async function bootstrap() {
     return true;
   }
 
+  async function login(password) {
+    if (!(await ensureAuth())) return false;
+    const pwd = String(password || "");
+    if (!pwd) {
+      setStatus(loginStatus, "Nhập admin password để đăng nhập.", "error");
+      return false;
+    }
+    setStatus(loginStatus, "Đang đăng nhập...");
+    const res = await withRetries(
+      () =>
+        apiFetch(state, "/v1/admin/login", {
+          method: "POST",
+          body: JSON.stringify({ password: pwd })
+        }),
+      {
+        retries: 3,
+        onRetry: ({ attempt, waitMs }) => {
+          setStatus(loginStatus, `API đang khởi động/chập chờn. Thử lại lần ${attempt} sau ${Math.ceil(waitMs / 1000)}s...`);
+        }
+      }
+    );
+    if (!res?.ok) throw new Error(res?.error || "Login failed");
+    setToken(res?.token || "");
+    setStatus(loginStatus, state.token ? "Đã đăng nhập." : "Đã đăng nhập (admin open).");
+    if (adminPasswordInput) adminPasswordInput.value = "";
+    return true;
+  }
+
+  function logout() {
+    setToken("");
+    setStatus(loginStatus, "Đã đăng xuất.");
+  }
+
   $("btn-save-settings")?.addEventListener("click", () => {
     state = writeState({
       apiBase: apiBaseInput.value.trim() || DEFAULT_API_BASE,
@@ -117,20 +229,41 @@ async function bootstrap() {
     closeSettings();
   });
 
+  $("btn-login")?.addEventListener("click", async () => {
+    try {
+      state = writeState({
+        apiBase: apiBaseInput.value.trim() || DEFAULT_API_BASE,
+        widgetKey: widgetKeyInput.value.trim()
+      });
+      const ok = await login(adminPasswordInput?.value || "");
+      if (!ok) return;
+      closeSettings();
+      await tryLoadCurrent();
+    } catch (err) {
+      setStatus(loginStatus, String(err?.message || err), "error");
+    }
+  });
+
+  $("btn-logout")?.addEventListener("click", () => {
+    logout();
+  });
+
   $("btn-load").addEventListener("click", async () => {
     try {
       if (!(await ensureAuth())) return;
       await tryLoadCurrent();
     } catch (err) {
       setStatus(editorStatus, String(err?.message || err), "error");
+      if (String(err?.message || err).toLowerCase().includes("token")) openSettings();
     }
   });
 
   $("btn-import").addEventListener("click", async () => {
     try {
-      setStatus(editorStatus, "Đang nhập từ /assets/cms-data.json ...");
-      const res = await fetch("/assets/cms-data.json", { cache: "no-store" });
-      if (!res.ok) throw new Error(`Không tải được /assets/cms-data.json (HTTP ${res.status})`);
+      const url = new URL("../assets/cms-data.json", window.location.href).toString();
+      setStatus(editorStatus, `Đang nhập từ ${url} ...`);
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error(`Không tải được cms-data.json (HTTP ${res.status})`);
       const text = await res.text();
       const cleaned = text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
       const parsed = JSON.parse(cleaned);
@@ -168,6 +301,7 @@ async function bootstrap() {
       setStatus(editorStatus, `Đã lưu. updatedAt: ${res.updatedAt || "OK"}`);
     } catch (err) {
       setStatus(editorStatus, String(err?.message || err), "error");
+      if (String(err?.message || err).toLowerCase().includes("token")) openSettings();
     }
   });
 
