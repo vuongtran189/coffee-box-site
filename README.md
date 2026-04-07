@@ -1,41 +1,52 @@
-﻿# Vibe Coffee — Website + Chatbot (coffee-box-site)
+# Vibe Coffee — Website + Chatbot + CMS (coffee-box-site)
 
-Repo này gồm 2 phần:
-- **Website tĩnh** (GitHub Pages): các trang `index.html`, `products.html`, `news.html`, `about.html`, `contact.html`.
+Repo này gồm 3 phần:
+- **Website tĩnh** (GitHub Pages / cPanel): `index.html`, `products.html`, `news.html`, `about.html`, `contact.html`, `product.html`, `checkout.html`.
 - **Chatbot backend + widget** (Render + MongoDB): thư mục `vibe-chatbot/` và widget nhúng vào website.
+- **CMS nội dung + Admin (UI kiểu WordPress)** (Cloudflare Pages + KV): nội dung website lưu ở KV, quản trị qua `/admin/`.
 
 ## Link production (tham khảo)
 - Website (GitHub Pages): `https://vuongtran189.github.io/coffee-box-site/`
-- Website (Domain/Hosting): `https://vibecoffee.vn/` (cần DNS + SSL + upload lên hosting)
-- API (Render): `https://vibe-chatbot-api.onrender.com/`
+- Website (Domain/Hosting): `https://vibecoffee.vn/`
+- Chatbot API (Render): `https://vibe-chatbot-api.onrender.com/`
   - Health check: `GET /health`
+- CMS API (Cloudflare Pages): `https://cms.vibecoffee.vn/`
+  - Health check: `GET /health`
+  - Public content (widget-key protected): `GET /v1/site/content`
 
 ## Cấu trúc thư mục
 - `index.html`, `about.html`, `products.html`, `news.html`, `contact.html`: trang website.
+- `product.html`: trang chi tiết sản phẩm (`?slug=...`).
+- `checkout.html`: checkout (COD / chuyển khoản / MoMo).
 - `styles.css`, `script.js`: CSS/JS dùng chung.
+- `cms-render.js`: render nội dung từ CMS (ưu tiên Cloudflare KV → fallback `assets/cms-data.json`).
 - `assets/`: ảnh + static assets
-  - `assets/chatbot/widget.js`, `assets/chatbot/widget.css`: **bản widget dùng trên GitHub Pages** (ưu tiên load local).
+  - `assets/chatbot/widget.js`, `assets/chatbot/widget.css`: **bản widget dùng trên GitHub Pages/cPanel** (ưu tiên load local).
   - `assets/chatbot/agent.png`: avatar “tư vấn viên” cho nút launcher.
-- `assets/logo-vibe-coffee-web.png`: logo header (đã crop để cân đối topbar).
-- `admin/`: cấu hình CMS (Decap/Netlify CMS style).
-- `cms-render.js`: render nội dung (phụ thuộc cấu hình CMS/nội dung).
-- `functions/`: serverless functions (dùng cho Cloudflare Pages nếu deploy theo hướng đó).
+  - `assets/cms-data.json`: nội dung fallback cho website tĩnh.
+- `admin/`: **trang quản trị nội dung UI kiểu WordPress** (chạy tĩnh, gọi CMS API Cloudflare).
+- `functions/`: Cloudflare Pages Functions (CMS API + lead endpoint)
+  - `GET /health`
+  - `GET /v1/site/content`
+  - `POST /v1/admin/login`
+  - `GET/PUT /v1/admin/site/content`
+  - `POST /lead` (nhận lead khi deploy Cloudflare Pages)
 - `vibe-chatbot/`: monorepo cho chatbot
   - `apps/api`: API Express + MongoDB + OpenAI integration
   - `packages/widget`: source widget + build ra `dist/`
   - `render.yaml`, `Dockerfile`: cấu hình deploy Render
-- `san-pham/`, `ve-chung-toi/`: trang redirect thân thiện (SEO) về `products.html` và `about.html` (đã tối ưu cho deploy ở root domain).
+- `san-pham/`, `ve-chung-toi/`: trang redirect thân thiện (SEO) về `products.html` và `about.html`.
 
 ## Chatbot hoạt động như thế nào
 ### Nhúng widget trên website
-Các trang HTML đều set biến global trước khi load `script.js`:
+Các trang HTML set biến global trước khi load `script.js`:
 - `window.VIBE_CHATBOT_API_BASE` = base URL của API Render (vd `https://vibe-chatbot-api.onrender.com`)
 - `window.VIBE_CHATBOT_WIDGET_KEY` = public key (để API cho phép gọi)
 - `window.VIBE_CHATBOT_LAUNCHER_ICON_URL` = icon/ảnh avatar (hiện tại trỏ tới `assets/chatbot/agent.png`)
 
 `script.js` sẽ:
-- **Ưu tiên load widget local**: `assets/chatbot/widget.js` + `assets/chatbot/widget.css` (ổn định, không phụ thuộc Render trả `widget.js/css`).
-- Widget sẽ gọi API:
+- **Ưu tiên load widget local**: `assets/chatbot/widget.js` + `assets/chatbot/widget.css`.
+- Widget gọi API:
   - `POST /v1/widget/init` (khởi tạo session)
   - `POST /v1/chat` (gửi tin nhắn)
 
@@ -44,21 +55,45 @@ API route `/v1/chat` sẽ cố gắng gọi OpenAI Responses API nếu có `OPEN
 - Nếu OpenAI lỗi/timeout → fallback câu trả lời mặc định.
 - Nếu MongoDB lỗi tạm thời → API chạy chế độ **degraded/stateless** để tránh 502.
 
-## Render — Environment Variables (quan trọng)
+## CMS nội dung (Cloudflare KV) hoạt động như thế nào
+### Website đọc nội dung
+`cms-render.js` sẽ cố gắng load theo thứ tự:
+- Nếu có `window.VIBE_CMS_API_BASE` → `GET {CMS_API_BASE}/v1/site/content` (yêu cầu header `x-widget-key`)
+- Nếu không có → fallback `assets/cms-data.json`
+
+Biến cần set trên website:
+- `window.VIBE_CMS_API_BASE` = `https://cms.vibecoffee.vn` (khuyến nghị)
+- `window.VIBE_CHATBOT_WIDGET_KEY` = widget key (trùng `WIDGET_PUBLIC_KEY` bên Cloudflare)
+
+### Trang quản trị `/admin/` (UI kiểu WordPress)
+`/admin/` là trang tĩnh (host ở cPanel: `https://vibecoffee.vn/admin/`) và gọi CMS API:
+- `POST {CMS_API_BASE}/v1/admin/login` (lấy token bearer)
+- `GET {CMS_API_BASE}/v1/admin/site/content` (load nội dung)
+- `PUT {CMS_API_BASE}/v1/admin/site/content` (lưu nội dung vào KV)
+
+Ảnh/media: dán **Cloudinary URL** vào các trường Image (admin sẽ preview).
+
+## Cloudflare Pages (CMS API) — Variables + Bindings (quan trọng)
+Trên Cloudflare Pages project `coffee-box-site`:
+- KV binding: `VIBE_CONTENT_KV` (KV Namespace) — nơi lưu nội dung JSON
+- Variables:
+  - `WIDGET_PUBLIC_KEY`: phải trùng `window.VIBE_CHATBOT_WIDGET_KEY` trên website/admin
+  - `CORS_ORIGINS`: ví dụ `https://vibecoffee.vn,https://www.vibecoffee.vn` (không có path)
+  - `ADMIN_PASSWORD`, `ADMIN_JWT_SECRET`: bật đăng nhập admin
+  - (tuỳ chọn) `ADMIN_TOKEN_TTL_SECONDS`, `ADMIN_OPEN`
+
+## Render (Chatbot API) — Environment Variables (quan trọng)
 Trong Render service `vibe-chatbot-api`, cần set (không commit secrets vào git):
 - `CORS_ORIGINS`: ví dụ `https://vuongtran189.github.io,https://vibecoffee.vn,https://www.vibecoffee.vn`
 - `MONGODB_URI`: MongoDB connection string (Atlas)
-- `WIDGET_PUBLIC_KEY`: phải trùng với `window.VIBE_CHATBOT_WIDGET_KEY` trên website
+- `WIDGET_PUBLIC_KEY`: phải trùng `window.VIBE_CHATBOT_WIDGET_KEY` trên website (khuyến nghị dùng cùng key với Cloudflare CMS)
 - `OPENAI_API_KEY`: OpenAI API key
 
 Tuỳ chọn:
 - `OPENAI_MODEL` (default: `gpt-4o-mini`)
 - `OPENAI_MAX_OUTPUT_TOKENS` (default: 350)
-- `OPENAI_INSTRUCTIONS`: “system prompt” cho tư vấn viên
-  - Hỗ trợ placeholder: `{{knowledge_chunks}}`, `{{user_message}}` (API sẽ tự render trước khi gọi OpenAI)
-- `VIBE_KNOWLEDGE_TEXT`: dán trực tiếp knowledge base (Markdown/text) để AI bám theo nội dung sản phẩm/FAQ
-- `VIBE_KNOWLEDGE_MAX_CHARS` (default: 8000): giới hạn độ dài knowledge đưa vào prompt
-- `VIBE_KNOWLEDGE_PATH`: đường dẫn file knowledge trên server/repo (nếu không dùng `VIBE_KNOWLEDGE_TEXT`)
+- `OPENAI_INSTRUCTIONS`: “system prompt” cho tư vấn viên (placeholder: `{{knowledge_chunks}}`, `{{user_message}}`)
+- `VIBE_KNOWLEDGE_TEXT`, `VIBE_KNOWLEDGE_PATH`, `VIBE_KNOWLEDGE_MAX_CHARS`
 
 ## Bán hàng online (Giỏ hàng + Checkout)
 ### Giỏ hàng
@@ -67,115 +102,75 @@ Tuỳ chọn:
 
 ### Checkout (COD / Chuyển khoản / MoMo)
 - Trang checkout: `checkout.html` (từ giỏ hàng bấm “Gửi đơn đặt hàng”).
-- Hiện tại form **tự chọn endpoint**:
-  - Nếu có `window.VIBE_CHATBOT_API_BASE` + `window.VIBE_CHATBOT_WIDGET_KEY` → gửi về `POST {API_BASE}/v1/leads` (khuyến nghị cho GitHub Pages / Linux hosting tĩnh).
-  - Nếu không có cấu hình chatbot → fallback `POST /lead` (dành cho Cloudflare Pages Functions / backend cùng origin).
+- Form **tự chọn endpoint**:
+  - Nếu có `window.VIBE_CHATBOT_API_BASE` + `window.VIBE_CHATBOT_WIDGET_KEY` → gửi `POST {API_BASE}/v1/leads` (khuyến nghị cho GitHub Pages / cPanel).
+  - Nếu không có cấu hình chatbot → fallback `POST /lead` (Cloudflare Pages Functions / backend cùng origin).
 - Cấu hình thông tin thanh toán nằm trong `assets/cms-data.json`:
-  - `site.payments.bank_name`
-  - `site.payments.bank_account_number`
-  - `site.payments.bank_account_name`
-  - `site.payments.momo_phone`
+  - `site.payments.bank_name`, `site.payments.bank_account_number`, `site.payments.bank_account_name`, `site.payments.momo_phone`
 
 ## Deploy lên Linux hosting (cPanel) — vibecoffee.vn
 ### 1) DNS
 - Tạo bản ghi:
-  - `A` cho `@` → IP hosting (vd `103.28.36.205`)
+  - `A` cho `@` → IP hosting
   - `A` cho `www` → IP hosting
 
 ### 2) Upload website
-- Upload và Extract file zip build sẵn: `vibecoffee.vn-site.zip` vào `public_html/`.
+- Upload + Extract zip website vào `public_html/`.
+- **Nhớ upload cả thư mục `admin/`** (để có trang `https://vibecoffee.vn/admin/`).
 
-### 3) SSL
-- cPanel → `SSL/TLS Status` → `Run AutoSSL` cho `vibecoffee.vn` và `www.vibecoffee.vn` (yêu cầu DNS đã hoạt động).
-
-### 4) Chatbot + form đặt hàng
-- Cập nhật `CORS_ORIGINS` trên Render để include domain mới:
-  - `https://vibecoffee.vn,https://www.vibecoffee.vn`
-
-## Quy chuẩn ảnh (gợi ý)
-- Ảnh đại diện bài viết (card tin tức + trang bài viết) đang hiển thị theo khung ngang và crop bằng `object-fit: cover`.
-- Tỷ lệ khung khuyến nghị ~ **2.7:1** (ví dụ `1600x600` hoặc `1920x720`). Chuẩn social `1200x630` vẫn dùng được nhưng sẽ bị crop trên/dưới.
-
-## Local dev (tối thiểu)
-### Website
-- Mở trực tiếp file HTML vẫn chạy được, nhưng tốt nhất dùng server tĩnh để tránh vấn đề đường dẫn:
-  - Ví dụ: `python -m http.server` (nếu có Python), hoặc dùng extension “Live Server”.
-
-### Chatbot API + widget
-Xem hướng dẫn chi tiết: `vibe-chatbot/README.md`.
+### 3) Set biến CMS + Chatbot trên website
+- Set `window.VIBE_CMS_API_BASE = "https://cms.vibecoffee.vn"` để website đọc nội dung từ KV.
+- Giữ `window.VIBE_CHATBOT_API_BASE = "https://vibe-chatbot-api.onrender.com"` cho chatbot/leads.
 
 ## Checklist khi deploy / debug
-### 1) API sống?
+### 1) CMS API sống?
+- Mở: `https://cms.vibecoffee.vn/health` → phải thấy `{"ok":true}`
+- Lưu ý: `GET /v1/site/content` yêu cầu header `x-widget-key` (mở trực tiếp trên browser sẽ báo `Unauthorized` là bình thường).
+
+### 2) Admin gọi đúng CMS API?
+- Mở `https://vibecoffee.vn/admin/` → “Cài đặt kết nối”:
+  - `API base` = `https://cms.vibecoffee.vn`
+  - `Widget key` đúng
+  - đăng nhập → sửa → bấm “Lưu”
+
+### 3) Chatbot API sống?
 - Mở: `https://vibe-chatbot-api.onrender.com/health` → phải thấy `{"ok":true}`
 
-### 2) CORS đúng?
-- `CORS_ORIGINS` phải đúng **origin** của website (không có path):
-  - Đúng: `https://vuongtran189.github.io`
-  - Sai: `https://vuongtran189.github.io/coffee-box-site`
+### 4) CORS đúng?
+- `CORS_ORIGINS` phải đúng **origin** (không có path):
+  - Đúng: `https://vibecoffee.vn`
+  - Sai: `https://vibecoffee.vn/admin`
 
-### 3) Widget load local?
+### 5) Widget load local?
 - Trên website, kiểm tra Network:
   - `assets/chatbot/widget.js` và `assets/chatbot/widget.css` load 200 OK
 
-### 4) OpenAI chạy?
-- Render Logs khi gửi tin nhắn:
-  - Nếu `openai_error_401` → sai key/thiếu quyền
-  - Nếu `openai_error_429` → bị rate limit
-  - Nếu thấy `openai_generateAssistantReply_failed` → OpenAI đang lỗi/timeout, API sẽ dùng fallback
-
-### 5) “Bể tiếng Việt” trong widget?
-- Source-of-truth để sửa text: `vibe-chatbot/packages/widget/src/widget.js`
-- Sau khi sửa, cần rebuild widget và copy sang `assets/chatbot/widget.js` để GitHub Pages dùng bản mới.
-
-### 6) Form gửi lead/đơn hàng chạy?
-- Nếu deploy tĩnh (GitHub Pages / cPanel): đảm bảo `window.VIBE_CHATBOT_API_BASE` + `window.VIBE_CHATBOT_WIDGET_KEY` được set để form gửi về `POST /v1/leads`.
-- Nếu Render báo CORS: kiểm tra `CORS_ORIGINS` đã include đúng origin (`https://vibecoffee.vn`, không có path).
-
-## Tiến độ (cập nhật: 2026-04-03)
+## Tiến độ (cập nhật: 2026-04-07)
 ### Đã hoàn thành
-- [x] Website tĩnh (GitHub Pages) + các trang chính (`index.html`, `products.html`, `news.html`, `about.html`, `contact.html`).
-- [x] Widget nhúng hiển thị tiếng Việt + có avatar launcher (`assets/chatbot/agent.png`).
-- [x] Website ưu tiên load widget local: `assets/chatbot/widget.js` + `assets/chatbot/widget.css`.
-- [x] API chatbot (Render) có health check `GET /health`.
-- [x] API xử lý CORS preflight (`OPTIONS`) ổn định.
-- [x] API có timeout + chế độ **degraded/stateless** khi MongoDB lỗi để giảm 502.
-- [x] Đã thêm favicon link để tránh 404 `/favicon.ico`.
-- [x] Đã bỏ nút “Nhận báo giá” trên trang chi tiết sản phẩm (`product.html`).
-- [x] Đã fix trang `products.html` không còn kẹt “0 sản phẩm” khi fetch JSON lỗi (có fallback message + parse JSON robust).
-- [x] Đã cập nhật logo header cân đối (`assets/logo-vibe-coffee-web.png`) + chỉnh CSS topbar.
-- [x] Đã đổi flow submit form (liên hệ + checkout) để chạy được trên hosting tĩnh: ưu tiên `POST /v1/leads` (Render API) thay vì phụ thuộc `POST /lead`.
-- [x] Đã sửa redirect `san-pham/` và `ve-chung-toi/` để chạy đúng khi deploy ở root domain (không còn `/coffee-box-site/...`).
+- [x] Website tĩnh + các trang chính + `product.html`, giỏ hàng, `checkout.html`.
+- [x] Widget nhúng hiển thị tiếng Việt + avatar launcher, website ưu tiên load widget local.
+- [x] Chatbot API (Render) có `GET /health`, CORS preflight ổn định, degraded/stateless khi MongoDB lỗi.
+- [x] Flow submit lead/đơn hàng chạy được trên hosting tĩnh: ưu tiên `POST /v1/leads`.
+- [x] CMS nội dung chạy trên Cloudflare Pages + KV (`cms.vibecoffee.vn`) và website đọc nội dung qua `VIBE_CMS_API_BASE`.
+- [x] Trang quản trị `/admin/` UI kiểu WordPress (Pages/Posts/Products/Tools/Settings) lưu/đọc nội dung từ Cloudflare KV.
 
 ### Việc cần làm tiếp (khuyến nghị)
-- [x] Soạn nội dung `OPENAI_INSTRUCTIONS` (giọng điệu + quy trình hỏi nhu cầu + chốt lead SĐT/Zalo).
-- [ ] Rà soát cấu hình Render env vars (đặc biệt: `CORS_ORIGINS` cho `vibecoffee.vn`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
-- [x] Tạo knowledge base (Markdown) và nạp vào prompt để AI trả lời đúng sản phẩm/FAQ.
-- [ ] (Tuỳ chọn) nâng cấp RAG (truy xuất theo ngữ cảnh) nếu knowledge lớn.
+- [ ] Rà soát Render env vars (đặc biệt: `CORS_ORIGINS`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
+- [ ] (Tuỳ chọn) Media Library (lưu danh sách Cloudinary URL) và editor nâng cao (WYSIWYG) trong admin.
+- [ ] (Tuỳ chọn) tách “Bài viết” thành file HTML thật trong `news/` nếu muốn SEO bài viết theo URL riêng.
 
 ## Nhật ký thay đổi (để quay lại nhanh)
 ### 2026-03-23
-- Thêm prompt template + file tham chiếu:
-  - `vibe-chatbot/OPENAI_INSTRUCTIONS.txt` (dùng placeholder `{{knowledge_chunks}}`, `{{user_message}}`)
-  - `vibe-chatbot/knowledge/vibe-coffee.md` (knowledge base)
-- API:
-  - Nạp knowledge vào prompt + hỗ trợ render placeholder: `vibe-chatbot/apps/api/src/openai.js`
-  - Fallback trả lời theo flow (không lặp Bước 1) khi OpenAI lỗi/không cấu hình: `vibe-chatbot/apps/api/src/fallback.js`
-  - Log chẩn đoán lỗi OpenAI: prefix `openai_generateAssistantReply_failed` trong Render Logs
-- Env vars liên quan knowledge: `VIBE_KNOWLEDGE_TEXT`, `VIBE_KNOWLEDGE_PATH`, `VIBE_KNOWLEDGE_MAX_CHARS`
-- Git commits đã push lên `main`: `725f535`, `2a18970` (Render cần redeploy để nhận thay đổi)
+- Thêm `OPENAI_INSTRUCTIONS.txt` + knowledge base, nạp knowledge vào prompt, fallback/log chẩn đoán OpenAI.
 
 ### 2026-03-24
-- Thêm trang chi tiết sản phẩm: `product.html` (link từ `products.html` qua `?slug=...`).
-- Thêm giỏ hàng (localStorage) + icon nút giỏ hàng trên header.
-- Thêm trang thanh toán: `checkout.html` (COD / chuyển khoản / MoMo) và gửi đơn qua `POST /lead`.
-- Thêm config thanh toán trong `assets/cms-data.json` (`site.payments.*`).
+- Thêm `product.html`, giỏ hàng, `checkout.html`, config thanh toán trong `assets/cms-data.json`.
 
-### 2026-04-02
-- Fix `cms-data.json` hiển thị tiếng Việt chuẩn (UTF-8) + cập nhật nội dung sản phẩm (giá/giảm giá).
-- Fix `cms-render.js` load CMS data ổn định hơn (fallback + parse JSON) và không để UI kẹt “0 sản phẩm”.
-- Cập nhật logo header + chỉnh lại kích thước logo/topbar cho cân đối.
+### 2026-04-02 → 2026-04-03
+- Fix CMS data render, logo/topbar, bỏ CTA “Nhận báo giá”, sửa redirect `san-pham/`, `ve-chung-toi/`, đổi flow submit lead ưu tiên `POST /v1/leads`.
 
-### 2026-04-03
-- Bỏ toàn bộ CTA “Nhận báo giá” trên `product.html` (header + CTA + note).
-- Cập nhật `script.js` để submit lead/đơn hàng ưu tiên `POST {API_BASE}/v1/leads` (Render) khi deploy tĩnh (GitHub Pages / cPanel).
-- Sửa redirect `san-pham/` và `ve-chung-toi/` cho deploy ở root domain.
+### 2026-04-07
+- Thêm CMS API chạy trên Cloudflare Pages + KV: `functions/*`.
+- `cms-render.js` hỗ trợ `window.VIBE_CMS_API_BASE`.
+- Xây lại `/admin/` theo UI kiểu WordPress và lưu nội dung lên KV.
+
