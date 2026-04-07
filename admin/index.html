@@ -3,61 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vibe Coffee Admin</title>
+  <title>Vibe Coffee — Quản trị</title>
   <meta name="robots" content="noindex,nofollow" />
-  <link rel="stylesheet" href="./admin.css?v=20260407ui" />
+  <link rel="stylesheet" href="./admin.css?v=20260407wp" />
 </head>
 <body>
-  <div class="wrap">
-    <header class="top">
-      <div>
-        <div class="brand">Vibe Coffee</div>
-        <div class="sub">Dashboard quản trị nội dung (Cloudflare KV)</div>
+  <div class="wp">
+    <aside class="wp-sidebar" aria-label="Menu quản trị">
+      <div class="wp-sidebar__brand">
+        <div class="wp-logo">Vibe Coffee</div>
+        <div class="wp-badge">Admin</div>
       </div>
-      <div class="top-actions">
-        <button id="btn-settings" class="btn btn-ghost" type="button">Cài đặt</button>
+
+      <nav id="nav" class="wp-nav"></nav>
+
+      <div class="wp-sidebar__foot">
+        <button id="btn-settings" class="wp-nav__item" type="button">Cài đặt kết nối</button>
+        <div id="conn-pill" class="wp-pill" title="Trạng thái kết nối">Chưa kết nối</div>
       </div>
-    </header>
+    </aside>
 
-    <main>
-      <section id="editor" class="card">
-        <div class="row row-between">
-          <h1>Nội dung website</h1>
-          <div class="row">
-            <button id="btn-load" class="btn" type="button">Tải nội dung hiện tại</button>
-            <button id="btn-import" class="btn" type="button">Nhập từ file đang chạy</button>
-            <button id="btn-format" class="btn" type="button">Format JSON</button>
-            <button id="btn-save" class="btn btn-primary" type="button">Lưu (CMS)</button>
-          </div>
+    <div class="wp-main">
+      <header class="wp-topbar">
+        <div class="wp-topbar__left">
+          <button id="btn-mobile-menu" class="wp-iconbtn" type="button" aria-label="Mở menu">☰</button>
+          <div id="page-title" class="wp-title">Dashboard</div>
         </div>
-
-        <p class="muted">
-          Sau khi lưu, trang <code>vibecoffee.vn</code> sẽ tự đọc nội dung mới từ API khi tải lại trang.
-        </p>
-
-        <div class="tabs" role="tablist" aria-label="Chế độ chỉnh sửa">
-          <button id="tab-form" class="tab" type="button" role="tab" aria-selected="true">Giao diện</button>
-          <button id="tab-json" class="tab" type="button" role="tab" aria-selected="false">JSON</button>
+        <div class="wp-topbar__right">
+          <div id="save-state" class="wp-muted"></div>
+          <button id="btn-save" class="wp-btn wp-btn-primary" type="button">Lưu</button>
         </div>
+      </header>
 
-        <div id="form-wrap" class="panel"></div>
-
-        <label id="json-field" class="field" hidden>
-          <span>JSON</span>
-          <textarea id="json" spellcheck="false" rows="22" placeholder="{ ... }"></textarea>
-        </label>
-
-        <div class="row row-between">
-          <div id="editor-status" class="muted"></div>
-          <div class="muted">Endpoint: <code>/v1/admin/site/content</code></div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="foot muted">
-      Tip: Cloudflare Pages env cần có <code>VIBE_CONTENT_KV</code>, <code>WIDGET_PUBLIC_KEY</code>, <code>ADMIN_PASSWORD</code>, <code>ADMIN_JWT_SECRET</code>;
-      CORS include <code>https://vibecoffee.vn</code>.
-    </footer>
+      <main class="wp-content">
+        <div id="notice" class="wp-notice" hidden></div>
+        <div id="app"></div>
+      </main>
+    </div>
   </div>
 
   <div id="settings-modal" class="modal" hidden aria-hidden="true">
@@ -69,7 +51,7 @@
       </div>
       <p class="muted">Thông tin được lưu trên trình duyệt này.</p>
       <label class="field">
-        <span>API base</span>
+        <span>API base (Cloudflare)</span>
         <input id="api-base" type="url" placeholder="https://cms.vibecoffee.vn" />
       </label>
       <label class="field">
@@ -86,10 +68,16 @@
         <button id="btn-logout" class="btn btn-ghost" type="button">Đăng xuất</button>
         <div id="login-status" class="muted"></div>
       </div>
+      <hr class="wp-hr" />
+      <div class="muted">
+        <div><b>Lưu ý</b></div>
+        <div>- Backend CMS: Cloudflare Pages + KV (không phụ thuộc Render).</div>
+        <div>- API yêu cầu header <code>x-widget-key</code> (trùng <code>WIDGET_PUBLIC_KEY</code>).</div>
+      </div>
     </div>
   </div>
 
-  <script type="module" src="./admin.js?v=20260407ui"></script>
+  <script type="module" src="./admin.js?v=20260407wp"></script>
 </body>
 </html>
 
