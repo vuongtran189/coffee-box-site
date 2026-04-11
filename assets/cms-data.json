@@ -1,267 +1,267 @@
-﻿{
-    "site":  {
-                 "brand_name":  "Vibe Coffee",
-                 "tagline":  "Trá»n vá»‹ cÃ  phÃª - Trá»n tá»«ng khoáº£nh kháº¯c.",
-                 "hotline":  "0843786886",
-                 "email":  "vibecoffee.vn@gmail.com",
-                 "address":  "80/17/137 DÆ°Æ¡ng Quáº£ng HÃ m, PhÆ°á»ng An NhÆ¡n, TP Há»“ ChÃ­ Minh, Viá»‡t Nam",
-                 "payments":  {
-                                  "bank_name":  "",
-                                  "bank_account_number":  "",
-                                  "bank_account_name":  "",
-                                  "momo_phone":  ""
-                              }
-             },
-    "home":  {
-                 "slides":  [
-                                "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775467544/Banner_Website_1_xqwcro.png",
-                                "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775467551/Banner_Website_2_e1g770.png",
-                                "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775467558/Banner_Website_3_rd5v2c.png",
-                                "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774439537/Banner_CFM_PHOMAI_220g_szuosv.png",
-                                "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774439339/Banner_TM%C4%90T_220g_zu9yvo.png"
-                            ],
-                 "hero":  {
-                              "secondary_link":  "about.html",
-                              "secondary_label":  "TÃ¬m hiá»ƒu thÆ°Æ¡ng hiá»‡u",
-                              "eyebrow":  "ÄÃ“NG Há»˜P TIá»†N Lá»¢I | 22 G X 10 GÃ“I",
-                              "primary_link":  "products.html",
-                              "primary_label":  "Xem sáº£n pháº©m",
-                              "subtitle":  "Cho khoáº£nh kháº¯c Ä‘áº§y cáº£m há»©ng",
-                              "title":  "CÃ  PhÃª Muá»‘i Vá»‹ PhÃ´ Mai",
-                              "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772445062/TRUYEN_THONG_PNG_pbv1do.png",
-                              "description":  "Sá»± hÃ²a quyá»‡n Ä‘á»™c Ä‘Ã¡o giá»¯a cÃ  phÃª Viá»‡t Ä‘áº­m Ä‘Ã  vÃ  tá»« nhá»¯ng nguyÃªn liá»‡u cao cáº¥p Ä‘Æ°á»£c chiáº¿t xuáº¥t tá»« tá»± nhiÃªn, Ä‘iá»ƒm thÃªm vá»‹ muá»‘i nháº¹ tinh táº¿. VIBE COFFEE vá»›i cÃ´ng thá»©c Ä‘Æ°á»£c cÃ¢n chá»‰nh hoÃ n háº£o mang Ä‘áº¿n vá»‹ bÃ©o má»‹n khÃ´ng ngáº¥y, ngá»t vá»«a pháº£i vÃ  háº­u vá»‹ sÃ¢u láº¯ng khÃ³ quÃªn.\nMá»™t tráº£i nghiá»‡m cÃ  phÃª má»›i máº» â€“ trá»n vá»‹ trong má»i cáº£m xÃºc."
-                          },
-                 "metrics":  [
-                                 {
-                                     "value":  "220g",
-                                     "label":  "Khá»‘i lÆ°á»£ng tá»‹nh"
-                                 },
-                                 {
-                                     "value":  "10 gÃ³i",
-                                     "label":  "Tiá»‡n dá»¥ng má»—i ngÃ y"
-                                 },
-                                 {
-                                     "value":  "NguyÃªn liá»‡u cao cáº¥p",
-                                     "label":  "Bá»™t cÃ  phÃª Ä‘Æ°á»£c tuyá»ƒn chá»n ká»¹ lÆ°á»¡ng"
-                                 }
-                             ],
-                 "features":  [
-                                  {
-                                      "title":  "Vá»‹ cÃ  phÃª cÃ¢n báº±ng",
-                                      "text":  "Äáº­m mÃ¹i rang xay, thÃªm Ä‘á»™ bÃ©o nháº¹ cá»§a phÃ´ mai, háº­u vá»‹ má»m vÃ  dá»… uá»‘ng."
-                                  },
-                                  {
-                                      "title":  "Pha nhanh 30 giÃ¢y",
-                                      "text":  "XÃ© gÃ³i, thÃªm nÆ°á»›c nÃ³ng, khuáº¥y Ä‘á»u lÃ  cÃ³ ngay ly cÃ  phÃª chuáº©n vá»‹."
-                                  },
-                                  {
-                                      "title":  "Chuáº©n quÃ  táº·ng",
-                                      "text":  "Thiáº¿t káº¿ há»™p sang trá»ng phÃ¹ há»£p trÆ°ng bÃ y, bÃ¡n láº» vÃ  gift set doanh nghiá»‡p."
-                                  },
-                                  {
-                                      "title":  "Tá»‘i Æ°u chi phÃ­",
-                                      "text":  "Äá»‹nh lÆ°á»£ng rÃµ rÃ ng theo gÃ³i giÃºp kiá»ƒm soÃ¡t giÃ¡ vá»‘n tá»«ng ly bÃ¡n ra."
-                                  }
-                              ],
-                 "previews":  [
-                                  {
-                                      "title":  "KhÃ¡m phÃ¡ bá»™ sáº£n pháº©m",
-                                      "text":  "Danh má»¥c gá»“m dÃ²ng cÃ  phÃª muá»‘i vá»‹ phÃ´ mai, combo bÃ¡n cháº¡y vÃ  giáº£i phÃ¡p cho Ä‘áº¡i lÃ½.",
-                                      "label":  "Äi tá»›i trang sáº£n pháº©m",
-                                      "link":  "products.html"
-                                  },
-                                  {
-                                      "title":  "Cáº­p nháº­t tin tá»©c cÃ  phÃª",
-                                      "text":  "Xem bÃ i viáº¿t vá» cÃ¡ch pha, máº¹o báº£o quáº£n vÃ  Ã½ tÆ°á»Ÿng menu cho quÃ¡n vÃ  vÄƒn phÃ²ng.",
-                                      "label":  "Äi tá»›i trang tin tá»©c",
-                                      "link":  "news.html"
-                                  }
-                              ],
-                 "slides_mobile":  [
-                                       "assets/banner-mobile-1.png",
-                                       "assets/banner-mobile-2.png",
-                                       "assets/banner-mobile-3.png",
-                                       "assets/banner-mobile-4.png"
-                                   ]
-             },
-    "about":  {
-                  "eyebrow":  "Vá»€ CHÃšNG TÃ”I",
-                  "title":  "Vibe Coffee vÃ  hÃ nh trÃ¬nh chuáº©n vá»‹ cÃ  phÃª Viá»‡t",
-                  "description":  "Vibe Coffee phÃ¡t triá»ƒn dÃ²ng cÃ  phÃª Ä‘Ã³ng há»™p tiá»‡n lá»£i, tá»‘i Æ°u cho nhá»‹p sá»‘ng hiá»‡n Ä‘áº¡i nhÆ°ng váº«n giá»¯ tinh tháº§n cÃ  phÃª Ä‘áº­m Ä‘Ã  quen thuá»™c.",
-                  "story_title":  "CÃ¢u chuyá»‡n thÆ°Æ¡ng hiá»‡u",
-                  "story_text":  "ChÃºng tÃ´i báº¯t Ä‘áº§u tá»« má»™t cÃ¢u há»i: lÃ m sao Ä‘á»ƒ cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y?\nVÃ¬ váº­y, VIBE Coffee táº­p trung vÃ o nguyÃªn liá»‡u á»•n Ä‘á»‹nh, cÃ´ng thá»©c cÃ¢n báº±ng vÃ  tráº£i nghiá»‡m sá»­ dá»¥ng tá»‘i Æ°u.\nQua quÃ¡ trÃ¬nh láº¯ng nghe khÃ¡ch hÃ ng, chÃºng tÃ´i nháº­n ra má»—i â€œvibeâ€ â€“ má»—i khÃ´ng gian vÃ  cáº£m xÃºc â€“ Ä‘á»u táº¡o nÃªn má»™t cÃ¡ch thÆ°á»Ÿng thá»©c khÃ¡c nhau.\nVIBE Coffee ra Ä‘á»i Ä‘á»ƒ mang Ä‘áº¿n nhá»¯ng sáº£n pháº©m phÃ¹ há»£p vá»›i má»i vibe, Ä‘á»ƒ dÃ¹ á»Ÿ Ä‘Ã¢u vÃ  trong tÃ¢m tráº¡ng nÃ o, báº¡n váº«n cÃ³ thá»ƒ thÆ°á»Ÿng thá»©c cÃ  phÃª theo Ä‘Ãºng cÃ¡ch mÃ¬nh yÃªu thÃ­ch.",
-                  "story_image":  "assets/slider-1-768.webp",
-                  "points":  [
-                                 {
-                                     "title":  "Sá»© má»‡nh",
-                                     "text":  "Mang Ä‘áº¿n giáº£i phÃ¡p cÃ  phÃª tiá»‡n lá»£i nhÆ°ng váº«n trá»n váº¹n tráº£i nghiá»‡m.\nVIBE Coffee láº¯ng nghe tá»«ng pháº£n há»“i vÃ  cáº£m xÃºc â€œvibeâ€ cá»§a khÃ¡ch hÃ ng Ä‘á»ƒ khÃ´ng ngá»«ng hoÃ n thiá»‡n, phÃ¡t triá»ƒn sáº£n pháº©m ngÃ y cÃ ng phÃ¹ há»£p vÃ  tinh táº¿ hÆ¡n."
-                                 },
-                                 {
-                                     "title":  "Táº§m nhÃ¬n",
-                                     "text":  "VIBE Coffee hÆ°á»›ng Ä‘áº¿n trá»Ÿ thÃ nh thÆ°Æ¡ng hiá»‡u cÃ  phÃª Ä‘Ã³ng gÃ³i cao cáº¥p, nÆ¡i má»—i sáº£n pháº©m khÃ´ng chá»‰ chuáº©n vá»‹ mÃ  cÃ²n khÆ¡i gá»£i cáº£m xÃºc vÃ  cÃ¡ tÃ­nh riÃªng.\nChÃºng tÃ´i mong muá»‘n trong má»i khÃ´ng gian vÃ  má»i tÃ¢m tráº¡ng, khÃ¡ch hÃ ng Ä‘á»u cÃ³ thá»ƒ tÃ¬m tháº¥y má»™t â€œvibeâ€ cÃ  phÃª tinh táº¿, trá»n váº¹n vÃ  Ä‘áº§y cáº£m há»©ng."
-                                 },
-                                 {
-                                     "title":  "GiÃ¡ trá»‹ cá»‘t lÃµi",
-                                     "text":  "VIBE Coffee láº¥y tráº£i nghiá»‡m vÃ  sá»± hÃ i lÃ²ng cá»§a khÃ¡ch hÃ ng lÃ m trung tÃ¢m.\nâ€œVIBEâ€ lÃ  thÆ°á»Ÿng thá»©c cÃ  phÃª theo Ä‘Ãºng cáº£m xÃºc vÃ  phong cÃ¡ch mÃ  má»—i ngÆ°á»i yÃªu thÃ­ch.\nChÃºng tÃ´i cam káº¿t chuáº©n vá»‹ trong sáº£n pháº©m, minh báº¡ch trong cam káº¿t, sÃ¡ng táº¡o Ä‘á»ƒ khÃ¡c biá»‡t vÃ  Ä‘á»“ng hÃ nh Ä‘á»ƒ phÃ¡t triá»ƒn bá»n vá»¯ng."
-                                 }
-                             ]
-              },
-    "products":  {
-                     "eyebrow":  "DANH Má»¤C",
-                     "title":  "Táº¥t cáº£ sáº£n pháº©m",
-                     "description":  "Lá»±a chá»n linh hoáº¡t cho nhu cáº§u bÃ¡n láº», vÄƒn phÃ²ng vÃ  Ä‘áº¡i lÃ½.",
-                     "items":  [
-                                   {
-                                       "discount_percent":  5,
-                                       "price_vnd":  68000,
-                                       "subtitle":  "Há»™p 220g (22g x 10 gÃ³i)",
-                                       "title":  "CÃ  phÃª muá»‘i vá»‹ Truyá»n Thá»‘ng",
-                                       "link":  "contact.html",
-                                       "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772445062/TRUYEN_THONG_PNG_pbv1do.png",
-                                       "description":  "CÃ€ PHÃŠ MUá»I TRUYá»€N THá»NG â€“ VIBE COFFEE\n\nÄáº­m vá»‹ cÃ  phÃª â€“ Máº·n nháº¹ tinh táº¿ â€“ Chuáº©n gu nguyÃªn báº£n\n\nCÃ¢u chuyá»‡n sáº£n pháº©m\n\nVIBE Coffee báº¯t Ä‘áº§u tá»« má»™t cÃ¢u há»i: lÃ m sao Ä‘á»ƒ cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y?\nTá»« Ä‘Ã³, chÃºng tÃ´i táº­p trung vÃ o 3 yáº¿u tá»‘ cá»‘t lÃµi: nguyÃªn liá»‡u á»•n Ä‘á»‹nh â€“ cÃ´ng thá»©c cÃ¢n báº±ng â€“ tráº£i nghiá»‡m tá»‘i Æ°u.\n\nSau quÃ¡ trÃ¬nh láº¯ng nghe khÃ¡ch hÃ ng, VIBE nháº­n ra ráº±ng má»—i khoáº£nh kháº¯c, má»—i khÃ´ng gian â€“ hay má»—i â€œvibeâ€ â€“ Ä‘á»u mang Ä‘áº¿n má»™t cÃ¡ch thÆ°á»Ÿng thá»©c cÃ  phÃª khÃ¡c nhau.\nCÃ  PhÃª Muá»‘i PhÃ´ Mai ra Ä‘á»i Ä‘á»ƒ báº¡n cÃ³ thá»ƒ táº­n hÆ°á»Ÿng trá»n váº¹n ly cÃ  phÃª Ä‘Ãºng gu, dÃ¹ á»Ÿ báº¥t cá»© Ä‘Ã¢u.\n\nThÃ´ng tin sáº£n pháº©m\n\nCÃ  PhÃª Muá»‘i Truyá»n Thá»‘ng VIBE Coffee lÃ  dÃ²ng cÃ  phÃª hÃ²a tan cao cáº¥p (4in1), káº¿t há»£p hÃ i hÃ²a giá»¯a:\n\n-CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam\n-Muá»‘i biá»ƒn Viá»‡t mang vá»‹ máº·n nháº¹ Ä‘áº·c trÆ°ng\n-CÃ´ng thá»©c cÃ¢n báº±ng giÃºp tÃ´n lÃªn vá»‹ cÃ  phÃª nguyÃªn báº£n\n\nTáº¥t cáº£ hÃ²a quyá»‡n táº¡o nÃªn tráº£i nghiá»‡m: Ä‘áº­m Ä‘Ã  â€“ máº·n nháº¹ â€“ háº­u vá»‹ sÃ¢u vÃ  sáº¡ch, khÃ´ng gáº¯t.\n\nSáº£n pháº©m Ä‘Æ°á»£c nghiÃªn cá»©u Ä‘á»ƒ giá»¯ Ä‘Æ°á»£c â€œcáº£m giÃ¡c nhÆ° uá»‘ng táº¡i quáº§yâ€ nhÆ°ng váº«n Ä‘áº£m báº£o tiá»‡n lá»£i â€“ nhanh chÃ³ng â€“ dá»… pha, phÃ¹ há»£p cho má»i â€œvibeâ€ trong ngÃ y.",
-                                       "category":  "bestseller",
-                                       "highlights":  [
-                                                          "CÃ  phÃª hÃ²a tan cao cáº¥p 4in1",
-                                                          "CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam",
-                                                          "Muá»‘i biá»ƒn Viá»‡t máº·n tinh táº¿",
-                                                          "Háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t",
-                                                          "Tiá»‡n lá»£i, nhanh chÃ³ng, dá»… pha"
-                                                      ]
-                                   },
-                                   {
-                                       "discount_percent":  5,
-                                       "slug":  "ca-phe-muoi-vi-pho-mai",
-                                       "price_vnd":  86000,
-                                       "subtitle":  "Há»™p 220g (22g x 10 gÃ³i)",
-                                       "title":  "CÃ  phÃª muá»‘i vá»‹ phÃ´ mai",
-                                       "link":  "contact.html",
-                                       "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774675144/CFM_PHOMAI_FINAL_220g_sahrwx.png",
-                                       "description":  "CÃ€ PHÃŠ MUá»I PHÃ” MAI â€“ VIBE COFFEE\n\nÄáº­m vá»‹ cÃ  phÃª â€“ BÃ©o nháº¹ phÃ´ mai â€“ Cháº¡m cáº£m xÃºc tá»«ng â€œvibeâ€\n\nCÃ¢u chuyá»‡n sáº£n pháº©m\n\nVIBE Coffee báº¯t Ä‘áº§u tá»« má»™t cÃ¢u há»i: lÃ m sao Ä‘á»ƒ cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y?\nTá»« Ä‘Ã³, chÃºng tÃ´i táº­p trung vÃ o 3 yáº¿u tá»‘ cá»‘t lÃµi: nguyÃªn liá»‡u á»•n Ä‘á»‹nh â€“ cÃ´ng thá»©c cÃ¢n báº±ng â€“ tráº£i nghiá»‡m tá»‘i Æ°u.\n\nSau quÃ¡ trÃ¬nh láº¯ng nghe khÃ¡ch hÃ ng, VIBE nháº­n ra ráº±ng má»—i khoáº£nh kháº¯c, má»—i khÃ´ng gian â€“ hay má»—i â€œvibeâ€ â€“ Ä‘á»u mang Ä‘áº¿n má»™t cÃ¡ch thÆ°á»Ÿng thá»©c cÃ  phÃª khÃ¡c nhau.\nCÃ  PhÃª Muá»‘i PhÃ´ Mai ra Ä‘á»i Ä‘á»ƒ báº¡n cÃ³ thá»ƒ táº­n hÆ°á»Ÿng trá»n váº¹n ly cÃ  phÃª Ä‘Ãºng gu, dÃ¹ á»Ÿ báº¥t cá»© Ä‘Ã¢u.\n\nThÃ´ng tin sáº£n pháº©m\n\nCÃ  PhÃª Muá»‘i PhÃ´ Mai VIBE Coffee lÃ  dÃ²ng cÃ  phÃª hÃ²a tan cao cáº¥p 5in1, káº¿t há»£p Ä‘á»™c Ä‘Ã¡o giá»¯a:\n- CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam\n- Vá»‹ máº·n tinh táº¿ cá»§a muá»‘i biá»ƒn Viá»‡t\n- Äá»™ bÃ©o má»‹n cá»§a phÃ´ mai\n\nTáº¥t cáº£ hÃ²a quyá»‡n táº¡o nÃªn tráº£i nghiá»‡m: Ä‘áº­m Ä‘Ã  â€“ bÃ©o nháº¹ â€“ háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t.\nSáº£n pháº©m Ä‘Æ°á»£c nghiÃªn cá»©u Ä‘á»ƒ giá»¯ Ä‘Æ°á»£c â€œcáº£m giÃ¡c nhÆ° uá»‘ng táº¡i quáº§yâ€ nhÆ°ng váº«n tiá»‡n lá»£i â€“ nhanh chÃ³ng â€“ dá»… pha.",
-                                       "category":  "bestseller",
-                                       "highlights":  [
-                                                          "CÃ  phÃª hÃ²a tan cao cáº¥p 5in1",
-                                                          "Äáº­m vá»‹ cÃ  phÃª, bÃ©o nháº¹ phÃ´ mai",
-                                                          "Muá»‘i biá»ƒn Viá»‡t máº·n tinh táº¿",
-                                                          "Háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t",
-                                                          "Tiá»‡n lá»£i, nhanh chÃ³ng, dá»… pha"
-                                                      ]
-                                   },
-                                   {
-                                       "discount_percent":  5,
-                                       "price_vnd":  86000,
-                                       "subtitle":  "Há»™p 220g (22g x 10 gÃ³i)",
-                                       "title":  "CÃ  phÃª muá»‘i Capuchino Dá»«a",
-                                       "link":  "contact.html",
-                                       "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774840111/CAPUCHINO_DUA_PNG_ebwi4q.png",
-                                       "description":  "CÃ€ PHÃŠ MUá»I CAPUCHINO Dá»ªA â€“ VIBE COFFEE\n\nÄáº­m vá»‹ cÃ  phÃª â€“ Capuchino Dá»«a bÃ©o thÆ¡m â€“ Cháº¡m cáº£m xÃºc tá»«ng â€œvibeâ€\n\nCÃ¢u chuyá»‡n sáº£n pháº©m\n\nVIBE Coffee báº¯t Ä‘áº§u tá»« má»™t cÃ¢u há»i: lÃ m sao Ä‘á»ƒ cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y?\nTá»« Ä‘Ã³, chÃºng tÃ´i táº­p trung vÃ o 3 yáº¿u tá»‘ cá»‘t lÃµi: nguyÃªn liá»‡u á»•n Ä‘á»‹nh â€“ cÃ´ng thá»©c cÃ¢n báº±ng â€“ tráº£i nghiá»‡m tá»‘i Æ°u.\n\nSau quÃ¡ trÃ¬nh láº¯ng nghe khÃ¡ch hÃ ng, VIBE nháº­n ra ráº±ng má»—i khoáº£nh kháº¯c, má»—i khÃ´ng gian â€“ hay má»—i â€œvibeâ€ â€“ Ä‘á»u mang Ä‘áº¿n má»™t cÃ¡ch thÆ°á»Ÿng thá»©c cÃ  phÃª khÃ¡c nhau.\nCÃ  PhÃª Muá»‘i PhÃ´ Mai ra Ä‘á»i Ä‘á»ƒ báº¡n cÃ³ thá»ƒ táº­n hÆ°á»Ÿng trá»n váº¹n ly cÃ  phÃª Ä‘Ãºng gu, dÃ¹ á»Ÿ báº¥t cá»© Ä‘Ã¢u.\n\nThÃ´ng tin sáº£n pháº©m\n\nCÃ  PhÃª Muá»‘i Capuchino Dá»«a VIBE Coffee lÃ  dÃ²ng cÃ  phÃª hÃ²a tan cao cáº¥p 5in1, káº¿t há»£p Ä‘á»™c Ä‘Ã¡o giá»¯a:\n- CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam\n- Vá»‹ máº·n tinh táº¿ cá»§a muá»‘i biá»ƒn Viá»‡t\n- Äá»™ bÃ©o thÆ¡m cá»§a Capuchino Dá»«a\n\nTáº¥t cáº£ hÃ²a quyá»‡n táº¡o nÃªn tráº£i nghiá»‡m: Ä‘áº­m Ä‘Ã  â€“ bÃ©o nháº¹ â€“ háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t.\nSáº£n pháº©m Ä‘Æ°á»£c nghiÃªn cá»©u Ä‘á»ƒ giá»¯ Ä‘Æ°á»£c â€œcáº£m giÃ¡c nhÆ° uá»‘ng táº¡i quáº§yâ€ nhÆ°ng váº«n tiá»‡n lá»£i â€“ nhanh chÃ³ng â€“ dá»… pha.",
-                                       "category":  "bestseller",
-                                       "highlights":  [
-                                                          "CÃ  phÃª hÃ²a tan cao cáº¥p 5in1",
-                                                          "Äáº­m vá»‹ cÃ  phÃª, bÃ©o thÆ¡m Capuchino dá»«a",
-                                                          "Muá»‘i biá»ƒn Viá»‡t máº·n nháº¹ tinh táº¿",
-                                                          "Háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t",
-                                                          "Tiá»‡n lá»£i, nhanh chÃ³ng, dá»… pha"
-                                                      ]
-                                   },
-                                   {
-                                       "discount_percent":  5,
-                                       "price_vnd":  172000,
-                                       "subtitle":  "TÃºi 2 há»™p cÃ  phÃª muá»‘i phÃ´ mai Vibe Coffee",
-                                       "title":  "Set QuÃ  Táº·ng Vibe Coffee â€“ Sang Trá»ng \u0026 Tinh Táº¿",
-                                       "link":  "contact.html",
-                                       "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775039217/pomelli-asset-1_xm4cuh.jpg",
-                                       "description":  "CÃ€ PHÃŠ MUá»I PHÃ” MAI â€“ VIBE COFFEE\n\nÄáº­m vá»‹ cÃ  phÃª â€“ BÃ©o nháº¹ phÃ´ mai â€“ Cháº¡m cáº£m xÃºc tá»«ng â€œvibeâ€\n\nCÃ¢u chuyá»‡n sáº£n pháº©m\n\nVIBE Coffee báº¯t Ä‘áº§u tá»« má»™t cÃ¢u há»i: lÃ m sao Ä‘á»ƒ cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y?\nTá»« Ä‘Ã³, chÃºng tÃ´i táº­p trung vÃ o 3 yáº¿u tá»‘ cá»‘t lÃµi: nguyÃªn liá»‡u á»•n Ä‘á»‹nh â€“ cÃ´ng thá»©c cÃ¢n báº±ng â€“ tráº£i nghiá»‡m tá»‘i Æ°u.\n\nSau quÃ¡ trÃ¬nh láº¯ng nghe khÃ¡ch hÃ ng, VIBE nháº­n ra ráº±ng má»—i khoáº£nh kháº¯c, má»—i khÃ´ng gian â€“ hay má»—i â€œvibeâ€ â€“ Ä‘á»u mang Ä‘áº¿n má»™t cÃ¡ch thÆ°á»Ÿng thá»©c cÃ  phÃª khÃ¡c nhau.\nCÃ  PhÃª Muá»‘i PhÃ´ Mai ra Ä‘á»i Ä‘á»ƒ báº¡n cÃ³ thá»ƒ táº­n hÆ°á»Ÿng trá»n váº¹n ly cÃ  phÃª Ä‘Ãºng gu, dÃ¹ á»Ÿ báº¥t cá»© Ä‘Ã¢u.\n\nThÃ´ng tin sáº£n pháº©m\n\nCÃ  PhÃª Muá»‘i PhÃ´ Mai VIBE Coffee lÃ  dÃ²ng cÃ  phÃª hÃ²a tan cao cáº¥p 5in1, káº¿t há»£p Ä‘á»™c Ä‘Ã¡o giá»¯a:\n- CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam\n- Vá»‹ máº·n tinh táº¿ cá»§a muá»‘i biá»ƒn Viá»‡t\n- Äá»™ bÃ©o má»‹n cá»§a phÃ´ mai\n\nTáº¥t cáº£ hÃ²a quyá»‡n táº¡o nÃªn tráº£i nghiá»‡m: Ä‘áº­m Ä‘Ã  â€“ bÃ©o nháº¹ â€“ háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t.\nSáº£n pháº©m Ä‘Æ°á»£c nghiÃªn cá»©u Ä‘á»ƒ giá»¯ Ä‘Æ°á»£c â€œcáº£m giÃ¡c nhÆ° uá»‘ng táº¡i quáº§yâ€ nhÆ°ng váº«n tiá»‡n lá»£i â€“ nhanh chÃ³ng â€“ dá»… pha.",
-                                       "category":  "combo",
-                                       "highlights":  [
-                                                          "CÃ  phÃª hÃ²a tan cao cáº¥p 5in1",
-                                                          "Äáº­m vá»‹ cÃ  phÃª, bÃ©o nháº¹ phÃ´ mai",
-                                                          "Muá»‘i biá»ƒn Viá»‡t máº·n tinh táº¿",
-                                                          "Háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t",
-                                                          "Tiá»‡n lá»£i, nhanh chÃ³ng, dá»… pha"
-                                                      ]
-                                   },
-                                   {
-                                       "discount_percent":  5,
-                                       "price_vnd":  172000,
-                                       "subtitle":  "TÃºi 2 há»™p cÃ  phÃª muá»‘i Capuchino Dá»«a Vibe Coffee",
-                                       "title":  "Set QuÃ  Táº·ng Vibe Coffee â€“ Ngá»t Dá»‹u Nhiá»‡t Äá»›i",
-                                       "link":  "contact.html",
-                                       "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775040573/TUI_CP_DUA_4_bzu7t2.jpg",
-                                       "description":  "CÃ€ PHÃŠ MUá»I CAPUCHINO Dá»ªA â€“ VIBE COFFEE\n\nÄáº­m vá»‹ cÃ  phÃª â€“ Capuchino Dá»«a bÃ©o thÆ¡m â€“ Cháº¡m cáº£m xÃºc tá»«ng â€œvibeâ€\n\nCÃ¢u chuyá»‡n sáº£n pháº©m\n\nVIBE Coffee báº¯t Ä‘áº§u tá»« má»™t cÃ¢u há»i: lÃ m sao Ä‘á»ƒ cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y?\nTá»« Ä‘Ã³, chÃºng tÃ´i táº­p trung vÃ o 3 yáº¿u tá»‘ cá»‘t lÃµi: nguyÃªn liá»‡u á»•n Ä‘á»‹nh â€“ cÃ´ng thá»©c cÃ¢n báº±ng â€“ tráº£i nghiá»‡m tá»‘i Æ°u.\n\nSau quÃ¡ trÃ¬nh láº¯ng nghe khÃ¡ch hÃ ng, VIBE nháº­n ra ráº±ng má»—i khoáº£nh kháº¯c, má»—i khÃ´ng gian â€“ hay má»—i â€œvibeâ€ â€“ Ä‘á»u mang Ä‘áº¿n má»™t cÃ¡ch thÆ°á»Ÿng thá»©c cÃ  phÃª khÃ¡c nhau.\nCÃ  PhÃª Muá»‘i PhÃ´ Mai ra Ä‘á»i Ä‘á»ƒ báº¡n cÃ³ thá»ƒ táº­n hÆ°á»Ÿng trá»n váº¹n ly cÃ  phÃª Ä‘Ãºng gu, dÃ¹ á»Ÿ báº¥t cá»© Ä‘Ã¢u.\n\nThÃ´ng tin sáº£n pháº©m\n\nCÃ  PhÃª Muá»‘i Capuchino Dá»«a VIBE Coffee lÃ  dÃ²ng cÃ  phÃª hÃ²a tan cao cáº¥p 5in1, káº¿t há»£p Ä‘á»™c Ä‘Ã¡o giá»¯a:\n- CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam\n- Vá»‹ máº·n tinh táº¿ cá»§a muá»‘i biá»ƒn Viá»‡t\n- Äá»™ bÃ©o thÆ¡m cá»§a Capuchino Dá»«a\n\nTáº¥t cáº£ hÃ²a quyá»‡n táº¡o nÃªn tráº£i nghiá»‡m: Ä‘áº­m Ä‘Ã  â€“ bÃ©o nháº¹ â€“ háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t.\nSáº£n pháº©m Ä‘Æ°á»£c nghiÃªn cá»©u Ä‘á»ƒ giá»¯ Ä‘Æ°á»£c â€œcáº£m giÃ¡c nhÆ° uá»‘ng táº¡i quáº§yâ€ nhÆ°ng váº«n tiá»‡n lá»£i â€“ nhanh chÃ³ng â€“ dá»… pha.",
-                                       "category":  "combo",
-                                       "highlights":  [
-                                                          "CÃ  phÃª hÃ²a tan cao cáº¥p 5in1",
-                                                          "Äáº­m vá»‹ cÃ  phÃª, bÃ©o thÆ¡m Capuchino dá»«a",
-                                                          "Muá»‘i biá»ƒn Viá»‡t máº·n nháº¹ tinh táº¿",
-                                                          "Háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t",
-                                                          "Tiá»‡n lá»£i, nhanh chÃ³ng, dá»… pha"
-                                                      ]
-                                   },
-                                   {
-                                       "discount_percent":  5,
-                                       "price_vnd":  136000,
-                                       "subtitle":  "TÃºi 2 há»™p cÃ  phÃª muá»‘i Truyá»n Thá»‘ng Vibe Coffee",
-                                       "title":  "Set QuÃ  Táº·ng Vibe Coffee â€“ Äáº­m ÄÃ  NguyÃªn Báº£n",
-                                       "link":  "contact.html",
-                                       "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775043905/TUI_TT_5_ykmhyb.jpg",
-                                       "description":  "CÃ€ PHÃŠ MUá»I TRUYá»€N THá»NG â€“ VIBE COFFEE\n\nÄáº­m vá»‹ cÃ  phÃª â€“ Máº·n nháº¹ tinh táº¿ â€“ Chuáº©n gu nguyÃªn báº£n\n\nCÃ¢u chuyá»‡n sáº£n pháº©m\n\nVIBE Coffee báº¯t Ä‘áº§u tá»« má»™t cÃ¢u há»i: lÃ m sao Ä‘á»ƒ cÃ  phÃª Ä‘Ã³ng gÃ³i váº«n giá»¯ Ä‘Æ°á»£c cáº£m giÃ¡c ngon nhÆ° pha táº¡i quáº§y?\nTá»« Ä‘Ã³, chÃºng tÃ´i táº­p trung vÃ o 3 yáº¿u tá»‘ cá»‘t lÃµi: nguyÃªn liá»‡u á»•n Ä‘á»‹nh â€“ cÃ´ng thá»©c cÃ¢n báº±ng â€“ tráº£i nghiá»‡m tá»‘i Æ°u.\n\nSau quÃ¡ trÃ¬nh láº¯ng nghe khÃ¡ch hÃ ng, VIBE nháº­n ra ráº±ng má»—i khoáº£nh kháº¯c, má»—i khÃ´ng gian â€“ hay má»—i â€œvibeâ€ â€“ Ä‘á»u mang Ä‘áº¿n má»™t cÃ¡ch thÆ°á»Ÿng thá»©c cÃ  phÃª khÃ¡c nhau.\nCÃ  PhÃª Muá»‘i PhÃ´ Mai ra Ä‘á»i Ä‘á»ƒ báº¡n cÃ³ thá»ƒ táº­n hÆ°á»Ÿng trá»n váº¹n ly cÃ  phÃª Ä‘Ãºng gu, dÃ¹ á»Ÿ báº¥t cá»© Ä‘Ã¢u.\n\nThÃ´ng tin sáº£n pháº©m\n\nCÃ  PhÃª Muá»‘i Truyá»n Thá»‘ng VIBE Coffee lÃ  dÃ²ng cÃ  phÃª hÃ²a tan cao cáº¥p (4in1), káº¿t há»£p hÃ i hÃ²a giá»¯a:\n\n-CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam\n-Muá»‘i biá»ƒn Viá»‡t mang vá»‹ máº·n nháº¹ Ä‘áº·c trÆ°ng\n-CÃ´ng thá»©c cÃ¢n báº±ng giÃºp tÃ´n lÃªn vá»‹ cÃ  phÃª nguyÃªn báº£n\n\nTáº¥t cáº£ hÃ²a quyá»‡n táº¡o nÃªn tráº£i nghiá»‡m: Ä‘áº­m Ä‘Ã  â€“ máº·n nháº¹ â€“ háº­u vá»‹ sÃ¢u vÃ  sáº¡ch, khÃ´ng gáº¯t.\n\nSáº£n pháº©m Ä‘Æ°á»£c nghiÃªn cá»©u Ä‘á»ƒ giá»¯ Ä‘Æ°á»£c â€œcáº£m giÃ¡c nhÆ° uá»‘ng táº¡i quáº§yâ€ nhÆ°ng váº«n Ä‘áº£m báº£o tiá»‡n lá»£i â€“ nhanh chÃ³ng â€“ dá»… pha, phÃ¹ há»£p cho má»i â€œvibeâ€ trong ngÃ y.",
-                                       "category":  "combo",
-                                       "highlights":  [
-                                                          "CÃ  phÃª hÃ²a tan cao cáº¥p 4in1",
-                                                          "CÃ  phÃª nguyÃªn cháº¥t tá»« háº¡t cÃ  phÃª Viá»‡t Nam",
-                                                          "Muá»‘i biá»ƒn Viá»‡t máº·n tinh táº¿",
-                                                          "Háº­u vá»‹ cÃ¢n báº±ng, khÃ´ng gáº¯t",
-                                                          "Tiá»‡n lá»£i, nhanh chÃ³ng, dá»… pha"
-                                                      ]
-                                   }
-                               ]
-                 },
-    "news":  {
-                 "eyebrow":  "BÃ€I VIáº¾T",
-                 "title":  "Tin tá»©c \u0026 kiáº¿n thá»©c cÃ  phÃª",
-                 "description":  "Cáº­p nháº­t ná»™i dung má»›i vá» cÃ¡ch pha, cÃ´ng thá»©c menu vÃ  kinh nghiá»‡m triá»ƒn khai Ä‘iá»ƒm bÃ¡n.",
-                 "posts":  [
-                               {
-                                   "date":  "28/02/2026",
-                                   "title":  "CÃ  phÃª hÃ²a tan lÃ  gÃ¬? BÃ­ quyáº¿t chá»n loáº¡i ngon cho gia Ä‘Ã¬nh",
-                                   "excerpt":  "Giáº£i thÃ­ch cÃ  phÃª hÃ²a tan lÃ  gÃ¬, vÃ¬ sao tiá»‡n lá»£i vÃ  cÃ¡ch chá»n cÃ  phÃª hÃ²a tan ngon. Gá»£i Ã½ cÃ  phÃª hÃ²a tan VIBE COFFEE.",
-                                   "image":  "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774358824/Anh_dai_dien_bai_viet_so_1_osxdy1.png",
-                                   "link":  "news/ca-phe-hoa-tan-la-gi.html"
-                               },
-                               {
-                                   "date":  "24/02/2026",
-                                   "title":  "CÃ  phÃª chuáº©n vá»‹ Viá»‡t â€“ khi â€œvibeâ€ thÃ nh tráº£i nghiá»‡m",
-                                   "excerpt":  "â€œChuáº©n vá»‹ Viá»‡tâ€ khÃ´ng chá»‰ lÃ  hÆ°Æ¡ng vá»‹, mÃ  lÃ  cáº£m giÃ¡c. KhÃ¡m phÃ¡ cÃ¡ch VIBE COFFEE tÃ¡i hiá»‡n tráº£i nghiá»‡m cÃ  phÃª Viá»‡t theo hÆ°á»›ng hiá»‡n Ä‘áº¡i.",
-                                   "image":  "assets/slider-3.png",
-                                   "link":  "news/ca-phe-chuan-vi-viet.html"
-                               },
-                               {
-                                   "date":  "22/02/2026",
-                                   "title":  "CÃ  PhÃª Viá»‡t Nam LÃ m QuÃ  Cho NgÆ°á»i NÆ°á»›c NgoÃ i â€“ Khi VIBE Coffee Mang â€œVibe Viá»‡tâ€ Ra Tháº¿ Giá»›i",
-                                   "excerpt":  "TÃ¬m hiá»ƒu vÃ¬ sao cÃ  phÃª muá»‘i VIBE lÃ  quÃ  Viá»‡t dá»… uá»‘ng, tiá»‡n lá»£i vÃ  cÃ³ cÃ¢u chuyá»‡n cáº£m xÃºc riÃªng dÃ nh cho khÃ¡ch quá»‘c táº¿.",
-                                   "image":  "assets/slider-4.png",
-                                   "link":  "news/ca-phe-viet-nam-lam-qua-cho-nguoi-nuoc-ngoai.html"
-                               },
-                               {
-                                   "date":  "20/02/2026",
-                                   "title":  "Kinh nghiá»‡m nháº­p hÃ ng cho Ä‘áº¡i lÃ½ má»›i",
-                                   "excerpt":  "Nhá»¯ng chá»‰ sá»‘ cáº§n theo dÃµi Ä‘á»ƒ tá»‘i Æ°u tá»“n kho vÃ  vÃ²ng quay sáº£n pháº©m.",
-                                   "image":  "assets/slider-4.png",
-                                   "link":  "contact.html"
-                               },
-                               {
-                                   "date":  "18/02/2026",
-                                   "title":  "Xu hÆ°á»›ng quÃ  táº·ng doanh nghiá»‡p ngÃ nh F\u0026B",
-                                   "excerpt":  "CÃ¡ch xÃ¢y dá»±ng combo quÃ  táº·ng cÃ³ tÃ­nh á»©ng dá»¥ng vÃ  nháº­n diá»‡n thÆ°Æ¡ng hiá»‡u cao.",
-                                   "image":  "assets/slider-2.png",
-                                   "link":  "contact.html"
-                               }
-                           ]
-             },
-    "contact":  {
-                    "eyebrow":  "LIÃŠN Há»†",
-                    "title":  "Äá»“ng hÃ nh cÃ¹ng Vibe Coffee",
-                    "description":  "Äá»ƒ láº¡i thÃ´ng tin Ä‘á»ƒ Ä‘á»™i ngÅ© tÆ° váº¥n bÃ¡o giÃ¡ vÃ  chÃ­nh sÃ¡ch phÃ¹ há»£p theo nhu cáº§u cá»§a báº¡n.",
-                    "work_time":  "8:00 - 17:30 (Thá»© 2 - Thá»© 7)"
-                }
+{
+  "site": {
+    "brand_name": "Vibe Coffee",
+    "tagline": "Trọn vị cà phê - Trọn từng khoảnh khắc.",
+    "hotline": "0843786886",
+    "email": "vibecoffee.vn@gmail.com",
+    "address": "80/17/137 Dương Quảng Hàm, Phường An Nhơn, TP Hồ Chí Minh, Việt Nam",
+    "payments": {
+      "bank_name": "",
+      "bank_account_number": "",
+      "bank_account_name": "",
+      "momo_phone": ""
+    }
+  },
+  "home": {
+    "slides": [
+      "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775467544/Banner_Website_1_xqwcro.png",
+      "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775467551/Banner_Website_2_e1g770.png",
+      "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775467558/Banner_Website_3_rd5v2c.png",
+      "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774439537/Banner_CFM_PHOMAI_220g_szuosv.png",
+      "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774439339/Banner_TM%C4%90T_220g_zu9yvo.png"
+    ],
+    "hero": {
+      "secondary_link": "about.html",
+      "secondary_label": "Tìm hiểu thương hiệu",
+      "eyebrow": "ĐÓNG HỘP TIỆN LỢI | 22 G X 10 GÓI",
+      "primary_link": "products.html",
+      "primary_label": "Xem sản phẩm",
+      "subtitle": "Cho khoảnh khắc đầy cảm hứng",
+      "title": "Cà Phê Muối Vị Phô Mai",
+      "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772445062/TRUYEN_THONG_PNG_pbv1do.png",
+      "description": "Sự hòa quyện độc đáo giữa cà phê Việt đậm đà và từ những nguyên liệu cao cấp được chiết xuất từ tự nhiên, điểm thêm vị muối nhẹ tinh tế. VIBE COFFEE với công thức được cân chỉnh hoàn hảo mang đến vị béo mịn không ngấy, ngọt vừa phải và hậu vị sâu lắng khó quên.\nMột trải nghiệm cà phê mới mẻ – trọn vị trong mọi cảm xúc."
+    },
+    "metrics": [
+      {
+        "value": "220g",
+        "label": "Khối lượng tịnh"
+      },
+      {
+        "value": "10 gói",
+        "label": "Tiện dụng mỗi ngày"
+      },
+      {
+        "value": "Nguyên liệu cao cấp",
+        "label": "Bột cà phê được tuyển chọn kỹ lưỡng"
+      }
+    ],
+    "features": [
+      {
+        "title": "Vị cà phê cân bằng",
+        "text": "Đậm mùi rang xay, thêm độ béo nhẹ của phô mai, hậu vị mềm và dễ uống."
+      },
+      {
+        "title": "Pha nhanh 30 giây",
+        "text": "Xé gói, thêm nước nóng, khuấy đều là có ngay ly cà phê chuẩn vị."
+      },
+      {
+        "title": "Chuẩn quà tặng",
+        "text": "Thiết kế hộp sang trọng phù hợp trưng bày, bán lẻ và gift set doanh nghiệp."
+      },
+      {
+        "title": "Tối ưu chi phí",
+        "text": "Định lượng rõ ràng theo gói giúp kiểm soát giá vốn từng ly bán ra."
+      }
+    ],
+    "previews": [
+      {
+        "title": "Khám phá bộ sản phẩm",
+        "text": "Danh mục gồm dòng cà phê muối vị phô mai, combo bán chạy và giải pháp cho đại lý.",
+        "label": "Đi tới trang sản phẩm",
+        "link": "products.html"
+      },
+      {
+        "title": "Cập nhật tin tức cà phê",
+        "text": "Xem bài viết về cách pha, mẹo bảo quản và ý tưởng menu cho quán và văn phòng.",
+        "label": "Đi tới trang tin tức",
+        "link": "news.html"
+      }
+    ],
+    "slides_mobile": [
+      "assets/banner-mobile-1.png",
+      "assets/banner-mobile-2.png",
+      "assets/banner-mobile-3.png",
+      "assets/banner-mobile-4.png"
+    ]
+  },
+  "about": {
+    "eyebrow": "VỀ CHÚNG TÔI",
+    "title": "Vibe Coffee và hành trình chuẩn vị cà phê Việt",
+    "description": "Vibe Coffee phát triển dòng cà phê đóng hộp tiện lợi, tối ưu cho nhịp sống hiện đại nhưng vẫn giữ tinh thần cà phê đậm đà quen thuộc.",
+    "story_title": "Câu chuyện thương hiệu",
+    "story_text": "Chúng tôi bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nVì vậy, VIBE Coffee tập trung vào nguyên liệu ổn định, công thức cân bằng và trải nghiệm sử dụng tối ưu.\nQua quá trình lắng nghe khách hàng, chúng tôi nhận ra mỗi “vibe” – mỗi không gian và cảm xúc – đều tạo nên một cách thưởng thức khác nhau.\nVIBE Coffee ra đời để mang đến những sản phẩm phù hợp với mọi vibe, để dù ở đâu và trong tâm trạng nào, bạn vẫn có thể thưởng thức cà phê theo đúng cách mình yêu thích.",
+    "story_image": "assets/slider-1-768.webp",
+    "points": [
+      {
+        "title": "Sứ mệnh",
+        "text": "Mang đến giải pháp cà phê tiện lợi nhưng vẫn trọn vẹn trải nghiệm.\nVIBE Coffee lắng nghe từng phản hồi và cảm xúc “vibe” của khách hàng để không ngừng hoàn thiện, phát triển sản phẩm ngày càng phù hợp và tinh tế hơn."
+      },
+      {
+        "title": "Tầm nhìn",
+        "text": "VIBE Coffee hướng đến trở thành thương hiệu cà phê đóng gói cao cấp, nơi mỗi sản phẩm không chỉ chuẩn vị mà còn khơi gợi cảm xúc và cá tính riêng.\nChúng tôi mong muốn trong mọi không gian và mọi tâm trạng, khách hàng đều có thể tìm thấy một “vibe” cà phê tinh tế, trọn vẹn và đầy cảm hứng."
+      },
+      {
+        "title": "Giá trị cốt lõi",
+        "text": "VIBE Coffee lấy trải nghiệm và sự hài lòng của khách hàng làm trung tâm.\n“VIBE” là thưởng thức cà phê theo đúng cảm xúc và phong cách mà mỗi người yêu thích.\nChúng tôi cam kết chuẩn vị trong sản phẩm, minh bạch trong cam kết, sáng tạo để khác biệt và đồng hành để phát triển bền vững."
+      }
+    ]
+  },
+  "products": {
+    "eyebrow": "DANH MỤC",
+    "title": "Tất cả sản phẩm",
+    "description": "Lựa chọn linh hoạt cho nhu cầu bán lẻ, văn phòng và đại lý.",
+    "items": [
+      {
+        "discount_percent": 5,
+        "price_vnd": 68000,
+        "subtitle": "Hộp 220g (22g x 10 gói)",
+        "title": "Cà phê muối vị Truyền Thống",
+        "link": "contact.html",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1772445062/TRUYEN_THONG_PNG_pbv1do.png",
+        "description": "CÀ PHÊ MUỐI TRUYỀN THỐNG – VIBE COFFEE\n\nĐậm vị cà phê – Mặn nhẹ tinh tế – Chuẩn gu nguyên bản\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Truyền Thống VIBE Coffee là dòng cà phê hòa tan cao cấp (4in1), kết hợp hài hòa giữa:\n\n-Cà phê nguyên chất từ hạt cà phê Việt Nam\n-Muối biển Việt mang vị mặn nhẹ đặc trưng\n-Công thức cân bằng giúp tôn lên vị cà phê nguyên bản\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – mặn nhẹ – hậu vị sâu và sạch, không gắt.\n\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn đảm bảo tiện lợi – nhanh chóng – dễ pha, phù hợp cho mọi “vibe” trong ngày.",
+        "category": "bestseller",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 4in1",
+          "Cà phê nguyên chất từ hạt cà phê Việt Nam",
+          "Muối biển Việt mặn tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
+      },
+      {
+        "discount_percent": 5,
+        "slug": "ca-phe-muoi-vi-pho-mai",
+        "price_vnd": 86000,
+        "subtitle": "Hộp 220g (22g x 10 gói)",
+        "title": "Cà phê muối vị phô mai",
+        "link": "contact.html",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774675144/CFM_PHOMAI_FINAL_220g_sahrwx.png",
+        "description": "CÀ PHÊ MUỐI PHÔ MAI – VIBE COFFEE\n\nĐậm vị cà phê – Béo nhẹ phô mai – Chạm cảm xúc từng “vibe”\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Phô Mai VIBE Coffee là dòng cà phê hòa tan cao cấp 5in1, kết hợp độc đáo giữa:\n- Cà phê nguyên chất từ hạt cà phê Việt Nam\n- Vị mặn tinh tế của muối biển Việt\n- Độ béo mịn của phô mai\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – béo nhẹ – hậu vị cân bằng, không gắt.\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn tiện lợi – nhanh chóng – dễ pha.",
+        "category": "bestseller",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 5in1",
+          "Đậm vị cà phê, béo nhẹ phô mai",
+          "Muối biển Việt mặn tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
+      },
+      {
+        "discount_percent": 5,
+        "price_vnd": 86000,
+        "subtitle": "Hộp 220g (22g x 10 gói)",
+        "title": "Cà phê muối Capuchino Dừa",
+        "link": "contact.html",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774840111/CAPUCHINO_DUA_PNG_ebwi4q.png",
+        "description": "CÀ PHÊ MUỐI CAPUCHINO DỪA – VIBE COFFEE\n\nĐậm vị cà phê – Capuchino Dừa béo thơm – Chạm cảm xúc từng “vibe”\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Capuchino Dừa VIBE Coffee là dòng cà phê hòa tan cao cấp 5in1, kết hợp độc đáo giữa:\n- Cà phê nguyên chất từ hạt cà phê Việt Nam\n- Vị mặn tinh tế của muối biển Việt\n- Độ béo thơm của Capuchino Dừa\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – béo nhẹ – hậu vị cân bằng, không gắt.\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn tiện lợi – nhanh chóng – dễ pha.",
+        "category": "bestseller",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 5in1",
+          "Đậm vị cà phê, béo thơm Capuchino dừa",
+          "Muối biển Việt mặn nhẹ tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
+      },
+      {
+        "discount_percent": 5,
+        "price_vnd": 172000,
+        "subtitle": "Túi 2 hộp cà phê muối phô mai Vibe Coffee",
+        "title": "Set Quà Tặng Vibe Coffee – Sang Trọng & Tinh Tế",
+        "link": "contact.html",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775039217/pomelli-asset-1_xm4cuh.jpg",
+        "description": "CÀ PHÊ MUỐI PHÔ MAI – VIBE COFFEE\n\nĐậm vị cà phê – Béo nhẹ phô mai – Chạm cảm xúc từng “vibe”\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Phô Mai VIBE Coffee là dòng cà phê hòa tan cao cấp 5in1, kết hợp độc đáo giữa:\n- Cà phê nguyên chất từ hạt cà phê Việt Nam\n- Vị mặn tinh tế của muối biển Việt\n- Độ béo mịn của phô mai\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – béo nhẹ – hậu vị cân bằng, không gắt.\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn tiện lợi – nhanh chóng – dễ pha.",
+        "category": "combo",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 5in1",
+          "Đậm vị cà phê, béo nhẹ phô mai",
+          "Muối biển Việt mặn tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
+      },
+      {
+        "discount_percent": 5,
+        "price_vnd": 172000,
+        "subtitle": "Túi 2 hộp cà phê muối Capuchino Dừa Vibe Coffee",
+        "title": "Set Quà Tặng Vibe Coffee – Ngọt Dịu Nhiệt Đới",
+        "link": "contact.html",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775040573/TUI_CP_DUA_4_bzu7t2.jpg",
+        "description": "CÀ PHÊ MUỐI CAPUCHINO DỪA – VIBE COFFEE\n\nĐậm vị cà phê – Capuchino Dừa béo thơm – Chạm cảm xúc từng “vibe”\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Capuchino Dừa VIBE Coffee là dòng cà phê hòa tan cao cấp 5in1, kết hợp độc đáo giữa:\n- Cà phê nguyên chất từ hạt cà phê Việt Nam\n- Vị mặn tinh tế của muối biển Việt\n- Độ béo thơm của Capuchino Dừa\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – béo nhẹ – hậu vị cân bằng, không gắt.\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn tiện lợi – nhanh chóng – dễ pha.",
+        "category": "combo",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 5in1",
+          "Đậm vị cà phê, béo thơm Capuchino dừa",
+          "Muối biển Việt mặn nhẹ tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
+      },
+      {
+        "discount_percent": 5,
+        "price_vnd": 136000,
+        "subtitle": "Túi 2 hộp cà phê muối Truyền Thống Vibe Coffee",
+        "title": "Set Quà Tặng Vibe Coffee – Đậm Đà Nguyên Bản",
+        "link": "contact.html",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1775043905/TUI_TT_5_ykmhyb.jpg",
+        "description": "CÀ PHÊ MUỐI TRUYỀN THỐNG – VIBE COFFEE\n\nĐậm vị cà phê – Mặn nhẹ tinh tế – Chuẩn gu nguyên bản\n\nCâu chuyện sản phẩm\n\nVIBE Coffee bắt đầu từ một câu hỏi: làm sao để cà phê đóng gói vẫn giữ được cảm giác ngon như pha tại quầy?\nTừ đó, chúng tôi tập trung vào 3 yếu tố cốt lõi: nguyên liệu ổn định – công thức cân bằng – trải nghiệm tối ưu.\n\nSau quá trình lắng nghe khách hàng, VIBE nhận ra rằng mỗi khoảnh khắc, mỗi không gian – hay mỗi “vibe” – đều mang đến một cách thưởng thức cà phê khác nhau.\nCà Phê Muối Phô Mai ra đời để bạn có thể tận hưởng trọn vẹn ly cà phê đúng gu, dù ở bất cứ đâu.\n\nThông tin sản phẩm\n\nCà Phê Muối Truyền Thống VIBE Coffee là dòng cà phê hòa tan cao cấp (4in1), kết hợp hài hòa giữa:\n\n-Cà phê nguyên chất từ hạt cà phê Việt Nam\n-Muối biển Việt mang vị mặn nhẹ đặc trưng\n-Công thức cân bằng giúp tôn lên vị cà phê nguyên bản\n\nTất cả hòa quyện tạo nên trải nghiệm: đậm đà – mặn nhẹ – hậu vị sâu và sạch, không gắt.\n\nSản phẩm được nghiên cứu để giữ được “cảm giác như uống tại quầy” nhưng vẫn đảm bảo tiện lợi – nhanh chóng – dễ pha, phù hợp cho mọi “vibe” trong ngày.",
+        "category": "combo",
+        "highlights": [
+          "Cà phê hòa tan cao cấp 4in1",
+          "Cà phê nguyên chất từ hạt cà phê Việt Nam",
+          "Muối biển Việt mặn tinh tế",
+          "Hậu vị cân bằng, không gắt",
+          "Tiện lợi, nhanh chóng, dễ pha"
+        ]
+      }
+    ]
+  },
+  "news": {
+    "eyebrow": "BÀI VIẾT",
+    "title": "Tin tức & kiến thức cà phê",
+    "description": "Cập nhật nội dung mới về cách pha, công thức menu và kinh nghiệm triển khai điểm bán.",
+    "posts": [
+      {
+        "date": "28/02/2026",
+        "title": "Cà phê hòa tan là gì? Bí quyết chọn loại ngon cho gia đình",
+        "excerpt": "Giải thích cà phê hòa tan là gì, vì sao tiện lợi và cách chọn cà phê hòa tan ngon. Gợi ý cà phê hòa tan VIBE COFFEE.",
+        "image": "https://res.cloudinary.com/dotv3ibvj/image/upload/v1774358824/Anh_dai_dien_bai_viet_so_1_osxdy1.png",
+        "link": "news/ca-phe-hoa-tan-la-gi.html"
+      },
+      {
+        "date": "24/02/2026",
+        "title": "Cà phê chuẩn vị Việt – khi “vibe” thành trải nghiệm",
+        "excerpt": "“Chuẩn vị Việt” không chỉ là hương vị, mà là cảm giác. Khám phá cách VIBE COFFEE tái hiện trải nghiệm cà phê Việt theo hướng hiện đại.",
+        "image": "assets/slider-3.png",
+        "link": "news/ca-phe-chuan-vi-viet.html"
+      },
+      {
+        "date": "22/02/2026",
+        "title": "Cà Phê Việt Nam Làm Quà Cho Người Nước Ngoài – Khi VIBE Coffee Mang “Vibe Việt” Ra Thế Giới",
+        "excerpt": "Tìm hiểu vì sao cà phê muối VIBE là quà Việt dễ uống, tiện lợi và có câu chuyện cảm xúc riêng dành cho khách quốc tế.",
+        "image": "assets/slider-4.png",
+        "link": "news/ca-phe-viet-nam-lam-qua-cho-nguoi-nuoc-ngoai.html"
+      },
+      {
+        "date": "20/02/2026",
+        "title": "Kinh nghiệm nhập hàng cho đại lý mới",
+        "excerpt": "Những chỉ số cần theo dõi để tối ưu tồn kho và vòng quay sản phẩm.",
+        "image": "assets/slider-4.png",
+        "link": "contact.html"
+      },
+      {
+        "date": "18/02/2026",
+        "title": "Xu hướng quà tặng doanh nghiệp ngành F&B",
+        "excerpt": "Cách xây dựng combo quà tặng có tính ứng dụng và nhận diện thương hiệu cao.",
+        "image": "assets/slider-2.png",
+        "link": "contact.html"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "LIÊN HỆ",
+    "title": "Đồng hành cùng Vibe Coffee",
+    "description": "Để lại thông tin để đội ngũ tư vấn báo giá và chính sách phù hợp theo nhu cầu của bạn.",
+    "work_time": "8:00 - 17:30 (Thứ 2 - Thứ 7)"
+  }
 }
