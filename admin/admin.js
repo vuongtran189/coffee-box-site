@@ -218,7 +218,7 @@ async function bootstrap() {
     }
     if (route === "media") {
       setTitle("Media");
-      app.appendChild(mediaScreen());
+      app.appendChild(mediaScreen({ data: cmsData, setData }));
       return;
     }
     if (route === "tools") {

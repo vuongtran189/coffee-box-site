@@ -452,6 +452,40 @@ input:focus,textarea:focus,select:focus{
   margin:14px 0;
 }
 
+.wp-media-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:12px;
+  margin-top:10px;
+}
+.wp-media-card{
+  border:1px solid var(--wp-border);
+  background:#fff;
+  border-radius:8px;
+  padding:10px;
+  display:grid;
+  gap:10px;
+}
+.wp-media-thumb{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  border:1px solid var(--wp-border);
+  border-radius:6px;
+  background:#f6f7f7;
+}
+.wp-media-fields{
+  display:grid;
+  gap:8px;
+}
+.wp-media-empty{
+  border:1px dashed var(--wp-border);
+  border-radius:8px;
+  padding:14px;
+  color:#646970;
+  background:#fcfcfc;
+}
+
 .card{
   border:1px solid var(--wp-border);
   border-radius:10px;
