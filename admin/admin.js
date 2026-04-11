@@ -43,7 +43,6 @@ async function bootstrap() {
   const sidebar = document.querySelector(".wp-sidebar");
   const mobileOverlay = $("mobile-overlay");
 
-  const apiBaseInput = $("api-base");
   const widgetKeyInput = $("widget-key");
   const adminPasswordInput = $("admin-password");
   const loginStatus = $("login-status");
@@ -54,7 +53,6 @@ async function bootstrap() {
   let updatedAt = null;
   let dirty = false;
 
-  apiBaseInput.value = state.apiBase;
   widgetKeyInput.value = state.widgetKey;
 
   const setData = (next) => {
@@ -137,10 +135,8 @@ async function bootstrap() {
 
   $("btn-save-settings")?.addEventListener("click", () => {
     state = writeState({
-      apiBase: apiBaseInput.value,
       widgetKey: widgetKeyInput.value.trim()
     });
-    apiBaseInput.value = state.apiBase;
     widgetKeyInput.value = state.widgetKey;
     loginStatus.textContent = "Đã lưu.";
     closeSettings();
@@ -149,7 +145,6 @@ async function bootstrap() {
   $("btn-login")?.addEventListener("click", async () => {
     try {
       state = writeState({
-        apiBase: apiBaseInput.value,
         widgetKey: widgetKeyInput.value.trim()
       });
       loginStatus.textContent = "Đang đăng nhập...";
