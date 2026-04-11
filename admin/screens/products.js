@@ -2,23 +2,55 @@ import { el, setSaveState } from "../lib/dom.js";
 import { getProducts, uid, slugify } from "./common.js";
 import { listTable } from "./table.js";
 
+function makeRowKey(item, idx) {
+  return item?.id ? `id:${item.id}` : `idx:${idx}`;
+}
+
+function resolveIndexByKey(items, key) {
+  const raw = String(key || "");
+  if (raw.startsWith("id:")) {
+    const id = raw.slice(3);
+    return items.findIndex((p) => String(p?.id || "") === id);
+  }
+  if (raw.startsWith("idx:")) {
+    const idx = Number(raw.slice(4));
+    return Number.isInteger(idx) && idx >= 0 && idx < items.length ? idx : -1;
+  }
+  const byId = items.findIndex((p) => String(p?.id || "") === raw);
+  if (byId >= 0) return byId;
+  const idx = Number(raw);
+  return Number.isInteger(idx) && idx >= 0 && idx < items.length ? idx : -1;
+}
+
 export function productsListScreen({ data, setData, setRoute }) {
   const wrap = el("div");
   const items = getProducts(data);
 
-  const q = el("input", { type: "search", placeholder: "Tìm theo tên sản phẩm..." });
+  const q = el("input", { type: "search", placeholder: "Tim theo ten san pham..." });
   const btnAdd = el("button", {
     class: "wp-btn wp-btn-primary",
     type: "button",
-    text: "Thêm sản phẩm",
+    text: "Them san pham",
     onclick: () => {
       const id = uid();
       const next = items.slice();
-      next.unshift({ id, title: "", subtitle: "", slug: "", category: "all", image: "", price_vnd: "", discount_percent: "", description: "", highlights: [], link: "" });
+      next.unshift({
+        id,
+        title: "",
+        subtitle: "",
+        slug: "",
+        category: "all",
+        image: "",
+        price_vnd: "",
+        discount_percent: "",
+        description: "",
+        highlights: [],
+        link: ""
+      });
       data.products = data.products || {};
       data.products.items = next;
       setData(data);
-      setRoute(`#/products/edit/${encodeURIComponent(id)}`);
+      setRoute(`#/products/edit/${encodeURIComponent(`id:${id}`)}`);
     }
   });
   wrap.appendChild(el("div", { class: "wp-toolbar" }, [q, btnAdd]));
@@ -29,9 +61,16 @@ export function productsListScreen({ data, setData, setRoute }) {
       .map((p, idx) => ({ ...p, __idx: idx }))
       .filter((p) => !term || String(p.title || "").toLowerCase().includes(term));
     const columns = [
-      { label: "Sản phẩm", render: (p) => el("a", { href: `#/products/edit/${encodeURIComponent(p.id || p.__idx)}`, text: p.title || "(chưa có tên)" }) },
-      { label: "Danh mục", render: (p) => p.category || "" },
-      { label: "Giá", render: (p) => (p.price_vnd ? `${Number(p.price_vnd).toLocaleString("vi-VN")}đ` : "") }
+      {
+        label: "San pham",
+        render: (p) =>
+          el("a", {
+            href: `#/products/edit/${encodeURIComponent(makeRowKey(p, p.__idx))}`,
+            text: p.title || "(chua co ten)"
+          })
+      },
+      { label: "Danh muc", render: (p) => p.category || "" },
+      { label: "Gia", render: (p) => (p.price_vnd ? `${Number(p.price_vnd).toLocaleString("vi-VN")}d` : "") }
     ];
     const table = listTable({ columns, rows: filtered });
     const old = wrap.querySelector("table");
@@ -46,14 +85,14 @@ export function productsListScreen({ data, setData, setRoute }) {
 
 export function productEditScreen({ data, productId, setData, setRoute }) {
   const items = getProducts(data);
-  const idx = items.findIndex((p) => String(p.id || "") === String(productId));
+  const idx = resolveIndexByKey(items, productId);
   const item = idx >= 0 ? items[idx] : null;
 
   const left = el("div", { class: "wp-box" });
   const right = el("div", { class: "wp-box" });
   if (!item) {
-    left.appendChild(el("h3", { text: "Không tìm thấy sản phẩm" }));
-    left.appendChild(el("a", { class: "wp-btn", href: "#/products", text: "← Sản phẩm" }));
+    left.appendChild(el("h3", { text: "Khong tim thay san pham" }));
+    left.appendChild(el("a", { class: "wp-btn", href: "#/products", text: "<- San pham" }));
     return el("div", { class: "wp-grid" }, [left]);
   }
 
@@ -74,12 +113,13 @@ export function productEditScreen({ data, productId, setData, setRoute }) {
   const inDiscount = el("input", { type: "number", value: item.discount_percent ?? "", step: "1", min: "0", max: "90" });
   const inDesc = el("textarea");
   inDesc.value = item.description || "";
-  const inHighlights = el("textarea", { placeholder: "Mỗi dòng là 1 highlight" });
+  const inHighlights = el("textarea", { placeholder: "Moi dong la 1 highlight" });
   inHighlights.value = Array.isArray(item.highlights) ? item.highlights.join("\n") : "";
   const inLink = el("input", { type: "text", value: item.link || "" });
 
   const apply = () => {
     const next = { ...item };
+    next.id = next.id || uid();
     next.title = inTitle.value.trim();
     next.subtitle = inSubtitle.value.trim();
     next.slug = inSlug.value.trim() || slugify(next.title);
@@ -98,7 +138,7 @@ export function productEditScreen({ data, productId, setData, setRoute }) {
     data.products = data.products || {};
     data.products.items = nextItems;
     setData(data);
-    setSaveState("Chưa lưu");
+    setSaveState("Chua luu");
   };
 
   [inTitle, inSubtitle, inSlug, selCat, inImage, inPrice, inDiscount, inDesc, inHighlights, inLink].forEach((n) =>
@@ -112,39 +152,42 @@ export function productEditScreen({ data, productId, setData, setRoute }) {
   );
   selCat.addEventListener("change", apply);
 
-  left.appendChild(el("h3", { text: "Sửa sản phẩm" }));
-  left.appendChild(el("div", { class: "wp-form" }, [
-    f("Tên sản phẩm", inTitle),
-    f("Phụ đề", inSubtitle),
-    f("Slug", inSlug, "Dùng cho product.html?slug=..."),
-    f("Danh mục", selCat),
-    f("Ảnh (Cloudinary URL)", el("div", {}, [inImage, img])),
-    f("Giá (VND)", inPrice),
-    f("Giảm giá (%)", inDiscount),
-    f("Mô tả chi tiết", inDesc),
-    f("Điểm nổi bật", inHighlights),
-    f("Link", inLink)
-  ]));
+  left.appendChild(el("h3", { text: "Sua san pham" }));
+  left.appendChild(
+    el("div", { class: "wp-form" }, [
+      f("Ten san pham", inTitle),
+      f("Phu de", inSubtitle),
+      f("Slug", inSlug, "Dung cho product.html?slug=..."),
+      f("Danh muc", selCat),
+      f("Anh (Cloudinary URL)", el("div", {}, [inImage, img])),
+      f("Gia (VND)", inPrice),
+      f("Giam gia (%)", inDiscount),
+      f("Mo ta chi tiet", inDesc),
+      f("Diem noi bat", inHighlights),
+      f("Link", inLink)
+    ])
+  );
 
-  right.appendChild(el("h3", { text: "Thao tác" }));
-  right.appendChild(el("div", { class: "wp-toolbar" }, [
-    el("a", { class: "wp-btn", href: "#/products", text: "← Danh sách" }),
-    el("button", {
-      class: "wp-btn wp-btn-danger",
-      type: "button",
-      text: "Xóa sản phẩm",
-      onclick: () => {
-        if (!confirm("Xóa sản phẩm này?")) return;
-        const nextItems = items.slice();
-        nextItems.splice(idx, 1);
-        data.products = data.products || {};
-        data.products.items = nextItems;
-        setData(data);
-        setRoute("#/products");
-      }
-    })
-  ]));
-  right.appendChild(el("div", { class: "wp-help", text: "Nhớ bấm nút Lưu (góc phải) để cập nhật lên CMS." }));
+  right.appendChild(el("h3", { text: "Thao tac" }));
+  right.appendChild(
+    el("div", { class: "wp-toolbar" }, [
+      el("a", { class: "wp-btn", href: "#/products", text: "<- Danh sach" }),
+      el("button", {
+        class: "wp-btn wp-btn-danger",
+        type: "button",
+        text: "Xoa san pham",
+        onclick: () => {
+          if (!confirm("Xoa san pham nay?")) return;
+          const nextItems = items.slice();
+          nextItems.splice(idx, 1);
+          data.products = data.products || {};
+          data.products.items = nextItems;
+          setData(data);
+          setRoute("#/products");
+        }
+      })
+    ])
+  );
+  right.appendChild(el("div", { class: "wp-help", text: "Nho bam nut Luu (goc phai) de cap nhat len CMS." }));
   return el("div", { class: "wp-split" }, [left, right]);
 }
-

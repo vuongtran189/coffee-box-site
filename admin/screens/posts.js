@@ -2,15 +2,35 @@ import { el, setSaveState } from "../lib/dom.js";
 import { getNewsPosts, uid } from "./common.js";
 import { listTable } from "./table.js";
 
+function makeRowKey(item, idx) {
+  return item?.id ? `id:${item.id}` : `idx:${idx}`;
+}
+
+function resolveIndexByKey(items, key) {
+  const raw = String(key || "");
+  if (raw.startsWith("id:")) {
+    const id = raw.slice(3);
+    return items.findIndex((p) => String(p?.id || "") === id);
+  }
+  if (raw.startsWith("idx:")) {
+    const idx = Number(raw.slice(4));
+    return Number.isInteger(idx) && idx >= 0 && idx < items.length ? idx : -1;
+  }
+  const byId = items.findIndex((p) => String(p?.id || "") === raw);
+  if (byId >= 0) return byId;
+  const idx = Number(raw);
+  return Number.isInteger(idx) && idx >= 0 && idx < items.length ? idx : -1;
+}
+
 export function postsListScreen({ data, setData, setRoute }) {
   const wrap = el("div");
   const posts = getNewsPosts(data);
 
-  const q = el("input", { type: "search", placeholder: "Tìm theo tiêu đề..." });
+  const q = el("input", { type: "search", placeholder: "Tim theo tieu de..." });
   const btnAdd = el("button", {
     class: "wp-btn wp-btn-primary",
     type: "button",
-    text: "Thêm bài viết",
+    text: "Them bai viet",
     onclick: () => {
       const id = uid();
       const next = posts.slice();
@@ -18,7 +38,7 @@ export function postsListScreen({ data, setData, setRoute }) {
       data.news = data.news || {};
       data.news.posts = next;
       setData(data);
-      setRoute(`#/posts/edit/${encodeURIComponent(id)}`);
+      setRoute(`#/posts/edit/${encodeURIComponent(`id:${id}`)}`);
     }
   });
   wrap.appendChild(el("div", { class: "wp-toolbar" }, [q, btnAdd]));
@@ -30,8 +50,15 @@ export function postsListScreen({ data, setData, setRoute }) {
       .filter((p) => !term || String(p.title || "").toLowerCase().includes(term));
 
     const columns = [
-      { label: "Tiêu đề", render: (p) => el("a", { href: `#/posts/edit/${encodeURIComponent(p.id || p.__idx)}`, text: p.title || "(chưa có tiêu đề)" }) },
-      { label: "Ngày", render: (p) => p.date || "" },
+      {
+        label: "Tieu de",
+        render: (p) =>
+          el("a", {
+            href: `#/posts/edit/${encodeURIComponent(makeRowKey(p, p.__idx))}`,
+            text: p.title || "(chua co tieu de)"
+          })
+      },
+      { label: "Ngay", render: (p) => p.date || "" },
       { label: "Link", render: (p) => p.link || "" }
     ];
     const table = listTable({ columns, rows: filtered });
@@ -47,15 +74,15 @@ export function postsListScreen({ data, setData, setRoute }) {
 
 export function postEditScreen({ data, postId, setData, setRoute }) {
   const posts = getNewsPosts(data);
-  const idx = posts.findIndex((p) => String(p.id || "") === String(postId));
+  const idx = resolveIndexByKey(posts, postId);
   const post = idx >= 0 ? posts[idx] : null;
 
   const left = el("div", { class: "wp-box" });
   const right = el("div", { class: "wp-box" });
 
   if (!post) {
-    left.appendChild(el("h3", { text: "Không tìm thấy bài viết" }));
-    left.appendChild(el("a", { class: "wp-btn", href: "#/posts", text: "← Bài viết" }));
+    left.appendChild(el("h3", { text: "Khong tim thay bai viet" }));
+    left.appendChild(el("a", { class: "wp-btn", href: "#/posts", text: "<- Bai viet" }));
     return el("div", { class: "wp-grid" }, [left]);
   }
 
@@ -70,10 +97,11 @@ export function postEditScreen({ data, postId, setData, setRoute }) {
   const img = el("img", { class: "wp-img", alt: "Preview" });
   img.hidden = !inImage.value;
   if (inImage.value) img.src = inImage.value;
-  const inLink = el("input", { type: "text", value: post.link || "", placeholder: "news/slug.html hoặc contact.html" });
+  const inLink = el("input", { type: "text", value: post.link || "", placeholder: "news/slug.html hoac contact.html" });
 
   const apply = () => {
     const next = { ...post };
+    next.id = next.id || uid();
     next.title = inTitle.value.trim();
     next.date = inDate.value.trim();
     next.excerpt = inExcerpt.value.trim();
@@ -84,7 +112,7 @@ export function postEditScreen({ data, postId, setData, setRoute }) {
     data.news = data.news || {};
     data.news.posts = nextPosts;
     setData(data);
-    setSaveState("Chưa lưu");
+    setSaveState("Chua luu");
   };
 
   [inTitle, inDate, inExcerpt, inImage, inLink].forEach((n) =>
@@ -97,34 +125,37 @@ export function postEditScreen({ data, postId, setData, setRoute }) {
     })
   );
 
-  left.appendChild(el("h3", { text: "Sửa bài viết" }));
-  left.appendChild(el("div", { class: "wp-form" }, [
-    f("Tiêu đề", inTitle),
-    f("Ngày", inDate),
-    f("Tóm tắt", inExcerpt),
-    f("Ảnh đại diện (Cloudinary URL)", el("div", {}, [inImage, img])),
-    f("Link", inLink)
-  ]));
+  left.appendChild(el("h3", { text: "Sua bai viet" }));
+  left.appendChild(
+    el("div", { class: "wp-form" }, [
+      f("Tieu de", inTitle),
+      f("Ngay", inDate),
+      f("Tom tat", inExcerpt),
+      f("Anh dai dien (Cloudinary URL)", el("div", {}, [inImage, img])),
+      f("Link", inLink)
+    ])
+  );
 
-  right.appendChild(el("h3", { text: "Thao tác" }));
-  right.appendChild(el("div", { class: "wp-toolbar" }, [
-    el("a", { class: "wp-btn", href: "#/posts", text: "← Danh sách" }),
-    el("button", {
-      class: "wp-btn wp-btn-danger",
-      type: "button",
-      text: "Xóa bài",
-      onclick: () => {
-        if (!confirm("Xóa bài viết này?")) return;
-        const nextPosts = posts.slice();
-        nextPosts.splice(idx, 1);
-        data.news = data.news || {};
-        data.news.posts = nextPosts;
-        setData(data);
-        setRoute("#/posts");
-      }
-    })
-  ]));
-  right.appendChild(el("div", { class: "wp-help", text: "Nhớ bấm nút Lưu (góc phải) để cập nhật lên CMS." }));
+  right.appendChild(el("h3", { text: "Thao tac" }));
+  right.appendChild(
+    el("div", { class: "wp-toolbar" }, [
+      el("a", { class: "wp-btn", href: "#/posts", text: "<- Danh sach" }),
+      el("button", {
+        class: "wp-btn wp-btn-danger",
+        type: "button",
+        text: "Xoa bai",
+        onclick: () => {
+          if (!confirm("Xoa bai viet nay?")) return;
+          const nextPosts = posts.slice();
+          nextPosts.splice(idx, 1);
+          data.news = data.news || {};
+          data.news.posts = nextPosts;
+          setData(data);
+          setRoute("#/posts");
+        }
+      })
+    ])
+  );
+  right.appendChild(el("div", { class: "wp-help", text: "Nho bam nut Luu (goc phai) de cap nhat len CMS." }));
   return el("div", { class: "wp-split" }, [left, right]);
 }
-
