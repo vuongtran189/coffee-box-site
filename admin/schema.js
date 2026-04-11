@@ -25,6 +25,7 @@ export const CMS_SCHEMA = [
     title: "Trang chủ",
     fields: [
       { path: "home.slides", label: "Slide images (URL)", type: "list_string" },
+      { path: "home.slides_mobile", label: "Slide images mobile (URL)", type: "list_string" },
       {
         id: "hero",
         title: "Hero",
@@ -120,4 +121,3 @@ export const CMS_SCHEMA = [
     ]
   }
 ];
-

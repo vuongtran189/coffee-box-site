@@ -191,7 +191,10 @@ function animateCards(elements) {
 
 function renderHome(data) {
   const home = data.home || {};
-  const slides = Array.isArray(home.slides) ? home.slides : [];
+  const isMobile = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+  const mobileSlides = Array.isArray(home.slides_mobile) ? home.slides_mobile : [];
+  const desktopSlides = Array.isArray(home.slides) ? home.slides : [];
+  const slides = isMobile && mobileSlides.length ? mobileSlides : desktopSlides;
   const slideEls = Array.from(document.querySelectorAll('.rev-slide'));
   slideEls.forEach((slide, idx) => {
     const item = slides[idx];
