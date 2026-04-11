@@ -145,7 +145,7 @@ Tuỳ chọn:
 - Trên website, kiểm tra Network:
   - `assets/chatbot/widget.js` và `assets/chatbot/widget.css` load 200 OK
 
-## Tiến độ (cập nhật: 2026-04-07)
+## Tiến độ (cập nhật: 2026-04-11)
 ### Đã hoàn thành
 - [x] Website tĩnh + các trang chính + `product.html`, giỏ hàng, `checkout.html`.
 - [x] Widget nhúng hiển thị tiếng Việt + avatar launcher, website ưu tiên load widget local.
@@ -153,11 +153,12 @@ Tuỳ chọn:
 - [x] Flow submit lead/đơn hàng chạy được trên hosting tĩnh: ưu tiên `POST /v1/leads`.
 - [x] CMS nội dung chạy trên Cloudflare Pages + KV (`cms.vibecoffee.vn`) và website đọc nội dung qua `VIBE_CMS_API_BASE`.
 - [x] Trang quản trị `/admin/` UI kiểu WordPress (Pages/Posts/Products/Tools/Settings) lưu/đọc nội dung từ Cloudflare KV.
+- [x] SEO nền tảng đã có: `canonical`, Open Graph/Twitter meta, `robots.txt`, `sitemap.xml`.
+- [x] Đã có bài viết dạng file HTML thật trong `news/` (URL riêng).
 
 ### Việc cần làm tiếp (khuyến nghị)
 - [ ] Rà soát Render env vars (đặc biệt: `CORS_ORIGINS`, `WIDGET_PUBLIC_KEY`, `MONGODB_URI`, `OPENAI_API_KEY`).
 - [ ] (Tuỳ chọn) Media Library (lưu danh sách Cloudinary URL) và editor nâng cao (WYSIWYG) trong admin.
-- [ ] (Tuỳ chọn) tách “Bài viết” thành file HTML thật trong `news/` nếu muốn SEO bài viết theo URL riêng.
 
 ## Nhật ký thay đổi (để quay lại nhanh)
 ### 2026-03-23
@@ -174,3 +175,6 @@ Tuỳ chọn:
 - `cms-render.js` hỗ trợ `window.VIBE_CMS_API_BASE`.
 - Xây lại `/admin/` theo UI kiểu WordPress và lưu nội dung lên KV.
 
+### 2026-04-11
+- Rà soát lại trạng thái repo và README.
+- Cập nhật lại mục tiến độ: bổ sung SEO (`canonical`, OG/Twitter, `robots.txt`, `sitemap.xml`) và xác nhận bài viết HTML trong `news/`.

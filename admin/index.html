@@ -5,10 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vibe Coffee — Quản trị</title>
   <meta name="robots" content="noindex,nofollow" />
-  <link rel="stylesheet" href="./admin.css?v=20260407wp" />
+  <link rel="stylesheet" href="./admin.css?v=20260411wp" />
 </head>
 <body>
+  <header class="wp-adminbar">
+    <div class="wp-adminbar__left">
+      <span class="wp-adminbar__logo" aria-hidden="true">W</span>
+      <a class="wp-adminbar__link" href="https://vibecoffee.vn/" target="_blank" rel="noopener">Vibe Coffee</a>
+      <span class="wp-adminbar__sep">|</span>
+      <span class="wp-adminbar__label">Dashboard quản trị nội dung</span>
+    </div>
+    <div class="wp-adminbar__right">
+      <a class="wp-adminbar__link" href="https://vibecoffee.vn/" target="_blank" rel="noopener">Xem website</a>
+    </div>
+  </header>
+
   <div class="wp">
+    <div id="mobile-overlay" class="wp-overlay" hidden></div>
+
     <aside class="wp-sidebar" aria-label="Menu quản trị">
       <div class="wp-sidebar__brand">
         <div class="wp-logo">Vibe Coffee</div>
@@ -38,6 +52,9 @@
       <main class="wp-content">
         <div id="notice" class="wp-notice" hidden></div>
         <div id="app"></div>
+        <footer class="wp-footer">
+          <span>Thank you for creating with Vibe Coffee.</span>
+        </footer>
       </main>
     </div>
   </div>
@@ -77,7 +94,6 @@
     </div>
   </div>
 
-  <script type="module" src="./admin.js?v=20260407wp"></script>
+  <script type="module" src="./admin.js?v=20260411wp"></script>
 </body>
 </html>
-

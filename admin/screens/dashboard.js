@@ -1,29 +1,59 @@
 import { el } from "../lib/dom.js";
-import { cardGrid, getNewsPosts, getProducts } from "./common.js";
+import { getNewsPosts, getProducts } from "./common.js";
+
+function stat(label, value) {
+  return el("div", { class: "wp-kpi__item" }, [
+    el("span", { class: "wp-kpi__label", text: label }),
+    el("span", { class: "wp-kpi__value", text: value })
+  ]);
+}
 
 export function dashboardScreen({ data, updatedAt }) {
   const posts = getNewsPosts(data);
   const products = getProducts(data);
-  const quick = el("div", { class: "wp-toolbar" }, [
-    el("a", { class: "wp-btn", href: "#/pages", text: "Chỉnh sửa Trang" }),
-    el("a", { class: "wp-btn", href: "#/posts", text: `Bài viết (${posts.length})` }),
-    el("a", { class: "wp-btn", href: "#/products", text: `Sản phẩm (${products.length})` })
+  const pages = ["site", "home", "about", "contact"].filter((k) => data?.[k]).length;
+
+  const layout = el("div", { class: "wp-grid" });
+
+  const atGlance = el("section", { class: "wp-card" }, [
+    el("h2", { text: "At a Glance" }),
+    el("p", { text: "Tong quan noi dung hien co trong CMS." }),
+    el("div", { class: "wp-kpi" }, [
+      stat("Bai viet", String(posts.length)),
+      stat("San pham", String(products.length)),
+      stat("Trang noi dung", String(pages))
+    ])
   ]);
 
-  return cardGrid([
-    {
-      title: "Tổng quan",
-      text: "Quản trị giống WordPress (UI), lưu nội dung vào Cloudflare KV.",
-      node: el("div", {}, [
-        el("div", { class: "wp-muted", text: `Cập nhật gần nhất: ${updatedAt || "Chưa có"}` }),
-        el("div", { class: "wp-muted", text: `Posts: ${posts.length} • Products: ${products.length}` }),
-        quick
-      ])
-    },
-    {
-      title: "Lưu ý",
-      text: "Các mục như Bình luận / Plugin / Người dùng chỉ mô phỏng giao diện WP. Website hiện tại không cần dùng."
-    }
+  const quickActions = el("section", { class: "wp-card" }, [
+    el("h2", { text: "Quick Actions" }),
+    el("p", { text: "Truy cap nhanh cac khu vuc quan tri chinh." }),
+    el("div", { class: "wp-toolbar" }, [
+      el("a", { class: "wp-btn wp-btn-primary", href: "#/pages", text: "Chinh sua Trang" }),
+      el("a", { class: "wp-btn", href: "#/posts", text: "Quan ly Bai viet" }),
+      el("a", { class: "wp-btn", href: "#/products", text: "Quan ly San pham" }),
+      el("a", { class: "wp-btn", href: "#/tools", text: "Import/Export" })
+    ])
   ]);
+
+  const activity = el("section", { class: "wp-card" }, [
+    el("h2", { text: "Activity" }),
+    el("p", { text: `Lan cap nhat gan nhat: ${updatedAt || "chua co du lieu"}` }),
+    el("div", { class: "wp-toolbar" }, [
+      el("a", { class: "wp-btn", href: "#/posts", text: `Bai viet (${posts.length})` }),
+      el("a", { class: "wp-btn", href: "#/products", text: `San pham (${products.length})` })
+    ])
+  ]);
+
+  const status = el("section", { class: "wp-card" }, [
+    el("h2", { text: "System Status" }),
+    el("p", { text: "CMS su dung Cloudflare Pages + KV. Noi dung duoc cap nhat sau khi bam nut Luu o thanh tren." }),
+    el("div", { class: "wp-help", text: "Luu y: cac menu Binh luan, Plugin, Nguoi dung chi mo phong giao dien WordPress." })
+  ]);
+
+  layout.appendChild(atGlance);
+  layout.appendChild(quickActions);
+  layout.appendChild(activity);
+  layout.appendChild(status);
+  return layout;
 }
-

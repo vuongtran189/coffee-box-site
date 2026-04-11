@@ -25,10 +25,9 @@ function buildNav(activeHref) {
     });
     if (r.disabled) {
       a.setAttribute("aria-disabled", "true");
-      a.style.opacity = "0.6";
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        setNotice("Mục này đang mô phỏng giao diện WordPress, chưa cần dùng cho website hiện tại.", "info");
+      a.addEventListener("click", (event) => {
+        event.preventDefault();
+        setNotice("Mục này chỉ mô phỏng giao diện WordPress, chưa dùng cho website hiện tại.", "info");
       });
     }
     a.appendChild(el("div", { class: "wp-nav__icon", text: r.icon }));
@@ -42,6 +41,7 @@ async function bootstrap() {
   const btnSave = $("btn-save");
   const btnMobileMenu = $("btn-mobile-menu");
   const sidebar = document.querySelector(".wp-sidebar");
+  const mobileOverlay = $("mobile-overlay");
 
   const apiBaseInput = $("api-base");
   const widgetKeyInput = $("widget-key");
@@ -76,18 +76,33 @@ async function bootstrap() {
     settingsModal.setAttribute("aria-hidden", "true");
   };
 
+  const closeSidebar = () => {
+    sidebar?.classList.remove("open");
+    if (mobileOverlay) mobileOverlay.hidden = true;
+  };
+  const toggleSidebar = () => {
+    if (!sidebar) return;
+    const nextOpen = !sidebar.classList.contains("open");
+    sidebar.classList.toggle("open", nextOpen);
+    if (mobileOverlay) mobileOverlay.hidden = !nextOpen;
+  };
+
   $("btn-settings")?.addEventListener("click", openSettings);
   settingsModal?.addEventListener("click", (event) => {
-    const el0 = event.target instanceof Element ? event.target : null;
-    if (!el0) return;
-    if (el0.closest("[data-close=\"1\"]")) closeSettings();
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+    if (target.closest("[data-close=\"1\"]")) closeSettings();
   });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeSettings();
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeSettings();
+      closeSidebar();
+    }
   });
 
-  btnMobileMenu?.addEventListener("click", () => sidebar?.classList.toggle("open"));
-  window.addEventListener("hashchange", () => sidebar?.classList.remove("open"));
+  btnMobileMenu?.addEventListener("click", toggleSidebar);
+  mobileOverlay?.addEventListener("click", closeSidebar);
+  window.addEventListener("hashchange", closeSidebar);
 
   async function ensureWidgetKey() {
     if (!state.widgetKey) {
@@ -112,7 +127,7 @@ async function bootstrap() {
       setNotice("Không có thay đổi để lưu.", "info");
       return;
     }
-    setNotice("Đang lưu…");
+    setNotice("Đang lưu...");
     const res = await saveCms(state, cmsData);
     updatedAt = res.updatedAt || null;
     dirty = false;
@@ -137,7 +152,7 @@ async function bootstrap() {
         apiBase: apiBaseInput.value,
         widgetKey: widgetKeyInput.value.trim()
       });
-      loginStatus.textContent = "Đang đăng nhập…";
+      loginStatus.textContent = "Đang đăng nhập...";
       const token = await apiLogin(state, adminPasswordInput.value);
       state = writeState({ token });
       loginStatus.textContent = "Đã đăng nhập.";
@@ -224,13 +239,13 @@ async function bootstrap() {
 
   window.addEventListener("hashchange", () => render());
 
-  // Init
   try {
     if (!state.widgetKey) {
       setConnPill("bad", "Chưa cấu hình");
       openSettings();
     } else {
       await loadCurrent();
+      setConnPill("ok", "Đang kết nối");
     }
   } catch (err) {
     setConnPill("bad", "Lỗi kết nối");
@@ -245,4 +260,3 @@ bootstrap().catch((err) => {
   console.error(err);
   setNotice(String(err?.message || err), "error");
 });
-
