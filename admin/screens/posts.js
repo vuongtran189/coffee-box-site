@@ -2,6 +2,14 @@ import { el, setSaveState } from "../lib/dom.js";
 import { getNewsPosts, uid } from "./common.js";
 import { listTable } from "./table.js";
 
+function toPreviewSrc(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
+  if (raw.startsWith("/")) return raw;
+  return `../${raw.replace(/^\.?\//, "")}`;
+}
+
 function makeRowKey(item, idx) {
   return item?.id ? `id:${item.id}` : `idx:${idx}`;
 }
@@ -34,7 +42,7 @@ export function postsListScreen({ data, setData, setRoute }) {
     onclick: () => {
       const id = uid();
       const next = posts.slice();
-      next.unshift({ id, date: "", title: "", excerpt: "", image: "", link: "" });
+      next.unshift({ id, date: "", title: "", excerpt: "", content: "", image: "", link: "" });
       data.news = data.news || {};
       data.news.posts = next;
       setData(data);
@@ -93,10 +101,12 @@ export function postEditScreen({ data, postId, setData, setRoute }) {
   const inDate = el("input", { type: "text", value: post.date || "", placeholder: "dd/mm/yyyy" });
   const inExcerpt = el("textarea");
   inExcerpt.value = post.excerpt || "";
+  const inContent = el("textarea");
+  inContent.value = post.content || "";
   const inImage = el("input", { type: "url", value: post.image || "", placeholder: "Cloudinary URL..." });
   const img = el("img", { class: "wp-img", alt: "Preview" });
   img.hidden = !inImage.value;
-  if (inImage.value) img.src = inImage.value;
+  if (inImage.value) img.src = toPreviewSrc(inImage.value);
   const inLink = el("input", { type: "text", value: post.link || "", placeholder: "news/slug.html hoac contact.html" });
 
   const apply = () => {
@@ -105,6 +115,7 @@ export function postEditScreen({ data, postId, setData, setRoute }) {
     next.title = inTitle.value.trim();
     next.date = inDate.value.trim();
     next.excerpt = inExcerpt.value.trim();
+    next.content = inContent.value.trim();
     next.image = inImage.value.trim();
     next.link = inLink.value.trim();
     const nextPosts = posts.slice();
@@ -115,11 +126,11 @@ export function postEditScreen({ data, postId, setData, setRoute }) {
     setSaveState("Chua luu");
   };
 
-  [inTitle, inDate, inExcerpt, inImage, inLink].forEach((n) =>
+  [inTitle, inDate, inExcerpt, inContent, inImage, inLink].forEach((n) =>
     n.addEventListener("input", () => {
       if (n === inImage) {
         img.hidden = !inImage.value.trim();
-        if (!img.hidden) img.src = inImage.value.trim();
+        if (!img.hidden) img.src = toPreviewSrc(inImage.value.trim());
       }
       apply();
     })
@@ -130,7 +141,8 @@ export function postEditScreen({ data, postId, setData, setRoute }) {
     el("div", { class: "wp-form" }, [
       f("Tieu de", inTitle),
       f("Ngay", inDate),
-      f("Tom tat", inExcerpt),
+      f("Tom tat (hien o trang news)", inExcerpt),
+      f("Noi dung chi tiet", inContent, "Noi dung nay luu trong CMS de quan tri tap trung."),
       f("Anh dai dien (Cloudinary URL)", el("div", {}, [inImage, img])),
       f("Link", inLink)
     ])
